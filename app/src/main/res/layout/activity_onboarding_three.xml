@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/onboarding_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToOutline="true"
+    android:background="#FFFDF8">
+
+    <ImageView
+        android:id="@+id/onboarding3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/fondo_de_onboarding_2"
+        android:scaleType="centerCrop"
+        android:src="@drawable/onboarding3" />
+
+    <TextView
+        android:id="@+id/tituloOnboarding4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="390dp"
+        android:layout_marginBottom="7dp"
+        android:fontFamily="@raw/regularbold"
+        android:gravity="center_horizontal"
+        android:lineSpacingExtra="-14sp"
+        android:text="@string/tituloOnboarding4"
+        android:textAppearance="@style/TituloEstilo" />
+
+    <TextView
+        android:id="@+id/texto_onboarding3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tituloOnboarding4"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="27dp"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="32dp"
+        android:fontFamily="@raw/regular"
+        android:gravity="center_horizontal|top"
+        android:lineSpacingExtra="0sp"
+        android:text="@string/texto_onboarding4"
+        android:textAppearance="@style/aprende_len_onboarding" />
+
+    <Button
+        android:id="@+id/botonCrearCuenta3"
+        android:layout_width="342dp"
+        android:layout_height="59dp"
+        android:layout_below="@+id/texto_onboarding3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="13dp"
+        android:backgroundTint="@color/portakal"
+        android:fontFamily="@raw/subtitulo"
+        android:text="@string/crear_cuenta"
+        android:textAppearance="@style/boton_onboarding" />
+
+    <Button
+        android:id="@+id/botonIniciarSesion3"
+        android:layout_width="342dp"
+        android:layout_height="59dp"
+        android:layout_below="@+id/botonCrearCuenta3"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="-8dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="13dp"
+        android:backgroundTint="@color/portakal"
+        android:fontFamily="@raw/subtitulo"
+        android:text="@string/iniciar_sesi_n"
+        android:textAppearance="@style/boton_onboarding" />
+
+
+</RelativeLayout>
