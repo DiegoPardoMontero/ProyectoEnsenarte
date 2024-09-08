@@ -7,7 +7,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
+import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.puj.proyectoensenarte.databinding.ActivityIniciarSesionBinding
 
 class IniciarSesionActivity : AppCompatActivity() {
@@ -35,6 +37,11 @@ class IniciarSesionActivity : AppCompatActivity() {
             Log.d(TAG, "Password: " + password)
             signIn(email, password)
         }
+
+        binding.olvidasteContraText.setOnClickListener{
+            sendPasswordReset("diegopardomontero@gmail.com")
+        }
+
     }
 
     fun signIn(email: String, password: String) {
@@ -59,4 +66,27 @@ class IniciarSesionActivity : AppCompatActivity() {
                 }
             }
     }
+
+    private fun sendPasswordReset(email: String) {
+        auth.sendPasswordResetEmail(email)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "Password reset email sent to $email", Toast.LENGTH_SHORT).show()
+                } else {
+                    val exception = task.exception
+                    when (exception) {
+                        is FirebaseAuthInvalidUserException -> {
+                            Toast.makeText(this, "No account found with this email.", Toast.LENGTH_SHORT).show()
+                        }
+                        is FirebaseNetworkException -> {
+                            Toast.makeText(this, "Network error. Please try again later.", Toast.LENGTH_SHORT).show()
+                        }
+                        else -> {
+                            Toast.makeText(this, "Error: ${exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+            }
+    }
+
 }
