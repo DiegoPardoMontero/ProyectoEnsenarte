@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProyectoEnsenarte"
         tools:targetApi="31">
+        <!--- Main Activity -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -21,6 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--- Authentication Activities -->
+
+        <!--- Dictionary Activities -->
+
+        <!--- Information Activities -->
+
+        <!--- Learning Activities -->
+
+        <!--- Onboarding Activities -->
+
+        <!--- Profile Activities-->
+
     </application>
 
 </manifest>
