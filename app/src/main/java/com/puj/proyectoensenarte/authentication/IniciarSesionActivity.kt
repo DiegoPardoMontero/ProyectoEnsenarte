@@ -1,23 +1,62 @@
 package com.puj.proyectoensenarte
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
+import com.google.firebase.auth.FirebaseAuth
 import com.puj.proyectoensenarte.databinding.ActivityIniciarSesionBinding
 
 class IniciarSesionActivity : AppCompatActivity() {
     private lateinit var binding : ActivityIniciarSesionBinding
+    private lateinit var auth : FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityIniciarSesionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        auth = FirebaseAuth.getInstance()
+
         binding.textoCrearCuenta.setOnClickListener{
             val intent = Intent(this, CrearCuentaActivity::class.java)
             startActivity(intent)
         }
 
-        // Aquí puedes configurar el comportamiento de la actividad
+        binding.botonIniciarSesion.setOnClickListener(){
+            lateinit var email : String
+            lateinit var password : String
+            email = binding.textFieldEmail.editText?.text.toString()
+            password = binding.textFieldPassword.editText?.text.toString()
+            Log.d(TAG, "Email: " + email)
+            Log.d(TAG, "Password: " + password)
+            signIn(email, password)
+        }
+    }
+
+    fun signIn(email: String, password: String) {
+        if (email.isBlank() || password.isBlank()) {
+            Toast.makeText(this, "Email and Password must not be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success
+                    Log.d(TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show()
+
+                    // Redirigir a otra actividad o actualizar la UI
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(this, "Authentication failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
     }
 }
