@@ -1,3 +1,38 @@
 <resources>
-    <string name="app_name">ProyectoEnsenarte</string>
+    <string name="app_name">Proyecto Enseñarte</string>
+    <string name="onboarding2_image_content">Onboarding image</string>
+    <string name="onboarding3_image_content">onboarding2_image_content</string>
+    <string name="tituloOnboarding2">Una nueva forma de aprender LSC</string>
+    <string name="tituloOnboarding3">Reconocimiento de señas dinámicas</string>
+    <string name="tituloOnboarding4">Gamificación y aprendizaje de LSC</string>
+
+    <string name="texto_onboarding2">
+        Aprende Lengua de Señas Colombiana a través de una historia cautivadora, recompensas y mucho mucho más
+    </string>
+    <string name="texto_onboarding3">
+        Práctica las señas que has aprendido a través del reconocimiento de video impulsado con IA
+    </string>
+    <string name="texto_onboarding4">
+        Recorre las lecciones a través de actividades de la LSC, mientras  ganas insignias y mantienes tu racha
+    </string>
+
+
+    <string name="fondo_de_onboarding_2">Fondo de onboarding 2</string>
+    <string name="crear_cuenta">Crear Cuenta</string>
+    <string name="iniciar_sesi_n">Iniciar Sesión</string>
+    <string name="onboarding_image_content">d</string>
+    <string name="crea_una_cu">Crear una cuenta</string>
+    <string name="aprende_lsc">Aprende LSC y ayuda a desarmar las barreras de comunicación en nuestro país</string>
+    <string name="ya_tienes_cuenta">¿Ya tienes una cuenta?</string>
+    <string name="inicia">Inicia Sesión</string>
+    <string name="nombre_completo">Nombre Completo</string>
+    <string name="email">Email</string>
+    <string name="usuario">Usuario</string>
+    <string name="contrase_a">Contraseña</string>
+    <string name="IniciarSesiónTitle">Iniciar Sesión</string>
+    <string name="iniciaSesionDescrip">Por favor ingresa tus datos para seguir aprendiendo LSC</string>
+    <string name="olvidaste_t">¿Olvidaste tu contraseña?</string>
+    <string name="diccionario">Diccionario</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
