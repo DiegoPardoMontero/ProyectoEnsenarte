@@ -3,6 +3,7 @@ package com.puj.proyectoensenarte
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -25,12 +26,14 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding = ActivityMainBinding.inflate(layoutInflater) // infla el XML y crea una instancia de ActivityMainBinding con todas las referencias de las vistas
+        binding =
+            ActivityMainBinding.inflate(layoutInflater) // infla el XML y crea una instancia de ActivityMainBinding con todas las referencias de las vistas
         setContentView(binding.root) // vista raíz del xml referenciado
 
         // Configura el VideoView
         val videoView = binding.videoView
-        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.splash5s) // Asegúrate de que el video esté en la carpeta 'res/raw'
+        val videoUri =
+            Uri.parse("android.resource://" + packageName + "/" + R.raw.splash5s) // Asegúrate de que el video esté en la carpeta 'res/raw'
         videoView.setVideoURI(videoUri)
 
         videoView.start()
