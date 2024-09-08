@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.puj.proyectoensenarte.R
 
-class DiccionarioFragmentActivity : Fragment() {
+class DictionaryFragmentActivity : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
