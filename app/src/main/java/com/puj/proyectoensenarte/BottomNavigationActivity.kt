@@ -4,7 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.puj.proyectoensenarte.databinding.ActivityBottomNavigationBinding
-import com.puj.proyectoensenarte.dictionary.DiccionarioFragmentActivity
+import com.puj.proyectoensenarte.dictionary.DictionaryFragmentActivity
 import com.puj.proyectoensenarte.information.InformationFragmentActivity
 import com.puj.proyectoensenarte.learning.LearnignFragmentActivity
 import com.puj.proyectoensenarte.profile.ProfileFragmentActivity
@@ -25,7 +25,7 @@ class BottomNavigationActivity : AppCompatActivity() {
                     true
                 }
                 R.id.item_2 -> {
-                    loadFragment(DiccionarioFragmentActivity())
+                    loadFragment(DictionaryFragmentActivity())
                     true
                 }
                 R.id.item_3 -> {
