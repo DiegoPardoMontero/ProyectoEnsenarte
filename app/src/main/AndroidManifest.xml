@@ -23,7 +23,8 @@
             </intent-filter>
         </activity>
         <!--- Authentication Activities -->
-
+        <activity android:name=".CrearCuentaActivity"/>
+        <activity android:name=".IniciarSesionActivity"/>
         <!--- Dictionary Activities -->
 
         <!--- Information Activities -->
