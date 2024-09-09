@@ -32,9 +32,35 @@ class CrearCuentaActivity : AppCompatActivity() {
             var email : String = binding.textFieldEmail.editText?.text.toString()
             var password : String = binding.textFieldPassword.editText?.text.toString()
             var nickname : String = binding.textFieldUsuario.editText?.text.toString()
-            createAccount(name, email, password, nickname)
+            // Validación de los campos antes de crear la cuenta
+            if (validateInput(name, email, password, nickname)) {
+                createAccount(name, email, password, nickname)
+            }
         }
+    }
 
+    private fun validateInput(name: String, email: String, password: String, nickname: String): Boolean {
+        if (name.isBlank()) {
+            Toast.makeText(this, "Por favor ingresa tu nombre", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (email.isBlank()) {
+            Toast.makeText(this, "Por favor ingresa tu correo electrónico", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Por favor ingresa un correo válido", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (password.isBlank() || password.length < 6) {
+            Toast.makeText(this, "La contraseña debe tener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        if (nickname.isBlank()) {
+            Toast.makeText(this, "Por favor ingresa tu nombre de usuario", Toast.LENGTH_SHORT).show()
+            return false
+        }
+        return true
     }
 
     fun createAccount(name : String, email: String, password: String, nickname : String) {
@@ -66,6 +92,7 @@ class CrearCuentaActivity : AppCompatActivity() {
                             .set(userMap)
                             .addOnSuccessListener {
                                 Log.d(TAG, "User data stored successfully")
+                                Toast.makeText(baseContext, "Registrado exitosamente!.", Toast.LENGTH_SHORT).show()
                             }
                             .addOnFailureListener { e ->
                                 Log.w(TAG, "Error storing user data", e)
@@ -73,7 +100,7 @@ class CrearCuentaActivity : AppCompatActivity() {
                     }
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "No se pudo registrar!.", Toast.LENGTH_SHORT).show()
                 }
             }
     }
