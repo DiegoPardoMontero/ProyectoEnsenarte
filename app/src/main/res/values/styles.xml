@@ -18,7 +18,7 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="CircularImageView" parent="">
+    <style name="CircularImageView">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
@@ -81,7 +81,7 @@
     </style>
 
     <style name="correoPerfilCard">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">17sp</item>
         <item name="android:letterSpacing">0.01</item>
         <item name="android:textColor">#CCFFFDF8</item>
     </style>

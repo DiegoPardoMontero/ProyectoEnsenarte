@@ -17,6 +17,8 @@
         android:layout_height="wrap_content"
         app:labelVisibilityMode="labeled"
         android:background="@color/fondoBottomAppBar"
+        app:itemIconSize="19dp"
+        app:itemIconTint="@color/paciencie"
         app:itemTextAppearanceActive="@style/CustomBottomNavigationText"
         app:itemTextAppearanceInactive="@style/CustomBottomNavigationTextInactive"
         app:itemActiveIndicatorStyle="@style/App.Custom.Indicator"
