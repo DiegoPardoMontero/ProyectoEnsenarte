@@ -36,7 +36,8 @@ class IniciarSesionActivity : AppCompatActivity() {
         }
 
         binding.olvidasteContraText.setOnClickListener{
-            sendPasswordReset("diegopardomontero@gmail.com")
+            //Redirect to forgetPassword screen
+
         }
 
     }
@@ -44,6 +45,16 @@ class IniciarSesionActivity : AppCompatActivity() {
     fun signIn(email: String, password: String) {
         if (email.isBlank() || password.isBlank()) {
             Toast.makeText(this, "Email and Password must not be empty", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (!isEmailValid(email)) {
+            Toast.makeText(this, "Invalid email format", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        if (password.length < 6) {
+            Toast.makeText(this, "Password must be at least 6 characters long", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -65,26 +76,7 @@ class IniciarSesionActivity : AppCompatActivity() {
             }
     }
 
-    private fun sendPasswordReset(email: String) {
-        auth.sendPasswordResetEmail(email)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Toast.makeText(this, "Password reset email sent to $email", Toast.LENGTH_SHORT).show()
-                } else {
-                    val exception = task.exception
-                    when (exception) {
-                        is FirebaseAuthInvalidUserException -> {
-                            Toast.makeText(this, "No account found with this email.", Toast.LENGTH_SHORT).show()
-                        }
-                        is FirebaseNetworkException -> {
-                            Toast.makeText(this, "Network error. Please try again later.", Toast.LENGTH_SHORT).show()
-                        }
-                        else -> {
-                            Toast.makeText(this, "Error: ${exception?.message}", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                }
-            }
+    fun isEmailValid(email: String): Boolean {
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
-
 }
