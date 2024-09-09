@@ -52,6 +52,13 @@
             android:exported="true">
 
         </activity>
+
+        <activity
+            android:name=".BottomNavigationActivity"
+            android:exported="true">
+
+        </activity>
+
         <!--- Profile Activities-->
 
     </application>
