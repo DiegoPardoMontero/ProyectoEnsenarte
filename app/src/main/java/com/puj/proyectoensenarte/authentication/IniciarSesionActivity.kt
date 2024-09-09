@@ -10,6 +10,7 @@ import com.google.firebase.FirebaseNetworkException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
+import com.puj.proyectoensenarte.authentication.ForgotPasswordActivity
 import com.puj.proyectoensenarte.databinding.ActivityIniciarSesionBinding
 
 class IniciarSesionActivity : AppCompatActivity() {
@@ -38,7 +39,8 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         binding.olvidasteContraText.setOnClickListener{
             //Redirect to forgetPassword screen
-
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
+            startActivity(intent)
         }
 
     }
