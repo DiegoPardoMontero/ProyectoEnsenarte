@@ -25,6 +25,7 @@
         <!--- Authentication Activities -->
         <activity android:name=".CrearCuentaActivity"/>
         <activity android:name=".IniciarSesionActivity"/>
+        <activity android:name=".authentication.ForgotPasswordActivity"/>
         <!--- Dictionary Activities -->
 
         <!--- Information Activities -->
