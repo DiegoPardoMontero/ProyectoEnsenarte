@@ -142,14 +142,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_name1"
+                    android:id="@+id/input_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_us"
                     android:drawablePadding="8dp"
                     android:fontFamily="@raw/regular"
-                    android:hint="Nombre Completo"
-                    android:text="Hande Eçerel Bolat" />
+                    android:hint="Nombre"
+                    android:text="Nombre Completo" />
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -163,14 +163,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/input_name2"
+                    android:id="@+id/input_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_us"
                     android:drawablePadding="8dp"
                     android:fontFamily="@raw/regular"
                     android:hint="Email"
-                    android:text="svalentinasierr@haner.com" />
+                    android:text="Correo Electrónico" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -183,14 +183,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout2">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/usuario"
+                    android:id="@+id/input_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableStart="@drawable/ic_us"
                     android:drawablePadding="8dp"
                     android:fontFamily="@raw/regular"
                     android:hint="Usuario"
-                    android:text="valesco" />
+                    android:text="Usuario de juego" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
