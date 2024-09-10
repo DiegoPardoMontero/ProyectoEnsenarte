@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.CrearCuentaActivity
 import com.puj.proyectoensenarte.IniciarSesionActivity
 import com.puj.proyectoensenarte.databinding.ActivityOnboardingOneBinding
@@ -21,7 +22,7 @@ class OnboardingOneActivity : Fragment() {
         _binding = ActivityOnboardingOneBinding.inflate(inflater, container, false)
 
         binding.botonCrearCuenta1.setOnClickListener {
-            val intent = Intent(activity, CrearCuentaActivity::class.java)
+            val intent = Intent(activity, BottomNavigationActivity::class.java)
             startActivity(intent)
         }
 

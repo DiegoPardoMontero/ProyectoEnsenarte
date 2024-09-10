@@ -105,4 +105,18 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="mi_perfil">
+        <item name="android:textSize">24sp</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:fontFamily">@raw/regularbold</item>
+        <item name="android:textColor">@color/bear</item>
+    </style>
+
+    <style name="actualiza_t">
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textColor">#99000000</item>
+        <item name="android:fontFamily">@raw/regular</item>
+    </style>
+
 </resources>
