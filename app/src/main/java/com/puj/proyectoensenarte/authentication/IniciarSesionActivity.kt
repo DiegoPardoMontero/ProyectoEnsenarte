@@ -30,11 +30,13 @@ class IniciarSesionActivity : AppCompatActivity() {
         }
 
         binding.botonIniciarSesion.setOnClickListener(){
-            var email : String = binding.textFieldEmail.editText?.text.toString()
+            /*var email : String = binding.textFieldEmail.editText?.text.toString()
             var password : String = binding.textFieldPassword.editText?.text.toString()
             Log.d(TAG, "Email: " + email)
             Log.d(TAG, "Password: " + password)
-            signIn(email, password)
+            signIn(email, password)*/
+            val intent = Intent(this, BottomNavigationActivity::class.java)
+            startActivity(intent)
         }
 
         binding.olvidasteContraText.setOnClickListener{

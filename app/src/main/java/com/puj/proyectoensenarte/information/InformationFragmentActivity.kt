@@ -1,11 +1,13 @@
 package com.puj.proyectoensenarte.information
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.puj.proyectoensenarte.CrearCuentaActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityInformationFragmentBinding
 
@@ -33,7 +35,10 @@ class InformationFragmentActivity : Fragment() {
         }
         //COMMUNITY BUTTON
         binding.communityButton.setOnClickListener{
-            Toast.makeText(requireContext(), "Community seleccionado", Toast.LENGTH_SHORT).show()
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.container, ComunidadSordaActivity()) // Aquí el ID del contenedor donde se muestran los fragmentos
+                .addToBackStack(null)  // Esto permite volver al fragmento anterior
+                .commit()
         }
         //HISTORY BUTTON
         binding.historyButton.setOnClickListener{
