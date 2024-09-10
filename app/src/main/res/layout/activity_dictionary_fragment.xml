@@ -37,47 +37,49 @@
             android:layout_height="48dp"
             android:iconifiedByDefault="false"
             android:queryHint="Busca una categoría o palabra"
-            android:fontFamily="@raw/regularbold"
+            android:fontFamily="@raw/regular"
             android:textSize="16sp" />
 
     </androidx.cardview.widget.CardView>
 
+    <!-- Modificación para el MaterialCardView con esquinas inferiores -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         app:cardCornerRadius="24dp"
         app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/white"
+        app:shapeAppearanceOverlay="@style/RoundedCardCorners"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvSearch"
-        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.Cut">
+        app:layout_constraintTop_toBottomOf="@id/cvSearch">
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@raw/regularbold"
+            android:text="Categorías"
+            android:textColor="@color/bear"
+            android:textSize="20sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategories"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:padding="16dp">
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:spanCount="3" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:fontFamily="@raw/regularbold"
-                android:text="Categorías"
-                android:textColor="@color/bear"
-                android:textSize="20sp" />
+    </LinearLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategories"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3" />
+</com.google.android.material.card.MaterialCardView>
 
-        </LinearLayout>
-
-    </com.google.android.material.card.MaterialCardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
