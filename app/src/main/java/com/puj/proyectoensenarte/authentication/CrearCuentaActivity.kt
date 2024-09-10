@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityCrearCuentaBinding
+import com.puj.proyectoensenarte.onboarding.SliderActivity
 
 class CrearCuentaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCrearCuentaBinding
@@ -35,7 +36,12 @@ class CrearCuentaActivity : AppCompatActivity() {
             // Validación de los campos antes de crear la cuenta
             if (validateInput(name, email, password, nickname)) {
                 createAccount(name, email, password, nickname)
+                //comentar o borrar antes de subir
+                val intent = Intent(this, BottomNavigationActivity::class.java)
+                startActivity(intent)
             }
+
+
         }
     }
 
