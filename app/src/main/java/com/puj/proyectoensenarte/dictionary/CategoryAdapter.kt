@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.puj.proyectoensenarte.R
 
-data class Category(val iconResId: Int, val name: String)
+data class Category(val imageUrl: String, val name: String)
 
 class CategoryAdapter(
     private val context: Context,
@@ -29,7 +30,13 @@ class CategoryAdapter(
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         val category = categoryList[position]
-        holder.icon.setImageResource(category.iconResId)  // Setear el ícono
+
+        // Usar Glide para cargar la imagen desde la URL
+        Glide.with(context)
+            .load(category.imageUrl)  // Cargar imagen desde la URL
+            .placeholder(R.drawable.vestuario)  // Imagen de carga por defecto
+            .into(holder.icon)
+
         holder.name.text = category.name  // Setear el nombre
 
         // Manejar clic en cada ítem
