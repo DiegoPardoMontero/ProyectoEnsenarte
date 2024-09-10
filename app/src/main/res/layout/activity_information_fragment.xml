@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/information_background"
-    >
+    android:background="@drawable/information_background">
     <TextView
         android:id="@+id/title_text"
         android:layout_width="wrap_content"
@@ -23,8 +22,8 @@
         android:id="@+id/history_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintTop_toBottomOf="@id/title_text"
         app:layout_constraintBottom_toTopOf="@id/grammar_button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/community_button"
@@ -35,7 +34,7 @@
         <ImageView
             android:id="@+id/history_image"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
             android:src="@drawable/information_history"
             android:scaleType="centerCrop"
             />
@@ -59,8 +58,8 @@
         android:id="@+id/community_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="30dp"
         app:layout_constraintWidth_percent="0.4"
+        app:layout_constraintTop_toBottomOf="@id/title_text"
         app:layout_constraintBottom_toTopOf="@id/links_button"
         app:layout_constraintStart_toEndOf="@id/history_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,7 +69,7 @@
         <ImageView
             android:id="@+id/community_image"
             android:layout_width="wrap_content"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/information_deafcomunity"/>
 
@@ -94,7 +93,7 @@
         android:id="@+id/grammar_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintWidth_percent="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,7 +104,7 @@
         <ImageView
             android:id="@+id/grammar_image"
             android:layout_width="wrap_content"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
             android:src="@drawable/information_grammar"
             android:scaleType="centerCrop"
             />
@@ -129,7 +128,7 @@
         android:id="@+id/links_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="70dp"
+        android:layout_marginBottom="40dp"
         app:layout_constraintWidth_percent="0.4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/grammar_button"
@@ -140,7 +139,7 @@
         <ImageView
             android:id="@+id/links_image"
             android:layout_width="wrap_content"
-            android:layout_height="220dp"
+            android:layout_height="200dp"
             android:scaleType="centerCrop"
             android:src="@drawable/information_links"/>
 
