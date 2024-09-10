@@ -105,4 +105,12 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="RoundedCardCorners" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">24dp</item>
+        <item name="cornerSizeTopRight">24dp</item>
+        <item name="cornerSizeBottomRight">0dp</item> <!-- Esquinas inferiores rectas -->
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
 </resources>

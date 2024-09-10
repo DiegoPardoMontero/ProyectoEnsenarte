@@ -26,15 +26,15 @@ class DictionaryFragmentActivity : Fragment() {
 
         // Lista de categorías con íconos y nombres
         val categoryList = listOf(
-            Category(R.drawable.inteligencia, "Intelgencia"),
+            Category(R.drawable.inteligencia, "Inteligencia"),
             Category(R.drawable.salud, "Salud"),
             Category(R.drawable.ser_humano, "Ser Humano"),
             Category(R.drawable.vestuario, "Vestuario"),
-            Category(R.drawable.inteligencia, "Intelgencia"),
+            Category(R.drawable.inteligencia, "Inteligencia"),
             Category(R.drawable.salud, "Salud"),
             Category(R.drawable.ser_humano, "Ser Humano"),
             Category(R.drawable.vestuario, "Vestuario"),
-            Category(R.drawable.inteligencia, "Intelgencia"),
+            Category(R.drawable.inteligencia, "Inteligencia"),
             Category(R.drawable.salud, "Salud"),
             Category(R.drawable.ser_humano, "Ser Humano"),
             Category(R.drawable.vestuario, "Vestuario")
