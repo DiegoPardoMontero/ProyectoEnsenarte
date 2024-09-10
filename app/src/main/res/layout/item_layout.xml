@@ -49,7 +49,7 @@
         android:layout_height="24dp"
         android:paddingLeft="5dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/flecha"
+        android:src="@drawable/ic_arrow_right"
         android:contentDescription="@string/app_name" />
 
 </LinearLayout>
