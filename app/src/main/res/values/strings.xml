@@ -39,4 +39,8 @@
     <string name="messi_hotmail_com">messi@hotmail.com</string>
     <string name="perfil">Perfil</string>
     <string name="paco_andres_messi">Paco Andres Messi</string>
+    <string name="olvidaste_contrasena_descrip">Por favor ingresa tu correo electrónico, te enviaremos un link de reestablecimiento de tu contraseña</string>
+    <string name="olvidaste_tu_contrasena">¿Olvidaste tu contraseña?</string>
+    <string name="enviar_correo_de_recuperacion">Enviar correo de recuperación</string>
+    <string name="volver_a_iniciar_sesion">Volver a iniciar sesión</string>
 </resources>
