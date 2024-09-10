@@ -93,6 +93,8 @@ class CrearCuentaActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                                 Log.d(TAG, "User data stored successfully")
                                 Toast.makeText(baseContext, "Registrado exitosamente!.", Toast.LENGTH_SHORT).show()
+                                val intent = Intent(this, BottomNavigationActivity::class.java)
+                                startActivity(intent)
                             }
                             .addOnFailureListener { e ->
                                 Log.w(TAG, "Error storing user data", e)
