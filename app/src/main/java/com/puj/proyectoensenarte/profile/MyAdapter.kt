@@ -9,9 +9,6 @@ import com.puj.proyectoensenarte.MainActivity
 import com.puj.proyectoensenarte.R
 
 import com.puj.proyectoensenarte.databinding.ItemLayoutBinding
-import com.puj.proyectoensenarte.onboarding.OnboardingOneActivity
-import com.puj.proyectoensenarte.onboarding.OnboardingThreeActivity
-import com.puj.proyectoensenarte.onboarding.OnboardingTwoActivity
 
 
 class MyAdapter(context: Context?, private val mData: List<String>) :
@@ -47,10 +44,10 @@ class MyAdapter(context: Context?, private val mData: List<String>) :
 
         // Cambiar el ícono según la posición
         when (position) {
-            0 -> holder.binding.imageView.setImageResource(R.drawable.siete)
-            1 -> holder.binding.imageView.setImageResource(R.drawable.ocho)
-            2 -> holder.binding.imageView.setImageResource(R.drawable.nueve)
-            else -> holder.binding.imageView.setImageResource(R.drawable.icon_logout)
+            0 -> holder.binding.imageView.setImageResource(R.drawable.ic_settings)
+            1 -> holder.binding.imageView.setImageResource(R.drawable.ic_statistics)
+            2 -> holder.binding.imageView.setImageResource(R.drawable.ic_logout)
+            else -> holder.binding.imageView.setImageResource(R.drawable.ic_logout)
         }
 
         // Configurar el OnClickListener para redirigir a otra pantalla
@@ -68,7 +65,7 @@ class MyAdapter(context: Context?, private val mData: List<String>) :
 
 
         // Establecer la imagen del nuevo ImageView (flecha)
-        holder.binding.goIcon.setImageResource(R.drawable.flecha)
+        holder.binding.goIcon.setImageResource(R.drawable.ic_arrow_right)
     }
 
     override fun getItemCount(): Int {

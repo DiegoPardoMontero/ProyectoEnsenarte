@@ -109,7 +109,7 @@
         <item name="android:textSize">24sp</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:fontFamily">@raw/regularbold</item>
-        <item name="android:textColor">@color/bear</item>
+        <item name="android:textColor">@color/paciencie</item>
     </style>
 
     <style name="actualiza_t">

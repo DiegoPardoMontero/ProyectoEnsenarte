@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descripIniciarSesion"
-        app:startIconDrawable="@drawable/envelope_mail__streamline_micro"> <!-- Icono al lado izquierdo del hint -->
+        app:startIconDrawable="@drawable/ic_mail"> <!-- Icono al lado izquierdo del hint -->
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -80,7 +80,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFieldEmail"
-        app:startIconDrawable="@drawable/lock__streamline_micro"
+        app:startIconDrawable="@drawable/ic_lock"
         app:endIconMode="password_toggle"> <!-- Icono de ojo para mostrar/ocultar contraseña -->
 
         <com.google.android.material.textfield.TextInputEditText
