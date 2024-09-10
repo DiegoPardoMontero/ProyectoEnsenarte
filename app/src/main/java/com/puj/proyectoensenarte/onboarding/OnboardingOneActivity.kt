@@ -22,7 +22,7 @@ class OnboardingOneActivity : Fragment() {
         _binding = ActivityOnboardingOneBinding.inflate(inflater, container, false)
 
         binding.botonCrearCuenta1.setOnClickListener {
-            val intent = Intent(activity, BottomNavigationActivity::class.java)
+            val intent = Intent(activity, CrearCuentaActivity::class.java)
             startActivity(intent)
         }
 
