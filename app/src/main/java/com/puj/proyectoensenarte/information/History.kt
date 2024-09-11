@@ -42,10 +42,16 @@ class History : Fragment() {
         val image2 = createImageView(R.drawable.crearcuenta)
         val image3 = createImageView(R.drawable.crearcuenta)
 
-        contentContainer.addView(createTitle(getString(R.string.grammar_titulo2)))
-        contentContainer.addView(createSubTitle(getString(R.string.grammar_subtitulo1)))
-        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo1)))
+        contentContainer.addView(createTitle(getString(R.string.history_titulo2)))
+        contentContainer.addView(createSubTitle(getString(R.string.history_subtitulo1)))
+        contentContainer.addView(createParagraph(getString(R.string.history_parrafo1)))
         contentContainer.addView(image1)
+        contentContainer.addView(createSubTitle(getString(R.string.history_subtitulo2)))
+        contentContainer.addView(createParagraph(getString(R.string.history_parrafo2)))
+        //contentContainer.addView(image1)
+        contentContainer.addView(createTitle(getString(R.string.history_titulo3)))
+        contentContainer.addView(createSubTitle(getString(R.string.history_subtitulo3)))
+        contentContainer.addView(createParagraph(getString(R.string.history_parrafo3)))
 
     }
 

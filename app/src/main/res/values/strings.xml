@@ -57,6 +57,13 @@ Pese a la disponibilidad de recursos, como repositorios virtuales del diccionari
 
     <!--links-->
     <string name="links_titulo1">Links importantes</string>
+    <string name="links_1"><a href="https://funsinapsis.com">FunSinapsis Colombia</a></string>
+    <string name="links_2"><a href="https://fenascol.org.co">Federación Nacional de Sordos de Colombia</a></string>
+    <string name="links_3"><a href="https://educativo.insor.gov.co">Instituto Nacional Para Sordos</a></string>
+    <string name="links_4"><a href="https://hetah.net/traductor">Traductor de Lenguaje Natural a Lengua de Señas</a></string>
+    <string name="links_5"><a href="https://edutin.com/lengua-de-senas-colombia">Curso de Lengua de Señas Colombiana. Edutin Academy</a></string>
+    <string name="links_6"><a href="https://maguare.gov.co/lsc/">Maguare: Enseñanza de la Lengua de Señas Colombiana enfocada a niños</a></string>
+    <string name="links_7"><a href="https://educativo.insor.gov.co/diccionario/">Diccionario de Lengua de Señas Colombiana (INSOR)</a></string>
 
     <!--grammar-->
     <string name="grammar_titulo1">Características Gramaticales</string>
@@ -78,6 +85,17 @@ Pese a la disponibilidad de recursos, como repositorios virtuales del diccionari
     <string name="grammar_parrafo7">La gramática de la LSC incluye mecanismos para expresar negación e interrogación. Para expresar negación, se puede hacer un movimiento específico con la mano o la cabeza. Para interrogar, se utiliza una combinación de movimientos de las manos, expresiones faciales y cambios en la dirección del movimiento para indicar preguntas y respuestas negativas.</string>
 
     <!--history-->
-    
 
+    <string name="history_titulo1">Historia</string>
+    <string name="history_titulo2">Origenes de la Lengua de Señas</string>
+    <string name="history_subtitulo1">Educación Oralista y Manual</string>
+    <string name="history_parrafo1">El surgimiento del estudio de la persona sorda encuentra sus raíces en el siglo XVIII, en naciones europeas como Francia, Alemania e Italia. Estas corrientes de pensamiento se trasladan posteriormente a América Latina, consolidándose en Colombia alrededor de la década de los noventa.\n\n
+Desde una perspectiva tanto biológica como social, se han suscitado transformaciones significativas en los conceptos asociados a la sordera. En primera instancia, desde el enfoque biológico, los sordos eran conceptualizados como individuos enfermos que requerían terapia, situación que, implicaba la privación de sus derechos fundamentales. No fue sino hasta el siglo XVII cuando la sordera empezó a ser abordada científicamente, y fue en Francia donde se comenzaron a reconocer dimensiones colectivas para la educación de las personas sordas, a través de la instauración de escuelas públicas dedicadas a este propósito, marcando el inicio de su consideración como un grupo social.</string>
+    <string name="history_subtitulo2">L’Epée y sus aportes</string>
+    <string name="history_parrafo2">En este contexto, la aceptación inicial del lenguaje gestual llevó a que los primeros aprendices se convirtieran en docentes del método desarrollado por L’Epée. Este método se caracterizaba por partir del gesto como punto de partida para la formación de ideas, las cuales se transformaban posteriormente en palabras escritas en francés. Se atribuye a L’Epée la introducción de la noción del lenguaje gestual como una forma natural de comunicación entre las personas sordas, marcando un hito relevante en la evolución de la percepción social y educativa de esta comunidad (Skilar, 1997).\n\n
+En contraposición a la corriente de Lenguaje de Señas, se presenta la Educación Oralista como un modelo educativo que busca enseñar a los sordos la lengua oral y desarrollar la lectura labial. Este enfoque niega la lengua de señas y se esfuerza por convertir a los sordos en hablantes de la lengua oral, considerándola como la única aceptable. Esta metodología se centra en dos aspectos clave: el entrenamiento en la lectura labial y la articulación de la lengua oral. Los sordos son sometidos a entrenamientos constantes, convirtiendo la escuela en una institución más de rehabilitación que de educación.\n\n
+Ante las limitaciones de la Lengua Oral, surge la educación bilingüe, reconociendo la lengua de señas como la lengua natural de los sordos. Este enfoque implica la integración de dos modelos culturales y se define como una educación bicultural (Peluso, 2010). Asimismo, fomenta un sentido positivo de identidad al reforzar la pertenencia a una cultura propia, con su lengua y formas distintivas de relacionarse.</string>
+    <string name="history_titulo3">Historia en Colombia</string>
+    <string name="history_subtitulo3">El INSOR</string>
+    <string name="history_parrafo3">En Colombia, se funda en 1955 el Instituto Nacional para Sordos (INSOR) con el propósito de proteger los derechos de la población con discapacidad auditiva. Inicialmente enfocado en la rehabilitación, especialmente en el ámbito de la salud, con el tiempo, evolucionó para abordar de manera integral los aspectos educativos de la comunidad sorda en el país. A medida que progresó en diversas esferas sociales, el Instituto diversificó sus enfoques metodológicos, incorporando la pedagogía en su institucionalidad y reconociendo simultáneamente el derecho lingüístico inherente a cada individuo con discapacidad auditiva.</string>
 </resources>

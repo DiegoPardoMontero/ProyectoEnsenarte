@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.puj.proyectoensenarte.BottomNavigationActivity
+import com.puj.proyectoensenarte.CrearCuentaActivity
+import com.puj.proyectoensenarte.IniciarSesionActivity
 import com.puj.proyectoensenarte.databinding.ActivityOnboardingTwoBinding
 
 class OnboardingTwoActivity : Fragment() {
@@ -21,12 +23,12 @@ class OnboardingTwoActivity : Fragment() {
         _binding = ActivityOnboardingTwoBinding.inflate(inflater, container, false)
 
         binding.botonCrearCuenta2.setOnClickListener {
-            val intent = Intent(activity, BottomNavigationActivity::class.java)
+            val intent = Intent(activity, CrearCuentaActivity::class.java)
             startActivity(intent)
         }
 
         binding.botonIniciarSesion2.setOnClickListener {
-            val intent = Intent(activity, BottomNavigationActivity::class.java)
+            val intent = Intent(activity, IniciarSesionActivity::class.java)
             startActivity(intent)
         }
 
