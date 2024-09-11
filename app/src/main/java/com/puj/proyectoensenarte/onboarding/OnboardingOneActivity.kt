@@ -27,7 +27,7 @@ class OnboardingOneActivity : Fragment() {
         }
 
         binding.botonIniciarSesion1.setOnClickListener {
-            val intent = Intent(activity, IniciarSesionActivity::class.java)
+            val intent = Intent(activity, BottomNavigationActivity::class.java)
             startActivity(intent)
         }
 
