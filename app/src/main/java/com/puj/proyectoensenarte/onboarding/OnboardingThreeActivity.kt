@@ -1,13 +1,13 @@
 package com.puj.proyectoensenarte.onboarding
 
+//import android.content.Intent
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.puj.proyectoensenarte.CrearCuentaActivity
-import com.puj.proyectoensenarte.IniciarSesionActivity
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.databinding.ActivityOnboardingThreeBinding
 
 class OnboardingThreeActivity : Fragment() {
@@ -21,12 +21,12 @@ class OnboardingThreeActivity : Fragment() {
         _binding = ActivityOnboardingThreeBinding.inflate(inflater, container, false)
 
         binding.botonCrearCuenta3.setOnClickListener {
-            val intent = Intent(activity, CrearCuentaActivity::class.java)
+            val intent = Intent(activity, BottomNavigationActivity::class.java)
             startActivity(intent)
         }
 
         binding.botonIniciarSesion3.setOnClickListener {
-            val intent = Intent(activity, IniciarSesionActivity::class.java)
+            val intent = Intent(activity, BottomNavigationActivity::class.java)
             startActivity(intent)
         }
 
