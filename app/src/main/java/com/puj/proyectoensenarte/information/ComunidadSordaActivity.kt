@@ -60,14 +60,14 @@ class ComunidadSordaActivity : Fragment() {
         val typeface = ResourcesCompat.getFont(requireContext(), R.font.regularbold)
         return TextView(requireContext()).apply {
             this.text = text
-            textSize = 28f
+            textSize = 36f
             setTypeface(typeface)
             setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(0, 8, 0, 0)  // Margen superior e inferior
+                setMargins(0, 12, 0, 12)  // Margen superior e inferior
             }
         }
     }
@@ -76,14 +76,14 @@ class ComunidadSordaActivity : Fragment() {
         val typeface = ResourcesCompat.getFont(requireContext(), R.font.regular)
         return TextView(requireContext()).apply {
             this.text = text
-            textSize = 18f
+            textSize = 28f
             setTypeface(typeface, Typeface.ITALIC)
             setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(0, 12, 0, 0)  // Margen superior e inferior
+                setMargins(0, 8, 0, 8)  // Margen superior e inferior
             }
         }
     }
@@ -92,14 +92,14 @@ class ComunidadSordaActivity : Fragment() {
         val typeface = ResourcesCompat.getFont(requireContext(), R.font.regular)
         return TextView(requireContext()).apply {
             this.text = text
-            textSize = 16f
+            textSize = 20f
             setTypeface(typeface)
             setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
-                setMargins(0, 16, 0, 0)  // Margen superior e inferior
+                setMargins(0, 8, 0, 8)  // Margen superior e inferior
             }
         }
     }
@@ -118,17 +118,14 @@ class ComunidadSordaActivity : Fragment() {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 200.dpToPx()  // Limitar la altura a 300dp
             ).apply {
-                setMargins(0, 16, 0, 8)  // Márgenes
+                setMargins(0, 30, 0, 30)  // Márgenes
             }
-            adjustViewBounds = true  // Asegurar que la imagen se ajuste a los límites
             clipToOutline = true  // Permitir que la imagen se recorte según el contorno
             background = roundedDrawable
         }
         return imageView
     }
 
-
     fun Int.dpToPx(): Int = (this * resources.displayMetrics.density).toInt()
-
 
 }

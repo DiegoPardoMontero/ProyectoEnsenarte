@@ -22,6 +22,7 @@
         android:id="@+id/history_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
         app:layout_constraintWidth_percent="0.4"
         app:layout_constraintTop_toBottomOf="@id/title_text"
         app:layout_constraintBottom_toTopOf="@id/grammar_button"
@@ -57,6 +58,7 @@
     <FrameLayout
         android:id="@+id/community_button"
         android:layout_width="0dp"
+        android:layout_marginTop="40dp"
         android:layout_height="wrap_content"
         app:layout_constraintWidth_percent="0.4"
         app:layout_constraintTop_toBottomOf="@id/title_text"

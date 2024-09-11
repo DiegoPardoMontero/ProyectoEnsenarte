@@ -12,19 +12,21 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.puj.proyectoensenarte.R
-import com.puj.proyectoensenarte.databinding.FragmentLinksBinding
+import com.puj.proyectoensenarte.databinding.FragmentComunidadSordaActivityBinding
+import com.puj.proyectoensenarte.databinding.FragmentGrammarBinding
 
-class Links : Fragment() {
-    private lateinit var binding: FragmentLinksBinding
+
+class Grammar : Fragment() {
+    private lateinit var binding: FragmentGrammarBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentLinksBinding.inflate(inflater, container, false)
+        binding = FragmentGrammarBinding.inflate(inflater,container, false)
         return binding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,17 +43,30 @@ class Links : Fragment() {
         val image2 = createImageView(R.drawable.crearcuenta)
         val image3 = createImageView(R.drawable.crearcuenta)
 
-        contentContainer.addView(createTitle(getString(R.string.comunidad_titulo1)))
-        contentContainer.addView(createSubTitle(getString(R.string.comunidad_subtitulo1)))
-        contentContainer.addView(createParagraph(getString(R.string.comunidad_parrafo1)))
+        contentContainer.addView(createTitle(getString(R.string.grammar_titulo2)))
+        contentContainer.addView(createSubTitle(getString(R.string.grammar_subtitulo1)))
+        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo1)))
         contentContainer.addView(image1)
-        contentContainer.addView(createSubTitle(getString(R.string.comunidad_subtitulo2)))
-        contentContainer.addView(createParagraph(getString(R.string.comunidad_parrafo2)))
-        contentContainer.addView(image2)
-        contentContainer.addView(createTitle(getString(R.string.comunidad_titulo2)))
-        contentContainer.addView(createSubTitle(getString(R.string.comunidad_subtitulo3)))
-        contentContainer.addView(createParagraph(getString(R.string.comunidad_parrafo3)))
-        contentContainer.addView(image3)
+        contentContainer.addView(createSubTitle(getString(R.string.grammar_subtitulo2)))
+        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo2)))
+        contentContainer.addView(image1)
+        contentContainer.addView(createTitle(getString(R.string.grammar_titulo3)))
+        contentContainer.addView(createSubTitle(getString(R.string.grammar_subtitulo3)))
+        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo3)))
+        contentContainer.addView(image1)
+        contentContainer.addView(image1)
+        contentContainer.addView(image1)
+        contentContainer.addView(createTitle(getString(R.string.grammar_titulo4)))
+        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo4)))
+        contentContainer.addView(image1)
+        contentContainer.addView(createTitle(getString(R.string.grammar_titulo5)))
+        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo5)))
+        contentContainer.addView(image1)
+        contentContainer.addView(createTitle(getString(R.string.grammar_titulo6)))
+        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo6)))
+        contentContainer.addView(createTitle(getString(R.string.grammar_titulo7)))
+        contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo7)))
+
     }
 
     fun createTitle(text: String): TextView {
