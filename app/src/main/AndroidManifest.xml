@@ -60,6 +60,10 @@
 
         </activity>
 
+
+
+        <!--- Profile Activities-->
+
         <activity
             android:name=".profile.SettingsProfileActivity"
             android:exported="true">
@@ -72,7 +76,9 @@
 
         </activity>
 
-        <!--- Profile Activities-->
+
+
+
 
     </application>
 

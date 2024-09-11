@@ -10,8 +10,10 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityProfileFragmentBinding
 
 class ProfileFragmentActivity : Fragment() {
@@ -61,15 +63,23 @@ class ProfileFragmentActivity : Fragment() {
                     if (document != null) {
                         val name = document.getString("name")
                         val nickname = document.getString("nickname")
+                        val photo = document.getString("photo_url")
 
                         // Muestra los datos en los campos de texto
-                        binding?.nameProfile?.setText(name)
-                        binding?.usernameProfile?.setText(nickname)
+                        binding?.nameProfile?.text = name
+                        binding?.usernameProfile?.text = nickname
+
+                        // Cargar la imagen de perfil usando Glide
+                        Glide.with(this)
+                            .load(photo) // URL de la imagen
+                            .placeholder(R.drawable.placeholder) // Imagen de placeholder mientras se carga
+                            .error(R.drawable.placeholder) // Imagen a mostrar en caso de error
+                            .into(binding?.imageProfile!!)
                     }
                 }
                 .addOnFailureListener { e ->
                     Log.w(ContentValues.TAG, "Error cargando los datos del usuario", e)
-                    // Toast.makeText(this, "Error cargando los datos del usuario.", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context, "Error cargando los datos del usuario.", Toast.LENGTH_LONG).show()
                 }
         }
     }
