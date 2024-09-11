@@ -39,29 +39,28 @@ class ComunidadSordaActivity : Fragment() {
         }
 
         val contentContainer : LinearLayout = binding.contentContainer
-        val titulo1 = createTitle("Comunidad Sorda")
-        val subTitulo1 = createSubTitle("¿Quienes son?")
-        val parrafo1 = createParagraph("Son una comunidad que se autodetermina como una minoría lingüística " +
-                "con una cultura y una lengua propia, que es la Lengua de Señas. Esta lengua cumple con todas las " +
-                "leyes lingüísticas y se aprende dentro de una comunidad de usuarios, facilitando la resolución de " +
-                "todas las necesidades comunicativas y no comunicativas propias del ser humano, tanto a nivel social " +
-                "como cultural.\n" +
-                "\n" +
-                "La comunidad sorda, destaca que no se considera discapacitados o incompetentes, ni se autodefinen de esa manera. Aspiran a que los oyentes tampoco los definan como personas con discapacidad, sino como individuos diferentes. Muchos incluso, se consideran biculturales, mostrando una clara conciencia de su naturaleza lingüística, sin que ello represente grandes barreras de exclusión, como las experimentadas por otros grupos.")
         val image1 = createImageView(R.drawable.crearcuenta)
+        val image2 = createImageView(R.drawable.crearcuenta)
+        val image3 = createImageView(R.drawable.crearcuenta)
 
-        contentContainer.addView(titulo1)
-        contentContainer.addView(subTitulo1)
-        contentContainer.addView(parrafo1)
+        contentContainer.addView(createTitle(getString(R.string.comunidad_titulo1)))
+        contentContainer.addView(createSubTitle(getString(R.string.comunidad_subtitulo1)))
+        contentContainer.addView(createParagraph(getString(R.string.comunidad_parrafo1)))
         contentContainer.addView(image1)
-
+        contentContainer.addView(createSubTitle(getString(R.string.comunidad_subtitulo2)))
+        contentContainer.addView(createParagraph(getString(R.string.comunidad_parrafo2)))
+        contentContainer.addView(image2)
+        contentContainer.addView(createTitle(getString(R.string.comunidad_titulo2)))
+        contentContainer.addView(createSubTitle(getString(R.string.comunidad_subtitulo3)))
+        contentContainer.addView(createParagraph(getString(R.string.comunidad_parrafo3)))
+        contentContainer.addView(image3)
     }
 
     fun createTitle(text: String): TextView {
         val typeface = ResourcesCompat.getFont(requireContext(), R.font.regularbold)
         return TextView(requireContext()).apply {
             this.text = text
-            textSize = 24f
+            textSize = 28f
             setTypeface(typeface)
             setTextColor(ContextCompat.getColor(requireContext(), android.R.color.black))
             layoutParams = LinearLayout.LayoutParams(
