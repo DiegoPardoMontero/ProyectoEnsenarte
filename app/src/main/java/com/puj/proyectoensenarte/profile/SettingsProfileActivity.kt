@@ -93,8 +93,8 @@ class SettingsProfileActivity : AppCompatActivity() {
 
                         Glide.with(this)
                             .load(photo) // URL de la imagen
-                            .placeholder(R.drawable.img_placeholder_edit) // Imagen de placeholder mientras se carga
-                            .error(R.drawable.img_placeholder_edit) // Imagen a mostrar en caso de error
+                            .placeholder(R.drawable.placeholder_edit) // Imagen de placeholder mientras se carga
+                            .error(R.drawable.placeholder_edit) // Imagen a mostrar en caso de error
                             .into(binding.profileImage)
 
                         // Muestra los datos en los campos de texto
