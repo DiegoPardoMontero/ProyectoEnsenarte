@@ -72,8 +72,8 @@ class ProfileFragmentActivity : Fragment() {
                         // Cargar la imagen de perfil usando Glide
                         Glide.with(this)
                             .load(photo) // URL de la imagen
-                            .placeholder(R.drawable.placeholder) // Imagen de placeholder mientras se carga
-                            .error(R.drawable.placeholder) // Imagen a mostrar en caso de error
+                            .placeholder(R.drawable.img_placeholder) // Imagen de placeholder mientras se carga
+                            .error(R.drawable.img_placeholder) // Imagen a mostrar en caso de error
                             .into(binding?.imageProfile!!)
                     }
                 }
