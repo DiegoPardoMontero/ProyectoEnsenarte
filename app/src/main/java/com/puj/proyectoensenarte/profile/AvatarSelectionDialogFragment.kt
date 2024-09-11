@@ -31,6 +31,12 @@ class AvatarSelectionDialogFragment : DialogFragment() {
         val gridLayoutManager = GridLayoutManager(context, 2) // Número de columnas
         binding.recyclerViewAvatars.layoutManager = gridLayoutManager
 
+        // Configurar el botón Cancelar
+        binding.buttonCancel.setOnClickListener {
+            dismiss() // Cierra el DialogFragment
+        }
+
+
         // Cargar los avatares desde Firebase Storage
         loadAvatarsFromStorage()
     }

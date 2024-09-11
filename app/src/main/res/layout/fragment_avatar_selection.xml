@@ -48,16 +48,7 @@
             android:textColor="@color/paciencie"
             style="?attr/borderlessButtonStyle" />
 
-        <Button
-            android:id="@+id/buttonDone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/done"
-            android:fontFamily="@raw/regularbold"
-            android:textColor="@color/paciencie"
-            style="?attr/borderlessButtonStyle"
-            android:layout_marginStart="16dp" />
+
     </LinearLayout>
 
 </LinearLayout>

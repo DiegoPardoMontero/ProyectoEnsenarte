@@ -33,8 +33,8 @@ class AvatarAdapter(
         val avatarUrl = avatarUrls[position]
         Glide.with(holder.itemView.context)
             .load(avatarUrl)
-            .placeholder(R.drawable.placeholder)
-            .error(R.drawable.placeholder)
+            .placeholder(R.drawable.img_placeholder)
+            .error(R.drawable.img_placeholder)
             .into(holder.imageView)
     }
 

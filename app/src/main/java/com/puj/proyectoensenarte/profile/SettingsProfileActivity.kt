@@ -10,7 +10,6 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivitySettingsProfileBinding
 
@@ -24,6 +23,8 @@ class SettingsProfileActivity : AppCompatActivity() {
         // Infla el layout con el binding
         binding = ActivitySettingsProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
 
         // Configura el listener del botón editar
         binding.botonEditar.setOnClickListener {
@@ -39,6 +40,7 @@ class SettingsProfileActivity : AppCompatActivity() {
             val avatarSelectionDialog = AvatarSelectionDialogFragment()
             avatarSelectionDialog.show(supportFragmentManager, "AvatarSelectionDialogFragment")
         }
+
 
         // Carga los datos del usuario cuando se crea la actividad
         loadUserData()
@@ -65,7 +67,7 @@ class SettingsProfileActivity : AppCompatActivity() {
                     // Actualiza la imagen en la vista de perfil inmediatamente
                     Glide.with(this)
                         .load(selectedAvatarUrl)
-                        .placeholder(R.drawable.iniciarsesion)
+                        .placeholder(R.drawable.img_iniciarsesion)
                         .error(R.drawable.img_error)
                         .into(binding.profileImage)
                 }
@@ -91,8 +93,8 @@ class SettingsProfileActivity : AppCompatActivity() {
 
                         Glide.with(this)
                             .load(photo) // URL de la imagen
-                            .placeholder(R.drawable.placeholder_edit) // Imagen de placeholder mientras se carga
-                            .error(R.drawable.placeholder_edit) // Imagen a mostrar en caso de error
+                            .placeholder(R.drawable.img_placeholder_edit) // Imagen de placeholder mientras se carga
+                            .error(R.drawable.img_placeholder_edit) // Imagen a mostrar en caso de error
                             .into(binding.profileImage)
 
                         // Muestra los datos en los campos de texto
