@@ -67,7 +67,7 @@ class CrearCuentaActivity : AppCompatActivity() {
     }
 
     fun createAccount(name: String, email: String, password: String, nickname: String) {
-        val photoUrl = "https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/fotosPerfil%2FexampleProfilePhot.png?alt=media&token=4e5af62e-506c-4b47-bcdd-3ef8b9d2659d"
+        val photoUrl = "https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/fotosPerfil%2Favatar_capybara.png?alt=media&token=67df92b2-af74-4386-ae09-dd1b8cfc40d8"
         val streakDays: Number = 0
         val xpPoints: Number = 0
         auth.createUserWithEmailAndPassword(email, password)

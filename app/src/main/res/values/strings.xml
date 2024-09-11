@@ -47,4 +47,8 @@
     <string name="configuraciones">Configuraciones</string>
     <string name="mi_perfil">Mi Perfil</string>
     <string name="actualiza_t">Actualiza tus datos personales</string>
+    <string name="avatar_image">Avatar\n</string>
+    <string name="selecciona_tu_avatar">Selecciona tu Avatar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="done">Listo</string>
 </resources>
