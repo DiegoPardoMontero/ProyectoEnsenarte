@@ -27,7 +27,6 @@
         <activity android:name=".IniciarSesionActivity"/>
         <activity android:name=".authentication.ForgotPasswordActivity"/>
         <!--- Dictionary Activities -->
-
         <!--- Information Activities -->
 
         <!--- Learning Activities -->
