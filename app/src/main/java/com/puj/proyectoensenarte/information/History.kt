@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.puj.proyectoensenarte.R
-import com.puj.proyectoensenarte.databinding.FragmentGrammarBinding
 import com.puj.proyectoensenarte.databinding.FragmentHistoryBinding
 
 class History : Fragment() {
@@ -38,9 +37,8 @@ class History : Fragment() {
         }
 
         val contentContainer : LinearLayout = binding.contentContainer
-        val image1 = createImageView(R.drawable.crearcuenta)
-        val image2 = createImageView(R.drawable.crearcuenta)
-        val image3 = createImageView(R.drawable.crearcuenta)
+        val image1 = createImageView(R.drawable.img_history_1)
+        val image2 = createImageView(R.drawable.img_history_2)
 
         contentContainer.addView(createTitle(getString(R.string.history_titulo2)))
         contentContainer.addView(createSubTitle(getString(R.string.history_subtitulo1)))
@@ -48,7 +46,7 @@ class History : Fragment() {
         contentContainer.addView(image1)
         contentContainer.addView(createSubTitle(getString(R.string.history_subtitulo2)))
         contentContainer.addView(createParagraph(getString(R.string.history_parrafo2)))
-        //contentContainer.addView(image1)
+        contentContainer.addView(image2)
         contentContainer.addView(createTitle(getString(R.string.history_titulo3)))
         contentContainer.addView(createSubTitle(getString(R.string.history_subtitulo3)))
         contentContainer.addView(createParagraph(getString(R.string.history_parrafo3)))

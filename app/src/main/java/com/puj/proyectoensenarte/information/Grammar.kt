@@ -12,7 +12,6 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.puj.proyectoensenarte.R
-import com.puj.proyectoensenarte.databinding.FragmentComunidadSordaActivityBinding
 import com.puj.proyectoensenarte.databinding.FragmentGrammarBinding
 
 
@@ -39,9 +38,13 @@ class Grammar : Fragment() {
         }
 
         val contentContainer : LinearLayout = binding.contentContainer
-        val image1 = createImageView(R.drawable.crearcuenta)
-        val image2 = createImageView(R.drawable.crearcuenta)
-        val image3 = createImageView(R.drawable.crearcuenta)
+        val image1 = createImageView(R.drawable. img_grammar_1)
+        val image2 = createImageView(R.drawable.img_grammar_2)
+        val image3 = createImageView(R.drawable.img_grammar_3)
+        val image4 = createImageView(R.drawable.img_grammar_4)
+        val image5 = createImageView(R.drawable.img_grammar_5)
+        val image6 = createImageView(R.drawable.img_grammar_6)
+        val image7 = createImageView(R.drawable.img_grammar_7)
 
         contentContainer.addView(createTitle(getString(R.string.grammar_titulo2)))
         contentContainer.addView(createSubTitle(getString(R.string.grammar_subtitulo1)))
@@ -49,19 +52,19 @@ class Grammar : Fragment() {
         contentContainer.addView(image1)
         contentContainer.addView(createSubTitle(getString(R.string.grammar_subtitulo2)))
         contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo2)))
-        //contentContainer.addView(image1)
+        contentContainer.addView(image2)
         contentContainer.addView(createTitle(getString(R.string.grammar_titulo3)))
         contentContainer.addView(createSubTitle(getString(R.string.grammar_subtitulo3)))
         contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo3)))
-        //contentContainer.addView(image1)
-        //contentContainer.addView(image1)
-        //contentContainer.addView(image1)
+        contentContainer.addView(image3)
+        contentContainer.addView(image4)
+        contentContainer.addView(image5)
         contentContainer.addView(createTitle(getString(R.string.grammar_titulo4)))
         contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo4)))
-        //contentContainer.addView(image1)
+        contentContainer.addView(image6)
         contentContainer.addView(createTitle(getString(R.string.grammar_titulo5)))
         contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo5)))
-        //contentContainer.addView(image1)
+        contentContainer.addView(image7)
         contentContainer.addView(createTitle(getString(R.string.grammar_titulo6)))
         contentContainer.addView(createParagraph(getString(R.string.grammar_parrafo6)))
         contentContainer.addView(createTitle(getString(R.string.grammar_titulo7)))

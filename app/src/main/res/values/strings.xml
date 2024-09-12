@@ -39,6 +39,7 @@
     <string name="olvidaste_tu_contrasena">¿Olvidaste tu contraseña?</string>
     <string name="enviar_correo_de_recuperacion">Enviar correo de recuperación</string>
     <string name="volver_a_iniciar_sesion">Volver a iniciar sesión</string>
+
     <!--information-->
 
     <!--comunidad-->
@@ -57,13 +58,39 @@ Pese a la disponibilidad de recursos, como repositorios virtuales del diccionari
 
     <!--links-->
     <string name="links_titulo1">Links importantes</string>
-    <string name="links_1"><a href="https://funsinapsis.com">FunSinapsis Colombia</a></string>
-    <string name="links_2"><a href="https://fenascol.org.co">Federación Nacional de Sordos de Colombia</a></string>
-    <string name="links_3"><a href="https://educativo.insor.gov.co">Instituto Nacional Para Sordos</a></string>
-    <string name="links_4"><a href="https://hetah.net/traductor">Traductor de Lenguaje Natural a Lengua de Señas</a></string>
-    <string name="links_5"><a href="https://edutin.com/lengua-de-senas-colombia">Curso de Lengua de Señas Colombiana. Edutin Academy</a></string>
-    <string name="links_6"><a href="https://maguare.gov.co/lsc/">Maguare: Enseñanza de la Lengua de Señas Colombiana enfocada a niños</a></string>
-    <string name="links_7"><a href="https://educativo.insor.gov.co/diccionario/">Diccionario de Lengua de Señas Colombiana (INSOR)</a></string>
+
+    <string name="links_INSOR_titulo">Instituto Nacional de Sordos</string>
+    <string name="links_INSOR_subtitulo">INSOR</string>
+    <string name="links_INSOR_descripcion">La página del INSOR (Instituto Nacional para Sordos) ofrece información y recursos educativos para la inclusión y el desarrollo de la comunidad sorda en Colombia.</string>
+
+    <string name="links_FENASCOL_titulo">Federación Nacional de Sordos</string>
+    <string name="links_FENASCOL_subtitulo">FENASCOL</string>
+    <string name="links_FENASCOL_descripcion">La página de FENASCOL (Federación Nacional de Sordos de Colombia) promueve los derechos, la integración y el bienestar de las personas sordas en Colombia a través de programas y servicios inclusivos.</string>
+
+    <string name="links_INSOR_educativo_titulo">Instituto Nacional de Sordos Educativo</string>
+    <string name="links_INSOR_educativo_subtitulo">INSOR Educativo</string>
+    <string name="links_INSOR_educativo_descripcion">INSOR Educativo es una plataforma digital que proporciona recursos, herramientas y contenidos educativos adaptados para la enseñanza y aprendizaje inclusivo de personas sordas en Colombia.</string>
+
+    <string name="links_diccionario_lsc_titulo">Diccionario Online LSC</string>
+    <string name="links_diccionario_lsc_subtitulo">INSOR Educativo</string>
+    <string name="links_diccionario_lsc_descripcion">El diccionario del INSOR Educativo es una herramienta en línea que proporciona definiciones y videos de señas para palabras en la Lengua de Señas Colombiana (LSC), apoyando el aprendizaje y la inclusión.</string>
+
+    <string name="links_hetah_titulo">Hetah.net</string>
+    <string name="links_hetah_subtitulo">Traductor de señas online</string>
+    <string name="links_hetah_descripcion">Hetah.net ofrece un traductor de señas en línea que facilita la comunicación entre personas oyentes y sordas, utilizando inteligencia artificial para interpretar y convertir texto a lenguaje de señas.</string>
+
+    <string name="links_edutin_titulo">Edutin Academy</string>
+    <string name="links_edutin_subtitulo">Cursos online de LSC</string>
+    <string name="links_edutin_descripcion">Edutin Academy ofrece cursos en línea sobre la Lengua de Señas Colombiana (LSC), brindando acceso a recursos educativos para aprender y mejorar la comunicación en LSC de manera flexible y accesible.</string>
+
+    <string name="links_maguare_titulo">Maguaré</string>
+    <string name="links_maguare_subtitulo">Aprendizaje de LSC para niños</string>
+    <string name="links_maguare_descripcion">Maguaré ofrece recursos interactivos para el aprendizaje de la Lengua de Señas Colombiana (LSC), con juegos y actividades diseñadas para niños, promoviendo la inclusión desde la primera infancia.</string>
+
+    <string name="links_funsinapsis_titulo">Fundación Sinapsis</string>
+    <string name="links_funsinapsis_subtitulo">FunSinapsis</string>
+    <string name="links_funsinapsis_descripcion">La Fundación FunSinapsis se dedica a la atención integral y el apoyo a personas con discapacidades y necesidades educativas especiales, ofreciendo terapias, programas educativos y asesoría para mejorar su calidad de vida.</string>
+
 
     <!--grammar-->
     <string name="grammar_titulo1">Características Gramaticales</string>

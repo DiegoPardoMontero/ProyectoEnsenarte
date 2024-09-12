@@ -39,9 +39,9 @@ class ComunidadSordaActivity : Fragment() {
         }
 
         val contentContainer : LinearLayout = binding.contentContainer
-        val image1 = createImageView(R.drawable.crearcuenta)
-        val image2 = createImageView(R.drawable.crearcuenta)
-        val image3 = createImageView(R.drawable.crearcuenta)
+        val image1 = createImageView(R.drawable.img_community_1)
+        val image2 = createImageView(R.drawable.img_community_2)
+        val image3 = createImageView(R.drawable.img_community_3)
 
         contentContainer.addView(createTitle(getString(R.string.comunidad_titulo1)))
         contentContainer.addView(createSubTitle(getString(R.string.comunidad_subtitulo1)))
