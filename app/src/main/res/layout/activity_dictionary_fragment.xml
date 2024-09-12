@@ -31,18 +31,25 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvDiccionario">
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchView"
+        <EditText
+            android:id="@+id/etSearch"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:iconifiedByDefault="false"
-            android:text="Busca una categoría o palabra"
+            android:layout_height="56dp"
+            android:background="@android:color/transparent"
+            android:hint="Busca una categoría o palabra"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
             android:fontFamily="@raw/regular"
-            android:textSize="16sp" />
+            android:textSize="19sp"
+            android:textColorHint="#80000000"
+            android:drawableEnd="@drawable/ic_search"
+            android:drawablePadding="8dp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
+            android:maxLines="1" />
 
     </androidx.cardview.widget.CardView>
 
-    <!-- Modificación para el MaterialCardView con esquinas inferiores -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="0dp"
