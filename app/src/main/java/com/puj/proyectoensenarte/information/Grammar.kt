@@ -129,10 +129,10 @@ class Grammar : Fragment() {
 
         val imageView = ImageView(requireContext()).apply {
             setImageResource(imageResId)  // Establecer la imagen desde un recurso
-            scaleType = ImageView.ScaleType.CENTER_CROP  // Ajustar el tipo de escala
+            scaleType = ImageView.ScaleType.FIT_CENTER  // Ajustar el tipo de escala
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                200.dpToPx()  // Limitar la altura a 300dp
+                LinearLayout.LayoutParams.WRAP_CONTENT
             ).apply {
                 setMargins(0, 30, 0, 30)  // Márgenes
             }
