@@ -74,7 +74,8 @@ class DictionaryFragmentActivity : Fragment() {
 
                     // Verifica si se completaron todas las descargas y llama a onSuccess
                     if (categories.size == listResult.items.size) {
-                        onSuccess(categories)
+                        val sortedCategoryList = categories.sortedBy { it.name }
+                        onSuccess(sortedCategoryList)
                     }
                 }.addOnFailureListener { e ->
                     onFailure(e)
