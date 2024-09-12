@@ -1,6 +1,7 @@
 package com.puj.proyectoensenarte.dictionary
 
 import Error404
+import android.content.Context
 import androidx.navigation.fragment.findNavController
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
@@ -41,19 +43,7 @@ class DictionaryFragmentActivity : Fragment() {
         }
         binding?.rvCategories?.adapter = adapter
 
-        binding?.etSearch?.setOnEditorActionListener { _, actionId, _ ->
-            try {
-                parentFragmentManager.beginTransaction()
-                    .replace(R.id.container, Error404())
-                    .addToBackStack(null)
-                    .commit()
-            } catch (e: IllegalStateException) {
-                // Manejar la excepción, por ejemplo, loggear el error
-                Log.e("DictionaryFragment", "Error al reemplazar fragmento", e)
-            }
-            true
-        }
-
+        setupSearchBar()
 
         // Llamada a la función para obtener los nombres e imágenes de Firebase
         getImageNamesAndUrls(onSuccess = { categories ->
@@ -65,6 +55,22 @@ class DictionaryFragmentActivity : Fragment() {
         }, onFailure = { error ->
             Toast.makeText(requireContext(), "Error: ${error.message}", Toast.LENGTH_SHORT).show()
         })
+    }
+
+
+    private fun setupSearchBar() {
+        binding?.etSearch?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                performSearch()
+                true
+            } else {
+                false
+            }
+        }
+
+        binding?.ivSearch?.setOnClickListener {
+            performSearch()
+        }
     }
 
     fun getImageNamesAndUrls(onSuccess: (List<Category>) -> Unit, onFailure: (Exception) -> Unit) {
@@ -110,21 +116,36 @@ class DictionaryFragmentActivity : Fragment() {
     }
 
     private fun performSearch() {
+        navigateToError404()
         val searchQuery = binding?.etSearch?.text.toString()
         if (searchQuery.isEmpty() || noResultsFound(searchQuery)) {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.dictionaryFragment, Error404())
-                .addToBackStack(null)
-                .commit()
+            navigateToError404()
         } else {
             // Realizar la búsqueda normal
+            // Aquí iría tu lógica de búsqueda existente
         }
+        hideKeyboard()
     }
+
 
     private fun noResultsFound(query: String): Boolean {
         // Implementa tu lógica para determinar si no se encontraron resultados
-        return true // Este es solo un ejemplo
+        // Este es solo un ejemplo, debes adaptarlo a tu lógica real
+        return false
     }
+
+    private fun navigateToError404() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, Error404())
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun hideKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding?.etSearch?.windowToken, 0)
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
