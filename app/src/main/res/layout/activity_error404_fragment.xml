@@ -54,7 +54,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="54dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="@android:color/white"
         app:shapeAppearanceOverlay="@style/RoundedCardCorners"
@@ -68,23 +68,25 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="center"
-            android:padding="24dp">
+            android:padding="24dp"
+            android:layout_marginBottom="150dp"
+            >
 
             <ImageView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/page_not_found"
+                android:layout_height="185dp"
+                android:layout_marginBottom="2dp"
                 android:contentDescription="Error 404 image"
-                android:layout_marginBottom="24dp"/>
+                android:src="@drawable/page_not_found" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="299dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@raw/regular"
                 android:text="No hemos podido encontrar tu búsqueda, revisa nuevamente y vuelve a intentarlo"
                 android:textAlignment="center"
                 android:textColor="@color/bear"
-                android:textSize="16sp"
-                android:fontFamily="@raw/regular"/>
+                android:textSize="21sp" />
 
         </LinearLayout>
 
