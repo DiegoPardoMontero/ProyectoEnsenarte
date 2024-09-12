@@ -1,11 +1,12 @@
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import com.puj.proyectoensenarte.databinding.ActivityError404FragmentBinding
-
 class Error404 : Fragment() {
 
     private var _binding: ActivityError404FragmentBinding? = null
@@ -35,13 +36,26 @@ class Error404 : Fragment() {
                 false
             }
         }
+
+        binding.ivSearch.setOnClickListener {
+            performSearch()
+        }
     }
 
     private fun performSearch() {
         val searchQuery = binding.etSearch.text.toString()
         // Aquí iría la lógica para realizar la búsqueda
-        // Por ahora, solo limpiaremos el campo de búsqueda
+        // Por ejemplo, podrías navegar de vuelta al fragmento del diccionario con la consulta
+        // o mostrar resultados en este mismo fragmento
+
+        // Por ahora, solo limpiamos el campo de búsqueda y ocultamos el teclado
         binding.etSearch.setText("")
+        hideKeyboard()
+    }
+
+    private fun hideKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
     override fun onDestroyView() {
