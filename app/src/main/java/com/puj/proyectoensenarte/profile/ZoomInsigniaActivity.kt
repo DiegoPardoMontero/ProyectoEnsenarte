@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
@@ -40,6 +41,12 @@ class ZoomInsigniaActivity : AppCompatActivity() {
         // Asignar el comportamiento de cerrar la actividad
         binding.closeButton.setOnClickListener {
             finish() // Cerrar la actividad al hacer clic en el botón de cerrar
+        }
+        // Configurar el botón de recompensa
+        binding.botonEditar.setOnClickListener {
+            // Navegar a RewardProfileActivity
+            val intent = Intent(this, RewardProfileActivity::class.java)
+            startActivity(intent)
         }
 
         
