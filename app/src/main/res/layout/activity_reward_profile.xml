@@ -23,29 +23,35 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/insigniaImageZoom"
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:layout_marginTop="32dp"
-        android:contentDescription="@string/todo"
-        app:layout_constraintTop_toBottomOf="@id/closeButton"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/closeButton"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/reward" />
+
 
     <!-- Título de la insignia -->
     <TextView
         android:id="@+id/insigniaTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="50dp"
         android:fontFamily="@raw/regularbold"
+        android:text="Ganaste más 10 puntos de experiencia"
         android:textColor="@color/paciencie"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/insigniaImageZoom"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/animationView" />
 
     <!-- Descripción de la insignia -->
 
@@ -58,6 +64,7 @@
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="20dp"
         android:fontFamily="@raw/regular"
+        android:text="Aprovecha estos puntos y anímate a seguir aprendiendo"
         android:gravity="center"
         android:textColor="@color/paciencie"
         android:textSize="20sp"
@@ -67,13 +74,13 @@
         app:layout_constraintTop_toBottomOf="@id/insigniaTitle" />
 
     <Button
-        android:id="@+id/boton_editar"
+        android:id="@+id/buttonContinue"
         android:layout_width="wrap_content"
         android:layout_height="55dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="40dp"
         android:backgroundTint="@color/coralSea"
         android:fontFamily="@raw/subtitulo"
-        android:text="Reclama tu recompensa"
+        android:text="Continuar"
         android:textAppearance="@style/boton_onboarding"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
