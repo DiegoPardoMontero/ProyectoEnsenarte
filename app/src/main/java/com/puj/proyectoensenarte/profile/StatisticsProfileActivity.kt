@@ -2,6 +2,7 @@ package com.puj.proyectoensenarte.profile
 
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -25,6 +26,10 @@ class StatisticsProfileActivity : AppCompatActivity() {
         // Cargar la imagen del perfil del usuario
         loadProfileImageFromFirestore()
 
+        // Configurar la Toolbar
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         // Configura el RecyclerView con un GridLayoutManager
         binding.recyclerViewInsignias.layoutManager = GridLayoutManager(this, 3)
         adapter = InsigniaAdapter(this, listOf()) { insignia ->
@@ -37,6 +42,19 @@ class StatisticsProfileActivity : AppCompatActivity() {
 
 
     }
+
+    // Método para manejar la acción de retroceso del botón en la Toolbar
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                // Regresar a la actividad anterior
+                onBackPressed()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 
     private fun loadInsigniasFromFirestore() {
         val db = FirebaseFirestore.getInstance()
