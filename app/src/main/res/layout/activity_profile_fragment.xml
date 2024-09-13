@@ -76,7 +76,7 @@
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="335dp"
+        android:layout_height="1000dp"
         android:background="@color/paco"
         android:backgroundTint="@color/paco"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.Cut"
