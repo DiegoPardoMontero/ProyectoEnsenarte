@@ -60,7 +60,36 @@
 
         </activity>
 
+
+
         <!--- Profile Activities-->
+
+        <activity
+            android:name=".profile.SettingsProfileActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".profile.StatisticsProfileActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".profile.ZoomInsigniaActivity"
+            android:exported="true">
+
+        </activity>
+
+        <activity
+            android:name=".profile.RewardProfileActivity"
+            android:exported="true">
+
+        </activity>
+
+
+
 
     </application>
 

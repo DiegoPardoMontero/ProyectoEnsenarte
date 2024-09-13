@@ -10,7 +10,7 @@
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="15dp"
-        android:src="@drawable/crearcuenta"
+        android:src="@drawable/img_crearcuenta"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -59,7 +59,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/aprende_lsc"
-        app:startIconDrawable="@drawable/user_circle__streamline_micro"> <!-- Icono al lado izquierdo del hint -->
+        app:startIconDrawable="@drawable/ic_user_circle"> <!-- Icono al lado izquierdo del hint -->
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -81,7 +81,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFieldNombre"
-        app:startIconDrawable="@drawable/envelope_mail__streamline_micro"> <!-- Icono al lado izquierdo del hint -->
+        app:startIconDrawable="@drawable/ic_mail"> <!-- Icono al lado izquierdo del hint -->
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -102,7 +102,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFieldEmail"
-        app:startIconDrawable="@drawable/user_identifier_card__streamline_micro"> <!-- Icono al lado izquierdo del hint -->
+        app:startIconDrawable="@drawable/ic_username"> <!-- Icono al lado izquierdo del hint -->
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -122,7 +122,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textFieldUsuario"
-        app:startIconDrawable="@drawable/lock__streamline_micro"
+        app:startIconDrawable="@drawable/ic_lock"
     app:endIconMode="password_toggle"> <!-- Icono de ojo para mostrar/ocultar contraseña -->
 
     <com.google.android.material.textfield.TextInputEditText
