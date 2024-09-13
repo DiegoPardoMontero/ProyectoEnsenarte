@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte.dictionary
 
+import AlphabetAdapter
 import Error404
 import android.content.Context
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,7 @@ class DictionaryFragmentActivity : Fragment() {
 
     private var binding: ActivityDictionaryFragmentBinding? = null
     private lateinit var adapter: CategoryAdapter
+    private lateinit var alphabetAdapter: AlphabetAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +46,7 @@ class DictionaryFragmentActivity : Fragment() {
         binding?.rvCategories?.adapter = adapter
 
         setupSearchBar()
+        setupAlphabetRecyclerView()
 
         // Llamada a la función para obtener los nombres e imágenes de Firebase
         getImageNamesAndUrls(onSuccess = { categories ->
@@ -73,6 +76,14 @@ class DictionaryFragmentActivity : Fragment() {
         }
     }
 
+    private fun setupAlphabetRecyclerView() {
+        val letters = ('A'..'Z').map { it.toString() }
+        alphabetAdapter = AlphabetAdapter(letters)
+        binding?.rvAlphabet?.apply {
+            adapter = alphabetAdapter
+            layoutManager = GridLayoutManager(context, 3)
+        }
+    }
     fun getImageNamesAndUrls(onSuccess: (List<Category>) -> Unit, onFailure: (Exception) -> Unit) {
         // Referencia a la carpeta en Firebase Storage
         val listRef: StorageReference = FirebaseStorage.getInstance().reference.child("imagenesCategorias")
