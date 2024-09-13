@@ -119,4 +119,14 @@
         <item name="android:fontFamily">@raw/regular</item>
     </style>
 
+    <!-- styles.xml -->
+
+    <!-- Define un estilo para el título del Toolbar -->
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:fontFamily">@raw/regularbold</item> <!-- Reemplaza con tu fuente personalizada -->
+        <item name="android:textSize">24sp</item> <!-- Ajusta el tamaño del texto -->
+        <item name="android:textColor">@color/paco</item> <!-- Color del texto -->
+    </style>
+
+
 </resources>
