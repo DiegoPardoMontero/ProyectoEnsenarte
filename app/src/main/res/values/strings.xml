@@ -51,4 +51,10 @@
     <string name="selecciona_tu_avatar">Selecciona tu Avatar</string>
     <string name="cancelar">Cancelar</string>
     <string name="done">Listo</string>
+    <string name="_19">19</string>
+    <string name="insignias_obtenidas">Insignias obtenidas</string>
+    <string name="estad_sticas">Estadísticas</string>
+    <string name="racha_fuego">Racha</string>
+    <string name="puntos_xp">Puntos de experiencia</string>
+    <string name="_1200">1200</string>
 </resources>
