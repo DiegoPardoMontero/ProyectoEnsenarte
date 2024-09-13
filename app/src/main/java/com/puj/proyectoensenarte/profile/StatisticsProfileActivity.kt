@@ -3,7 +3,6 @@ package com.puj.proyectoensenarte.profile
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
@@ -33,7 +32,7 @@ class StatisticsProfileActivity : AppCompatActivity() {
         // Configura el RecyclerView con un GridLayoutManager
         binding.recyclerViewInsignias.layoutManager = GridLayoutManager(this, 3)
         adapter = InsigniaAdapter(this, listOf()) { insignia ->
-            Toast.makeText(this, "Seleccionaste: ${insignia.name}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Seleccionaste: ${insignia.name}", Toast.LENGTH_SHORT).show()
         }
         binding.recyclerViewInsignias.adapter = adapter
 
