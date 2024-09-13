@@ -72,6 +72,8 @@ class IniciarSesionActivity : AppCompatActivity() {
                     Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show()
 
                     // Redirigir a otra actividad o actualizar la UI
+                    val intent = Intent(this, BottomNavigationActivity::class.java)
+                    startActivity(intent)
 
                 } else {
                     // If sign in fails, display a message to the user.
