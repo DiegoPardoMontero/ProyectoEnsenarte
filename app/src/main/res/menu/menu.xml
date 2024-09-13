@@ -2,23 +2,23 @@
     <item
         android:id="@+id/item_1"
         android:enabled="true"
-        android:icon="@drawable/home"
+        android:icon="@drawable/ic_sign_hand"
         android:title="Inicio"/>
     <item
         android:id="@+id/item_2"
         android:enabled="true"
-        android:icon="@drawable/book_open__streamline_micro"
+        android:icon="@drawable/ic_dictionary"
         android:title="@string/diccionario"/>
     <item
         android:id="@+id/item_3"
         android:enabled="true"
-        android:icon="@drawable/information"
+        android:icon="@drawable/ic_information"
         android:title="Información"/>
 
     <item
         android:id="@+id/item_4"
         android:enabled="true"
-        android:icon="@drawable/profile"
+        android:icon="@drawable/ic_user_profile"
         android:title="Perfil"/>
 </menu>
 

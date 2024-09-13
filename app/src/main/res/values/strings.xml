@@ -35,10 +35,28 @@
     <string name="diccionario">Diccionario</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="todo">TODO</string>
+    <string name="messi_hotmail_com">messi@hotmail.com</string>
+    <string name="perfil">Perfil</string>
+    <string name="paco_andres_messi">Paco Andres Messi</string>
     <string name="olvidaste_contrasena_descrip">Por favor ingresa tu correo electrónico, te enviaremos un link de reestablecimiento de tu contraseña</string>
     <string name="olvidaste_tu_contrasena">¿Olvidaste tu contraseña?</string>
     <string name="enviar_correo_de_recuperacion">Enviar correo de recuperación</string>
     <string name="volver_a_iniciar_sesion">Volver a iniciar sesión</string>
+    <string name="back_button_desc">Botón de retractarse</string>
+    <string name="configuraciones">Configuraciones</string>
+    <string name="mi_perfil">Mi Perfil</string>
+    <string name="actualiza_t">Actualiza tus datos personales</string>
+    <string name="avatar_image">Avatar\n</string>
+    <string name="selecciona_tu_avatar">Selecciona tu Avatar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="done">Listo</string>
+    <string name="_19">19</string>
+    <string name="insignias_obtenidas">Insignias obtenidas</string>
+    <string name="estad_sticas">Estadísticas</string>
+    <string name="racha_fuego">Racha</string>
+    <string name="puntos_xp">Puntos de experiencia</string>
+    <string name="_1200">1200</string>
 
     <!--information-->
 
@@ -125,4 +143,5 @@ Ante las limitaciones de la Lengua Oral, surge la educación bilingüe, reconoci
     <string name="history_titulo3">Historia en Colombia</string>
     <string name="history_subtitulo3">El INSOR</string>
     <string name="history_parrafo3">En Colombia, se funda en 1955 el Instituto Nacional para Sordos (INSOR) con el propósito de proteger los derechos de la población con discapacidad auditiva. Inicialmente enfocado en la rehabilitación, especialmente en el ámbito de la salud, con el tiempo, evolucionó para abordar de manera integral los aspectos educativos de la comunidad sorda en el país. A medida que progresó en diversas esferas sociales, el Instituto diversificó sus enfoques metodológicos, incorporando la pedagogía en su institucionalidad y reconociendo simultáneamente el derecho lingüístico inherente a cada individuo con discapacidad auditiva.</string>
+    <string name="insignia_lecci_n_perfecta">Insignia lección perfecta</string>
 </resources>

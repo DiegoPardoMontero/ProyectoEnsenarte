@@ -14,7 +14,7 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/fondo_de_onboarding_2"
         android:scaleType="centerCrop"
-        android:src="@drawable/onboarding2" />
+        android:src="@drawable/img_onboarding2" />
 
     <TextView
         android:id="@+id/tituloOnboarding3"
