@@ -3,6 +3,7 @@ package com.puj.proyectoensenarte.profile
 
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,6 +45,11 @@ class InsigniaAdapter(
         // Manejar clic en cada ítem
         holder.itemView.setOnClickListener {
             onItemClicked(insignia)
+
+            val intent = Intent(context, ZoomInsigniaActivity::class.java)
+            intent.putExtra("insignia_name", insignia.name)
+            intent.putExtra("insignia_image", insignia.imageUrl)
+            context.startActivity(intent)
         }
     }
 
