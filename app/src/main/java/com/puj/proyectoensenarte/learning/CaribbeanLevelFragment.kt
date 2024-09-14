@@ -5,34 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.puj.proyectoensenarte.R
-import com.puj.proyectoensenarte.databinding.ActivityLearningFragmentBinding
+import com.puj.proyectoensenarte.databinding.FragmentCaribbeanLevelBinding
 
-class LearningFragmentActivity : Fragment() {
+class CaribbeanLevelFragment : Fragment() {
 
-    private var _binding: ActivityLearningFragmentBinding? = null
+    private var _binding: FragmentCaribbeanLevelBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ActivityLearningFragmentBinding.inflate(inflater, container, false)
+        _binding = FragmentCaribbeanLevelBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Cargar el primer nivel al iniciar
-        loadFragment(AndinaLevelFragment())
-    }
-
-    fun loadFragment(fragment: Fragment) {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null)
-            .commit()
+        // Manejar el clic en el botón del candado para desbloquear el siguiente nivel
+        binding.lock.setOnClickListener {
+            // Comunicar al Fragmento padre para cambiar al siguiente nivel
+            (parentFragment as? LearningFragmentActivity)?.loadFragment(AmazonasLevelFragment())
+        }
     }
 
     override fun onDestroyView() {
