@@ -2,6 +2,10 @@ package com.puj.proyectoensenarte.dictionary
 
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.Gravity
+import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.MediaController
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -52,22 +56,63 @@ class DetallePalabraActivity : AppCompatActivity() {
     }
 
     private fun setupVideos(palabraData: Map<String, Any>) {
-        setupVideo(palabraData["seniaURL"] as? String, binding.videoViewSena)
-        setupVideo(palabraData["definicionURL"] as? String, binding.videoViewDefinicion)
-        setupVideo(palabraData["ejemploURL"] as? String, binding.videoViewEjemplo)
+        binding.videoContainerSena.setupVideo(palabraData["seniaURL"] as? String)
+        binding.videoContainerDefinicion.setupVideo(palabraData["definicionURL"] as? String)
+        binding.videoContainerEjemplo.setupVideo(palabraData["ejemploURL"] as? String)
     }
 
-    private fun setupVideo(url: String?, videoView: VideoView) {
-        url?.let {
-            val uri = Uri.parse(it)
+    private fun setupVideo(url: String?, videoViewContainer: FrameLayout) {
+        if (url != null) {
+            Log.d("DetallePalabra", "Configurando video con URL: $url")
+
+            // Limpiar el contenedor
+            videoViewContainer.removeAllViews()
+
+            // Crear un nuevo VideoView
+            val videoView = VideoView(this)
+
+            // Configurar el VideoView
+            val layoutParams = FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT
+            )
+            videoView.layoutParams = layoutParams
+
+            // Añadir el VideoView al FrameLayout
+            videoViewContainer.addView(videoView)
+
+            val uri = Uri.parse(url)
             videoView.setVideoURI(uri)
-            val mediaController = MediaController(this)
-            mediaController.setAnchorView(videoView)
-            videoView.setMediaController(mediaController)
-            videoView.setOnPreparedListener { mp ->
-                mp.isLooping = true
+
+            // Crear un MediaController personalizado
+            val mediaController = object : MediaController(this) {
+                override fun show(timeout: Int) {
+                    super.show(0) // Mantener los controles siempre visibles
+                }
             }
-            videoView.start()
+            mediaController.setAnchorView(videoViewContainer)
+
+            videoView.setMediaController(mediaController)
+
+            videoView.setOnPreparedListener { mp ->
+                Log.d("DetallePalabra", "Video preparado y listo para reproducir")
+                mp.isLooping = true
+                videoView.pause()
+                videoView.seekTo(1)
+                mediaController.show(0)
+            }
+
+            videoView.setOnErrorListener { mp, what, extra ->
+                Log.e("DetallePalabra", "Error al cargar el video: what=$what, extra=$extra")
+                false
+            }
+
+            // Iniciar la carga del video
+            videoView.requestFocus()
+        } else {
+            Log.e("DetallePalabra", "URL del video es nula")
+            // Limpiar el contenedor si no hay URL
+            videoViewContainer.removeAllViews()
         }
     }
 
