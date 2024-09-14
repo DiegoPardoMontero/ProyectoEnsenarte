@@ -18,10 +18,9 @@
         android:contentDescription="@string/back_button_desc" />
 
     <TextView
-        android:id="@+id/tvLetraA"
+        android:id="@+id/tvLetraTitulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Letra A"
         android:textColor="@android:color/white"
         android:textSize="24sp"
         android:fontFamily="@raw/regularbold"
@@ -32,27 +31,27 @@
 
     <ImageView
         android:id="@+id/ivSignIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/tvLetraA"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        app:layout_constraintTop_toTopOf="@id/tvLetraTitulo"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp"/>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="45dp"
         app:cardElevation="4dp"
         app:cardBackgroundColor="@android:color/white"
         app:shapeAppearanceOverlay="@style/RoundedCardCorners"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvLetraA">
+        app:layout_constraintTop_toBottomOf="@id/tvLetraTitulo">
 
         <androidx.recyclerview.widget.RecyclerView
             android:background="@android:color/white"
-            android:id="@+id/rvPalabrasA"
+            android:id="@+id/rvPalabras"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:padding="16dp" />
