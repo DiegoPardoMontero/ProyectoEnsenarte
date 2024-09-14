@@ -27,7 +27,11 @@ class CaribbeanLevelFragment : Fragment() {
         // Manejar el clic en el botón del candado para desbloquear el siguiente nivel
         binding.lock.setOnClickListener {
             // Comunicar al Fragmento padre para cambiar al siguiente nivel
-            (parentFragment as? LearningFragmentActivity)?.loadFragment(AmazonasLevelFragment(), R.id.fragmentContainerLevel3)
+            (parentFragment as? LearningFragmentActivity)?.loadFragment(AmazonasLevelFragment(), R.id.fragmentContainerLevel1)
+        }
+
+        binding.upLevel2To1.setOnClickListener{
+            (parentFragment as? LearningFragmentActivity)?.loadFragment(AndinaLevelFragment(), R.id.fragmentContainerLevel1)
         }
     }
 
