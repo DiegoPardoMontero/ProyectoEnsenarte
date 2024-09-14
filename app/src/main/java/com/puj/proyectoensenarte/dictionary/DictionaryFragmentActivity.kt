@@ -79,9 +79,7 @@ class DictionaryFragmentActivity : Fragment() {
             }
             startActivity(intent)
         }.addOnFailureListener { exception ->
-            // Manejar el error, tal vez mostrar un mensaje al usuario
             Log.e("DictionaryFragment", "Error al obtener la URL de la imagen: ${exception.message}")
-            // Aún podrías navegar a DetallePorLetraActivity sin la imagen si lo prefieres
             val intent = Intent(requireContext(), DetallePorLetraActivity::class.java).apply {
                 putExtra("LETRA", letter)
             }
@@ -125,16 +123,14 @@ class DictionaryFragmentActivity : Fragment() {
         if (searchQuery.isEmpty() || noResultsFound(searchQuery)) {
             navigateToError404()
         } else {
-            // Realizar la búsqueda normal
-            // Aquí iría tu lógica de búsqueda existente
+            //Añadir lógica de búsqueda real
         }
         hideKeyboard()
     }
 
 
     private fun noResultsFound(query: String): Boolean {
-        // Implementa tu lógica para determinar si no se encontraron resultados
-        // Este es solo un ejemplo, debes adaptarlo a tu lógica real
+        // Implementar la lógica si no se encuentran resultados
         return false
     }
 

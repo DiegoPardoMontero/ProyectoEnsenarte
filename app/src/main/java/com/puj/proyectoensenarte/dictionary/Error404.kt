@@ -43,12 +43,8 @@ class Error404 : Fragment() {
     }
 
     private fun performSearch() {
+        //Lógica para la búsqueda
         val searchQuery = binding.etSearch.text.toString()
-        // Aquí iría la lógica para realizar la búsqueda
-        // Por ejemplo, podrías navegar de vuelta al fragmento del diccionario con la consulta
-        // o mostrar resultados en este mismo fragmento
-
-        // Por ahora, solo limpiamos el campo de búsqueda y ocultamos el teclado
         binding.etSearch.setText("")
         hideKeyboard()
     }
