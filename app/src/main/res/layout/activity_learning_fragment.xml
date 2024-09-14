@@ -17,19 +17,5 @@
             android:layout_height="wrap_content"
             android:visibility="visible" />
 
-        <!-- Fragmento del Nivel 2 -->
-        <FrameLayout
-            android:id="@+id/fragmentContainerLevel2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <!-- Fragmento del Nivel 3 -->
-        <FrameLayout
-            android:id="@+id/fragmentContainerLevel3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
     </LinearLayout>
 </ScrollView>
