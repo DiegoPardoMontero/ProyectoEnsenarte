@@ -1,8 +1,9 @@
 package com.puj.proyectoensenarte.dictionary
 
-
 import PalabraAdapter
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -42,12 +43,22 @@ class DetallePorCategoriaActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        palabraAdapter = PalabraAdapter()
+        palabraAdapter = PalabraAdapter { palabra ->
+            navigateToDetallePalabra(palabra)
+        }
         binding.rvPalabrasCategoria.apply {
             layoutManager = LinearLayoutManager(this@DetallePorCategoriaActivity)
             adapter = palabraAdapter
         }
     }
+
+    private fun navigateToDetallePalabra(palabra: String) {
+        val intent = Intent(this, DetallePalabraActivity::class.java).apply {
+            putExtra("PALABRA", palabra)
+        }
+        startActivity(intent)
+    }
+
 
     private fun loadPalabras(categoria: String) {
         var categoria = primeraLetraMinuscula(categoria)

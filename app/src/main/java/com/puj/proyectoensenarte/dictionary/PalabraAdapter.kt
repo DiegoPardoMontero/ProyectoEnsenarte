@@ -9,7 +9,7 @@ import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.dictionary.Palabra
 
 
-class PalabraAdapter : ListAdapter<Palabra, PalabraAdapter.PalabraViewHolder>(PalabraDiffCallback()) {
+class PalabraAdapter(private val onPalabraClick: (String) -> Unit) : ListAdapter<Palabra, PalabraAdapter.PalabraViewHolder>(PalabraDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PalabraViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -20,6 +20,7 @@ class PalabraAdapter : ListAdapter<Palabra, PalabraAdapter.PalabraViewHolder>(Pa
     override fun onBindViewHolder(holder: PalabraViewHolder, position: Int) {
         val palabra = getItem(position)
         holder.bind(palabra)
+        holder.itemView.setOnClickListener { onPalabraClick(palabra.texto) }
     }
 
     class PalabraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
