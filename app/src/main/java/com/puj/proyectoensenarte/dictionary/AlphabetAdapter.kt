@@ -8,7 +8,10 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.puj.proyectoensenarte.R
 
-class AlphabetAdapter(private val letters: List<String>) : RecyclerView.Adapter<AlphabetAdapter.ViewHolder>() {
+class AlphabetAdapter(
+    private val letters: List<String>,
+    private val onLetterClick: (String) -> Unit
+) : RecyclerView.Adapter<AlphabetAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val ivLetter: ImageView = view.findViewById(R.id.ivLetter)
@@ -31,12 +34,16 @@ class AlphabetAdapter(private val letters: List<String>) : RecyclerView.Adapter<
         imageRef.downloadUrl.addOnSuccessListener { uri ->
             Glide.with(holder.ivLetter.context)
                 .load(uri)
-                .placeholder(R.drawable.vestuario) // Asegúrate de tener una imagen placeholder
-                .error(R.drawable.inteligencia) // Asegúrate de tener una imagen de error
+                .placeholder(R.drawable.vestuario)
+                .error(R.drawable.inteligencia)
                 .into(holder.ivLetter)
         }.addOnFailureListener {
-            // Manejar el error, tal vez mostrar una imagen de error
             holder.ivLetter.setImageResource(R.drawable.inteligencia)
+        }
+
+        // Configurar el clic en el elemento
+        holder.itemView.setOnClickListener {
+            onLetterClick(letter)
         }
     }
 
