@@ -3,6 +3,7 @@ package com.puj.proyectoensenarte.dictionary
 import AlphabetAdapter
 import Error404
 import android.content.Context
+import android.content.Intent
 import androidx.navigation.fragment.findNavController
 import android.os.Bundle
 import android.util.Log
@@ -59,11 +60,20 @@ class DictionaryFragmentActivity : Fragment() {
 
     private fun setupAlphabetRecyclerView() {
         val letters = ('A'..'Z').map { it.toString() }
-        alphabetAdapter = AlphabetAdapter(letters)
+        alphabetAdapter = AlphabetAdapter(letters) { letter ->
+            navigateToDetallePorLetra(letter)
+        }
         binding?.rvAlphabet?.apply {
             adapter = alphabetAdapter
             layoutManager = GridLayoutManager(context, 3)
         }
+    }
+
+    private fun navigateToDetallePorLetra(letter: String) {
+        val intent = Intent(requireContext(), DetallePorLetraActivity::class.java).apply {
+            putExtra("LETRA", letter)
+        }
+        startActivity(intent)
     }
 
     private fun setupCategoriesRecyclerView() {
