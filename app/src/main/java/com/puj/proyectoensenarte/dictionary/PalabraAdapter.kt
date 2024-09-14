@@ -1,32 +1,41 @@
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.puj.proyectoensenarte.databinding.ItemPalabraBinding
-class PalabraAdapter : ListAdapter<Pair<String, String>, PalabraAdapter.PalabraViewHolder>(PalabraDiffCallback()) {
+import com.puj.proyectoensenarte.R
+import com.puj.proyectoensenarte.dictionary.Palabra
+
+
+class PalabraAdapter : ListAdapter<Palabra, PalabraAdapter.PalabraViewHolder>(PalabraDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PalabraViewHolder {
-        val binding = ItemPalabraBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return PalabraViewHolder(binding)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.item_palabra, parent, false)
+        return PalabraViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: PalabraViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        val palabra = getItem(position)
+        holder.bind(palabra)
     }
 
-    class PalabraViewHolder(private val binding: ItemPalabraBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(palabra: Pair<String, String>) {
-            binding.tvPalabra.text = palabra.second
+    class PalabraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val tvPalabra: TextView = itemView.findViewById(R.id.tvPalabra)
+
+        fun bind(palabra: Palabra) {
+            tvPalabra.text = palabra.texto
         }
     }
 
-    class PalabraDiffCallback : DiffUtil.ItemCallback<Pair<String, String>>() {
-        override fun areItemsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean {
-            return oldItem.first == newItem.first
+    class PalabraDiffCallback : DiffUtil.ItemCallback<Palabra>() {
+        override fun areItemsTheSame(oldItem: Palabra, newItem: Palabra): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Pair<String, String>, newItem: Pair<String, String>): Boolean {
+        override fun areContentsTheSame(oldItem: Palabra, newItem: Palabra): Boolean {
             return oldItem == newItem
         }
     }

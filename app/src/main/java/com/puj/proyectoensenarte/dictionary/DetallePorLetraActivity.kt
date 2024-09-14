@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
-import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityDetallePorLetraBinding
 
 class DetallePorLetraActivity : AppCompatActivity() {
@@ -38,10 +37,13 @@ class DetallePorLetraActivity : AppCompatActivity() {
         db.collection("dictionary").document("palabras")
             .get()
             .addOnSuccessListener { document ->
-                if (document != null) {
+                if (document != null && document.exists()) {
                     val todasLasPalabras = document.data?.mapValues { it.value.toString() } ?: emptyMap()
                     val palabrasFiltradas = todasLasPalabras.filter { it.value.startsWith(letra, ignoreCase = true) }
-                    palabraAdapter.submitList(palabrasFiltradas.toList())
+                    val listaPalabras = palabrasFiltradas.map { Palabra(it.key, it.value) }
+                    palabraAdapter.submitList(listaPalabras)
+                } else {
+                    // Manejar el caso en que no se encuentren palabras
                 }
             }
             .addOnFailureListener { exception ->
