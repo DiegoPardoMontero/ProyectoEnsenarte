@@ -34,6 +34,13 @@ class LearningFragmentActivity : Fragment() {
         Log.d("LearningFragmentActivity", "Intentando cargar el fragmento: ${fragment::class.java.simpleName}")
 
         childFragmentManager.beginTransaction().apply {
+            setCustomAnimations(
+                R.anim.slide_in_up,    // Animación de entrada (hacia arriba)
+                R.anim.slide_out_down, // Animación de salida (hacia abajo)
+                R.anim.slide_in_up,    // Animación de retorno al volver (hacia arriba)
+                R.anim.slide_out_down  // Animación de salida al volver (hacia abajo)
+            )
+
             replace(containerId, fragment)
             addToBackStack(null) // Permite la navegación hacia atrás
             commit()
