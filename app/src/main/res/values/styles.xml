@@ -105,6 +105,14 @@
         <item name="cornerSizeBottomLeft">0dp</item>
     </style>
 
+    <style name="ShapeAppearanceOverlay.MaterialCardView.Cut2" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">1000dp</item>
+        <item name="cornerSizeBottomLeft">100dp</item>
+    </style>
+
     <style name="mi_perfil">
         <item name="android:textSize">24sp</item>
         <item name="android:letterSpacing">0</item>

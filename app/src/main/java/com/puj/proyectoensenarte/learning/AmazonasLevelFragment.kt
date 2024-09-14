@@ -24,10 +24,10 @@ class AmazonasLevelFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Manejar el clic en el botón del candado para desbloquear el siguiente nivel
-        binding.lock.setOnClickListener {
-            // Comunicar al Fragmento padre para cambiar al siguiente nivel
-            (parentFragment as? LearningFragmentActivity)?.loadFragment(AmazonasLevelFragment(), R.id.fragmentContainerLevel3)
+
+
+        binding.upLevel3To2.setOnClickListener{
+            (parentFragment as? LearningFragmentActivity)?.loadFragment(CaribbeanLevelFragment(), R.id.fragmentContainerLevel1)
         }
     }
 
