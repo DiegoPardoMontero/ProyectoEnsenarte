@@ -18,7 +18,7 @@
         android:fontFamily="@raw/regularbold"
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="20sp"
-        android:text="Perfil"
+        android:text="@string/perfil"
         android:textAppearance="@style/perfil"
         android:translationY="-9.83sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -26,21 +26,24 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageViewIniciarSesion"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:id="@+id/imageProfile"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:padding="4dp"
         android:layout_marginTop="100dp"
-        android:src="@drawable/iniciarsesion"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="@color/paco"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearanceOverlay="@style/CircularImageView" />
-
+        app:strokeWidth="4dp"
+        app:shapeAppearanceOverlay="@style/CircularImageView"
+        android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/hande_e_ere"
-        android:layout_width="135dp"
+        android:id="@+id/nameProfile"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -48,16 +51,16 @@
         android:fontFamily="@raw/regularbold"
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="30sp"
-        android:text="Paco Andres Messi"
+        android:text=""
         android:textAppearance="@style/nombrePerfilCard"
         android:translationY="-14.89sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageViewIniciarSesion" />
+        app:layout_constraintTop_toBottomOf="@+id/imageProfile" />
 
 
     <TextView
-        android:id="@+id/handebolat_"
+        android:id="@+id/usernameProfile"
         android:layout_width="125dp"
         android:layout_height="25dp"
         android:layout_alignParentStart="true"
@@ -66,17 +69,17 @@
         android:fontFamily="@raw/regular"
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="32sp"
-        android:text="messi@hotmail.com"
+        android:text=""
         android:textAppearance="@style/correoPerfilCard"
         android:translationY="-16.15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hande_e_ere" />
+        app:layout_constraintTop_toBottomOf="@+id/nameProfile" />
 
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="335dp"
+        android:layout_height="1000dp"
         android:background="@color/paco"
         android:backgroundTint="@color/paco"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MaterialCardView.Cut"
@@ -84,7 +87,7 @@
         app:cardElevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/handebolat_">
+        app:layout_constraintTop_toBottomOf="@+id/usernameProfile">
 
 
         <androidx.recyclerview.widget.RecyclerView

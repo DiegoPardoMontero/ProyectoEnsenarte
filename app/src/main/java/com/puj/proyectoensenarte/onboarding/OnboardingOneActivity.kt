@@ -1,11 +1,13 @@
 package com.puj.proyectoensenarte.onboarding
 
+
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.CrearCuentaActivity
 import com.puj.proyectoensenarte.IniciarSesionActivity
 import com.puj.proyectoensenarte.databinding.ActivityOnboardingOneBinding
