@@ -70,11 +70,26 @@ class DictionaryFragmentActivity : Fragment() {
     }
 
     private fun navigateToDetallePorLetra(letter: String) {
-        val intent = Intent(requireContext(), DetallePorLetraActivity::class.java).apply {
-            putExtra("LETRA", letter)
+        val storage = FirebaseStorage.getInstance()
+        val imageRef = storage.reference.child("temp/$letter.png")
+
+        imageRef.downloadUrl.addOnSuccessListener { uri ->
+            val intent = Intent(requireContext(), DetallePorLetraActivity::class.java).apply {
+                putExtra("LETRA", letter)
+                putExtra("SIGN_IMAGE_URL", uri.toString())
+            }
+            startActivity(intent)
+        }.addOnFailureListener { exception ->
+            // Manejar el error, tal vez mostrar un mensaje al usuario
+            Log.e("DictionaryFragment", "Error al obtener la URL de la imagen: ${exception.message}")
+            // Aún podrías navegar a DetallePorLetraActivity sin la imagen si lo prefieres
+            val intent = Intent(requireContext(), DetallePorLetraActivity::class.java).apply {
+                putExtra("LETRA", letter)
+            }
+            startActivity(intent)
         }
-        startActivity(intent)
     }
+
 
     private fun setupCategoriesRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->

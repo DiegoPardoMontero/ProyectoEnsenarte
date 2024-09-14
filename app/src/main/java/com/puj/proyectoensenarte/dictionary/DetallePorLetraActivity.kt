@@ -4,7 +4,9 @@ import PalabraAdapter
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
+import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityDetallePorLetraBinding
 
 class DetallePorLetraActivity : AppCompatActivity() {
@@ -17,16 +19,16 @@ class DetallePorLetraActivity : AppCompatActivity() {
         binding = ActivityDetallePorLetraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val letra = intent.getStringExtra("LETRA") ?: "P"
+        val letra = intent.getStringExtra("LETRA") ?: "A"
 
+        setupUI(letra)
         setupRecyclerView()
         loadPalabras(letra)
-        setupUI(letra)
     }
 
     private fun setupRecyclerView() {
         palabraAdapter = PalabraAdapter()
-        binding.rvPalabrasA.apply {
+        binding.rvPalabras.apply {
             layoutManager = LinearLayoutManager(this@DetallePorLetraActivity)
             adapter = palabraAdapter
         }
@@ -48,7 +50,14 @@ class DetallePorLetraActivity : AppCompatActivity() {
     }
 
     private fun setupUI(letra: String) {
-        binding.tvLetraA.text = "Letra $letra"
+        binding.tvLetraTitulo.text = "Letra $letra"
+
+        val signImageUrl = intent.getStringExtra("SIGN_IMAGE_URL") ?: "https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/temp%2Fa_sin_fondo.png?alt=media&token=992184ff-f776-4b57-a6d6-93606df3676a"
+        if (signImageUrl != null) {
+            Glide.with(this)
+                .load(signImageUrl)
+                .into(binding.ivSignIcon)
+        }
         binding.backButton.setOnClickListener {
             finish()
         }
