@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/onboarding_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:clipToOutline="true"
-    android:background="#FFFDF8">
+    android:background="#FFFDF8"
+    android:clipToOutline="true">
 
     <ImageView
         android:id="@+id/onboarding3"
@@ -12,67 +14,67 @@
         android:layout_height="match_parent"
         android:contentDescription="@string/fondo_de_onboarding_2"
         android:scaleType="centerCrop"
-        android:src="@drawable/onboarding1" />
+        android:src="@drawable/img_onboarding1" />
 
     <TextView
         android:id="@+id/una_nueva_f"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="390dp"
-        android:layout_marginBottom="7dp"
         android:fontFamily="@raw/regularbold"
         android:gravity="center_horizontal"
         android:lineSpacingExtra="-14sp"
+        android:layout_marginBottom="8dp"
         android:text="@string/tituloOnboarding2"
-        android:textAppearance="@style/TituloEstilo" />
+        android:textAppearance="@style/TituloEstilo"
+        app:layout_constraintBottom_toTopOf="@+id/aprende_len"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/aprende_len"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/una_nueva_f"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginBottom="15dp"
-        android:layout_marginEnd="32dp"
         android:fontFamily="@raw/regular"
         android:gravity="center_horizontal|top"
         android:lineSpacingExtra="0sp"
+        android:layout_marginLeft="27dp"
+        android:layout_marginRight="27dp"
+        android:layout_marginBottom="20dp"
         android:text="@string/texto_onboarding2"
-        android:textAppearance="@style/aprende_len_onboarding" />
+        android:textAppearance="@style/aprende_len_onboarding"
+        app:layout_constraintBottom_toTopOf="@+id/botonCrearCuenta1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/botonCrearCuenta1"
-        android:layout_width="342dp"
+        android:layout_width="match_parent"
         android:layout_height="59dp"
-        android:layout_below="@+id/aprende_len"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="13dp"
         android:backgroundTint="@color/portakal"
         android:fontFamily="@raw/subtitulo"
         android:text="@string/crear_cuenta"
-        android:textAppearance="@style/boton_onboarding" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textAppearance="@style/boton_onboarding"
+        app:layout_constraintBottom_toTopOf="@+id/botonIniciarSesion1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/botonIniciarSesion1"
-        android:layout_width="342dp"
+        android:layout_width="match_parent"
         android:layout_height="59dp"
-        android:layout_below="@+id/botonCrearCuenta1"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="-8dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="13dp"
         android:backgroundTint="@color/portakal"
         android:fontFamily="@raw/subtitulo"
         android:text="@string/iniciar_sesi_n"
-        android:textAppearance="@style/boton_onboarding" />
+        android:layout_marginBottom="70dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:textAppearance="@style/boton_onboarding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

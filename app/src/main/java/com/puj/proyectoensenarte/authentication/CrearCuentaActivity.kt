@@ -5,10 +5,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import kotlinx.coroutines.*
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityCrearCuentaBinding
+import com.puj.proyectoensenarte.onboarding.SliderActivity
 
 class CrearCuentaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCrearCuentaBinding
@@ -63,10 +65,10 @@ class CrearCuentaActivity : AppCompatActivity() {
         return true
     }
 
-    fun createAccount(name : String, email: String, password: String, nickname : String) {
-        var photoUrl = "https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/fotosPerfil%2FexampleProfilePhot.png?alt=media&token=4e5af62e-506c-4b47-bcdd-3ef8b9d2659d"
-        var streakDays : Number = 0
-        var xpPoints : Number = 0
+    fun createAccount(name: String, email: String, password: String, nickname: String) {
+        val photoUrl = "https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/fotosPerfil%2Favatar_capybara.png?alt=media&token=67df92b2-af74-4386-ae09-dd1b8cfc40d8"
+        val streakDays: Number = 0
+        val xpPoints: Number = 0
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -74,9 +76,8 @@ class CrearCuentaActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     user?.let {
                         val uid = user.uid
-                        val email = user.email
 
-                        // Create a new user with the UID
+                        // Crear un nuevo usuario con el UID
                         val userMap = hashMapOf(
                             "email" to email,
                             "uid" to uid,
@@ -87,7 +88,7 @@ class CrearCuentaActivity : AppCompatActivity() {
                             "xpPoints" to xpPoints
                         )
 
-                        // Store user data in Firestore
+                        // Guardar datos del usuario en Firestore
                         db.collection("users").document(uid)
                             .set(userMap)
                             .addOnSuccessListener {
@@ -95,6 +96,7 @@ class CrearCuentaActivity : AppCompatActivity() {
                                 Toast.makeText(baseContext, "Registrado exitosamente!.", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this, BottomNavigationActivity::class.java)
                                 startActivity(intent)
+                                finish()
                             }
                             .addOnFailureListener { e ->
                                 Log.w(TAG, "Error storing user data", e)
@@ -102,7 +104,7 @@ class CrearCuentaActivity : AppCompatActivity() {
                     }
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "No se pudo registrar!.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(baseContext, "No se pudo registrar: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
     }
