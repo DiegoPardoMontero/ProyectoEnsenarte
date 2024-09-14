@@ -53,6 +53,16 @@
             android:contentDescription="@string/todo"
             android:src="@drawable/img_level_9" />
 
+        <ImageView
+            android:id="@+id/lock"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/level3"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="-68dp"
+            android:layout_marginEnd="56dp"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/img_lock_level" />
 
     </RelativeLayout>
 </ScrollView>
