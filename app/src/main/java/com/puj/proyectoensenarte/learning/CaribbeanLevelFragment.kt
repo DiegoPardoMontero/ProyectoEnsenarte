@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.FragmentCaribbeanLevelBinding
 
 class CaribbeanLevelFragment : Fragment() {
@@ -26,7 +27,7 @@ class CaribbeanLevelFragment : Fragment() {
         // Manejar el clic en el botón del candado para desbloquear el siguiente nivel
         binding.lock.setOnClickListener {
             // Comunicar al Fragmento padre para cambiar al siguiente nivel
-            (parentFragment as? LearningFragmentActivity)?.loadFragment(AmazonasLevelFragment())
+            (parentFragment as? LearningFragmentActivity)?.loadFragment(AmazonasLevelFragment(), R.id.fragmentContainerLevel3)
         }
     }
 

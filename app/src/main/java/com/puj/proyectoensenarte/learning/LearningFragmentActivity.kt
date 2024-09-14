@@ -1,10 +1,12 @@
 package com.puj.proyectoensenarte.learning
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityLearningFragmentBinding
 
@@ -24,16 +26,22 @@ class LearningFragmentActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Cargar el primer nivel al iniciar
-        loadFragment(AndinaLevelFragment())
+        // Cargar el primer nivel por defecto
+        loadFragment(AndinaLevelFragment(), binding.fragmentContainerLevel1.id)
     }
 
-    fun loadFragment(fragment: Fragment) {
-        childFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null)
-            .commit()
+    fun loadFragment(fragment: Fragment, containerId: Int) {
+        Log.d("LearningFragmentActivity", "Intentando cargar el fragmento: ${fragment::class.java.simpleName}")
+
+        childFragmentManager.beginTransaction().apply {
+            replace(containerId, fragment)
+            addToBackStack(null) // Permite la navegación hacia atrás
+            commit()
+        }.also {
+            Log.d("LearningFragmentActivity", "Transacción de fragmento iniciada correctamente.")
+        }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
