@@ -24,7 +24,7 @@
         android:layout_marginTop="24dp"
         android:fontFamily="@raw/regularbold"
         android:textColor="@android:color/white"
-        android:textSize="24sp"
+        android:textSize="26sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -43,7 +43,9 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -55,7 +57,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Seña"
-                    android:textSize="20sp"
+                    android:textSize="26sp"
                     android:textColor="@color/bear"
                     android:fontFamily="@raw/regularbold"
                     android:layout_marginBottom="8dp"/>
@@ -64,14 +66,15 @@
                     android:id="@+id/videoContainerSena"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp" />
-
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="Definición"
-                    android:textSize="20sp"
+                    android:textSize="26sp"
                     android:textColor="@color/bear"
                     android:fontFamily="@raw/regularbold"
                     android:layout_marginBottom="8dp"/>
@@ -80,7 +83,8 @@
                     android:id="@+id/tvDefinicion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
+                    android:fontFamily="@raw/regular"
                     android:textColor="@android:color/black"
                     android:layout_marginBottom="16dp"/>
 
@@ -88,13 +92,15 @@
                     android:id="@+id/videoContainerDefinicion"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:text="Ejemplo"
-                    android:textSize="20sp"
+                    android:textSize="26sp"
                     android:textColor="@color/bear"
                     android:fontFamily="@raw/regularbold"
                     android:layout_marginBottom="8dp"/>
@@ -103,7 +109,8 @@
                     android:id="@+id/tvEjemplo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
+                    android:fontFamily="@raw/regular"
                     android:textColor="@android:color/black"
                     android:layout_marginBottom="16dp"/>
 
@@ -111,6 +118,7 @@
                     android:id="@+id/videoContainerEjemplo"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginBottom="16dp" />
 
             </LinearLayout>
