@@ -1,6 +1,7 @@
 package com.puj.proyectoensenarte.dictionary
 
 import PalabraAdapter
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,7 +27,9 @@ class DetallePorLetraActivity : AppCompatActivity() {
     }
 
     private fun setupRecyclerView() {
-        palabraAdapter = PalabraAdapter()
+        palabraAdapter = PalabraAdapter { palabra ->
+            navigateToDetallePalabra(palabra)
+        }
         binding.rvPalabras.apply {
             layoutManager = LinearLayoutManager(this@DetallePorLetraActivity)
             adapter = palabraAdapter
@@ -49,6 +52,13 @@ class DetallePorLetraActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 // Manejar el error
             }
+    }
+
+    private fun navigateToDetallePalabra(palabra: String) {
+        val intent = Intent(this, DetallePalabraActivity::class.java).apply {
+            putExtra("PALABRA", palabra)
+        }
+        startActivity(intent)
     }
 
     private fun setupUI(letra: String) {
