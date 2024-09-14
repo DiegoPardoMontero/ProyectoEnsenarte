@@ -4,7 +4,6 @@ import AlphabetAdapter
 import Error404
 import android.content.Context
 import android.content.Intent
-import androidx.navigation.fragment.findNavController
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -90,10 +89,18 @@ class DictionaryFragmentActivity : Fragment() {
         }
     }
 
+    private fun navigateToDetallePorCategoria(categoria: String, imageUrl : String) {
+        val intent = Intent(requireContext(), DetallePorCategoriaActivity::class.java).apply {
+            putExtra("CATEGORIA", categoria)
+            putExtra("CATEGORIA_IMAGE_URL", imageUrl)
+        }
+        startActivity(intent)
+    }
+
 
     private fun setupCategoriesRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->
-            // Manejar el clic en la categoría
+            navigateToDetallePorCategoria(category.name, category.imageUrl)
         }
         binding?.rvCategories?.apply {
             adapter = categoryAdapter
