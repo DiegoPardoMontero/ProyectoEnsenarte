@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -165,10 +166,12 @@
 
             <!-- Level Banner, streak days and XP points Caribbean -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/bannerCaribbean"
                 android:layout_width="379dp"
                 android:layout_height="65dp"
                 android:layout_margin="25dp"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:backgroundTint="@color/paco"
                 app:cardCornerRadius="18dp"
                 app:cardElevation="4dp">
@@ -189,7 +192,7 @@
                         android:fontFamily="@raw/regularbold"
                         android:paddingStart="35dp"
                         android:paddingEnd="15dp"
-                        android:text="@string/nivel_1_regi_n_andina"
+                        android:text="Nivel 2: Región Caribe"
                         android:textColor="#585554"
                         android:textSize="18sp"
                         android:textStyle="bold" />
