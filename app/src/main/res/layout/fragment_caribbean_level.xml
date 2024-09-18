@@ -10,10 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-
         <androidx.cardview.widget.CardView
             android:layout_width="379dp"
-            android:layout_height="65dp"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
@@ -94,17 +93,13 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-
-        <!-- Imagen del primer nivel del mapa -->
         <ImageView
             android:id="@+id/mapImage1"
             android:layout_width="match_parent"
             android:layout_height="749dp"
+            android:contentDescription="@string/todo"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_map_caribbean"
-            android:contentDescription="@string/todo" />
-
-        <!-- Íconos del primer nivel -->
+            android:src="@drawable/ic_map_caribbean" />
 
         <ImageView
             android:id="@+id/upLevel2To1"
@@ -150,7 +145,6 @@
             android:contentDescription="@string/todo"
             android:src="@drawable/img_level_6" />
 
-        <!-- Imagen del segundo nivel del mapa -->
         <ImageView
             android:id="@+id/lock"
             android:layout_width="70dp"

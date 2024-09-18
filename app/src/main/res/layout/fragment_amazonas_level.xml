@@ -93,9 +93,6 @@
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
-
-
-        <!-- Imagen del primer nivel del mapa -->
         <ImageView
             android:id="@+id/mapImage1"
             android:layout_width="match_parent"
@@ -103,9 +100,6 @@
             android:scaleType="centerCrop"
             android:src="@drawable/ic_map_amazonic"
             android:contentDescription="@string/todo" />
-
-        <!-- Íconos del primer nivel -->
-
 
         <ImageView
             android:id="@+id/upLevel3To2"

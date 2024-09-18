@@ -7,6 +7,7 @@ import com.puj.proyectoensenarte.databinding.ActivityBottomNavigationBinding
 import com.puj.proyectoensenarte.dictionary.DictionaryFragmentActivity
 import com.puj.proyectoensenarte.information.InformationFragmentActivity
 import com.puj.proyectoensenarte.learning.LearningFragmentActivity
+import com.puj.proyectoensenarte.learning.ScrollableMapActivity
 import com.puj.proyectoensenarte.profile.ProfileFragmentActivity
 
 class BottomNavigationActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class BottomNavigationActivity : AppCompatActivity() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.item_1 -> {
-                    loadFragment(LearningFragmentActivity())
+                    loadFragment(ScrollableMapActivity())
                     true
                 }
                 R.id.item_2 -> {
