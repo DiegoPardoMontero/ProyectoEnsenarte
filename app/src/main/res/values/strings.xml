@@ -148,4 +148,9 @@ Ante las limitaciones de la Lengua Oral, surge la educación bilingüe, reconoci
     <string name="nivel3">Nivel 3: Región Amazónica</string>
     <string name="cono_de_racha">Ícono de Racha</string>
     <string name="cono_de_puntos">Ícono de Puntos</string>
+    <string name="nivel_1_regi_n_andina">Nivel 1: Región Andina</string>
+    <string name="rachainc">Ícono de Racha</string>
+    <string name="_1">1</string>
+    <string name="rch">Ícono de Puntos</string>
+    <string name="_500dp">500dp</string>
 </resources>

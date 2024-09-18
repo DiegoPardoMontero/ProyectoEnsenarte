@@ -25,7 +25,7 @@
             android:layout_marginBottom="16dp"
             android:padding="8dp"
             app:cardBackgroundColor="@color/paco"
-            app:cardCornerRadius="18dp"
+
             app:cardElevation="4dp">
 
             <LinearLayout
@@ -148,5 +148,7 @@
             android:layout_marginTop="76dp"
             android:layout_marginEnd="180dp"
             android:src="@drawable/img_lock_level" />
+
+
     </RelativeLayout>
 </ScrollView>
