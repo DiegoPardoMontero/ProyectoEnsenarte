@@ -37,6 +37,16 @@
 
         <!--- Learning Activities -->
 
+        <activity
+            android:name=".learning.LearningFragmentActivity"
+            android:exported="true">
+        </activity>
+
+        <activity
+            android:name=".learning.ScrollableMapActivity"
+            android:exported="true">
+        </activity>
+
         <!--- Onboarding Activities -->
         <activity
             android:name=".onboarding.SliderActivity"
