@@ -33,8 +33,6 @@
             android:exported="true"/>
         <activity android:name=".dictionary.DetallePalabraActivity"
             android:exported="true"/>
-        <activity android:name=".dictionary.ResultadoBusquedaCategoriaActivity"
-            android:exported="true"/>
         <activity android:name=".dictionary.ResultadoBusquedaPalabraActivity"
             android:exported="true"/>
         <!--- Information Activities -->
