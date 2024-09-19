@@ -1,5 +1,3 @@
-package com.puj.proyectoensenarte.dictionary
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,10 +6,10 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.puj.proyectoensenarte.R
+import com.puj.proyectoensenarte.dictionary.Palabra
 
 
-class PalabraAdapter(private val onItemClicked: (Palabra) -> Unit) :
-    ListAdapter<Palabra, PalabraAdapter.PalabraViewHolder>(PalabraDiffCallback()) {
+class PalabraAdapter(private val onPalabraClick: (String) -> Unit) : ListAdapter<Palabra, PalabraAdapter.PalabraViewHolder>(PalabraDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PalabraViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -22,7 +20,7 @@ class PalabraAdapter(private val onItemClicked: (Palabra) -> Unit) :
     override fun onBindViewHolder(holder: PalabraViewHolder, position: Int) {
         val palabra = getItem(position)
         holder.bind(palabra)
-        holder.itemView.setOnClickListener { onItemClicked(palabra) }
+        holder.itemView.setOnClickListener { onPalabraClick(palabra.texto) }
     }
 
     class PalabraViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,7 +31,7 @@ class PalabraAdapter(private val onItemClicked: (Palabra) -> Unit) :
         }
     }
 
-    private class PalabraDiffCallback : DiffUtil.ItemCallback<Palabra>() {
+    class PalabraDiffCallback : DiffUtil.ItemCallback<Palabra>() {
         override fun areItemsTheSame(oldItem: Palabra, newItem: Palabra): Boolean {
             return oldItem.id == newItem.id
         }
