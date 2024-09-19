@@ -14,7 +14,9 @@ class ScrollableMapActivity : Fragment() {
     private var _binding: ActivityScrollableMapBinding? = null
     private val binding get() = _binding!!
     private var isCaribbeanBannerShown = false
-    private var isFadeOutInProgress = false // Flag para controlar la animación
+    private var isAmazonasBannerShown = false
+    private var isFadeOutInProgress = false // Flag para controlar la animación del banner Caribe
+    private var isFadeOutInProgressAmazonas = false // Flag para controlar la animación del banner Amazonas
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,12 +40,23 @@ class ScrollableMapActivity : Fragment() {
             if (scrollY < binding.level2.top && isCaribbeanBannerShown && !isFadeOutInProgress) {
                 fadeOutCaribbeanBanner()
             }
+
+            // Verifica si se alcanzó el nivel Amazonas y no se ha mostrado el banner aún
+            if (scrollY >= binding.level1Amazonas.top && !isAmazonasBannerShown) {
+                showAmazonasBanner()
+            }
+
+            // Verifica si el scroll ha regresado a niveles anteriores y no se está ejecutando fade out
+            if (scrollY < binding.level2Caribbean.top && isAmazonasBannerShown && !isFadeOutInProgressAmazonas) {
+                fadeOutAmazonasBanner()
+            }
         }
 
         // Configura los clics para los niveles
         setUpClickLevel()
     }
 
+    // Función para ocultar el banner del Caribe con animación
     private fun fadeOutCaribbeanBanner() {
         isFadeOutInProgress = true // Marcamos que la animación está en progreso
 
@@ -61,6 +74,25 @@ class ScrollableMapActivity : Fragment() {
         }
     }
 
+    // Función para ocultar el banner del Amazonas con animación
+    private fun fadeOutAmazonasBanner() {
+        isFadeOutInProgressAmazonas = true // Marcamos que la animación está en progreso
+
+        binding.bannerAmazonas.apply {
+            animate()
+                .alpha(0f) // Desvanecer a 0 (invisible)
+                .setDuration(600) // Duración de la animación
+                .withEndAction {
+                    visibility = View.GONE // Ocultar completamente el banner
+                    alpha = 1f // Restaurar alpha a 1 para futuras animaciones
+                    isFadeOutInProgressAmazonas = false // La animación ha terminado
+                    isAmazonasBannerShown = false // El banner ya no está mostrado
+                }
+                .start()
+        }
+    }
+
+    // Función para mostrar el banner del Caribe con animación
     private fun showCaribbeanBanner() {
         binding.bannerCaribbean.apply {
             visibility = View.VISIBLE // Mostrar el banner
@@ -70,6 +102,15 @@ class ScrollableMapActivity : Fragment() {
         isCaribbeanBannerShown = true // Actualizar el estado del banner
     }
 
+    // Función para mostrar el banner del Amazonas con animación
+    private fun showAmazonasBanner() {
+        binding.bannerAmazonas.apply {
+            visibility = View.VISIBLE // Mostrar el banner
+            alpha = 0f // Empezar invisible
+            animate().alpha(1f).setDuration(900).start() // Desvanecer a visible
+        }
+        isAmazonasBannerShown = true // Actualizar el estado del banner
+    }
 
     // Configura los clicks de los niveles
     private fun setUpClickLevel() {

@@ -192,7 +192,7 @@
                         android:fontFamily="@raw/regularbold"
                         android:paddingStart="35dp"
                         android:paddingEnd="15dp"
-                        android:text="Nivel 2: Región Caribe"
+                        android:text="@string/nivel_2_regi_n_caribe"
                         android:textColor="#585554"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -306,7 +306,9 @@
             <!-- Banner del Nivel Amazonas -->
             <!-- Level Banner, streak days and XP points Caribbean -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/bannerAmazonas"
                 android:layout_width="379dp"
+                android:visibility="gone"
                 android:layout_height="65dp"
                 android:layout_margin="25dp"
                 android:padding="8dp"
@@ -330,7 +332,7 @@
                         android:fontFamily="@raw/regularbold"
                         android:paddingStart="15dp"
                         android:paddingEnd="1dp"
-                        android:text="Nivel 3: Región Amazónica"
+                        android:text="@string/nivel_3_regi_n_amaz_nica"
                         android:textColor="#585554"
                         android:textSize="18sp"
                         android:textStyle="bold" />
