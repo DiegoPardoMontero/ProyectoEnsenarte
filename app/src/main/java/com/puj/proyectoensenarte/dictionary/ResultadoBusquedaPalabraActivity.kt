@@ -2,29 +2,36 @@ package com.puj.proyectoensenarte.dictionary
 
 import PalabraAdapter
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityResultadoBusquedaPalabraBinding
 
-class ResultadoBusquedaPalabraActivity : AppCompatActivity() {
+class ResultadoBusquedaPalabraFragment : Fragment() {
 
-    private lateinit var binding: ActivityResultadoBusquedaPalabraBinding
+    private var _binding: ActivityResultadoBusquedaPalabraBinding? = null
+    private val binding get() = _binding!!
     private lateinit var palabraAdapter: PalabraAdapter
     private val db = FirebaseFirestore.getInstance()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityResultadoBusquedaPalabraBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        _binding = ActivityResultadoBusquedaPalabraBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setupSearchBar()
         setupRecyclerView()
-        performSearch(intent.getStringExtra("SEARCH_QUERY") ?: "")
+        performSearch(arguments?.getString("SEARCH_QUERY") ?: "")
     }
 
     private fun setupSearchBar() {
-        binding.etSearch.setText(intent.getStringExtra("SEARCH_QUERY"))
+        binding.etSearch.setText(arguments?.getString("SEARCH_QUERY"))
         binding.ivSearch.setOnClickListener {
             performSearch(binding.etSearch.text.toString())
         }
@@ -33,9 +40,10 @@ class ResultadoBusquedaPalabraActivity : AppCompatActivity() {
     private fun setupRecyclerView() {
         palabraAdapter = PalabraAdapter { palabra ->
             // Navegar a la pantalla de detalle de palabra
+            // Implementar la navegación aquí
         }
         binding.rvSearchResults.adapter = palabraAdapter
-        binding.rvSearchResults.layoutManager = LinearLayoutManager(this)
+        binding.rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
     }
 
     private fun performSearch(query: String) {
@@ -54,6 +62,22 @@ class ResultadoBusquedaPalabraActivity : AppCompatActivity() {
             }
             .addOnFailureListener { exception ->
                 // Manejar el error
+                // Puedes mostrar un mensaje de error o realizar alguna acción específica
             }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    companion object {
+        fun newInstance(searchQuery: String): ResultadoBusquedaPalabraFragment {
+            return ResultadoBusquedaPalabraFragment().apply {
+                arguments = Bundle().apply {
+                    putString("SEARCH_QUERY", searchQuery)
+                }
+            }
+        }
     }
 }
