@@ -16,7 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityDictionaryFragmentBinding
 
@@ -97,7 +96,6 @@ class DictionaryFragmentActivity : Fragment() {
         startActivity(intent)
     }
 
-
     private fun setupCategoriesRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->
             navigateToDetallePorCategoria(category.name, category.imageUrl)
@@ -120,7 +118,8 @@ class DictionaryFragmentActivity : Fragment() {
     }
 
     private fun performSearch() {
-        val searchQuery = binding?.etSearch?.text.toString().trim()
+        var searchQuery = binding?.etSearch?.text.toString().trim()
+        searchQuery = searchQuery.lowercase()
         if (searchQuery.isEmpty()) {
             Toast.makeText(context, "Por favor, ingrese un término de búsqueda", Toast.LENGTH_SHORT).show()
             return
@@ -135,7 +134,8 @@ class DictionaryFragmentActivity : Fragment() {
                     // Es una categoría
                     navigateToResultadoBusquedaCategoria(searchQuery)
                 } else {
-                    // No es una categoría, buscar en las palabras
+                    //Es una palabra
+                    searchQuery = capitalizeFirstLetter(searchQuery)
                     searchInPalabras(searchQuery)
                 }
             }
@@ -146,18 +146,14 @@ class DictionaryFragmentActivity : Fragment() {
     }
 
     private fun searchInPalabras(searchQuery: String) {
-        Log.e("DictionaryFragment", "Buscando la palabra...")
         db.collection("dictionary").document("palabras").get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val palabras = document.data
-                    Log.e("DictionaryFragment", "Avance hasta el documento...")
                     if (palabras?.containsValue(searchQuery) == true) {
                         // La palabra existe
-                        Log.e("DictionaryFragment", "Palabra encontrada!")
                         navigateToResultadoBusquedaPalabra(searchQuery)
                     } else {
-                        Log.e("DictionaryFragment", "Palabra no encontrada!")
                         navigateToError404()
                     }
                 } else {
@@ -166,12 +162,12 @@ class DictionaryFragmentActivity : Fragment() {
                 }
             }
             .addOnFailureListener { e ->
-                Log.e("DictionaryFragment", "Error buscando palabra: ", e)
                 navigateToError404()
             }
     }
 
     private fun navigateToResultadoBusquedaCategoria(categoria: String) {
+        var categoria = capitalizeFirstLetter(categoria)
         val intent = Intent(requireContext(), ResultadoBusquedaCategoriaActivity::class.java).apply {
             putExtra("SEARCH_QUERY", categoria)
         }
@@ -184,7 +180,6 @@ class DictionaryFragmentActivity : Fragment() {
         }
         startActivity(intent)
     }
-
 
     private fun noResultsFound(query: String): Boolean {
         // Implementar la lógica si no se encuentran resultados
@@ -203,10 +198,17 @@ class DictionaryFragmentActivity : Fragment() {
         imm.hideSoftInputFromWindow(binding?.etSearch?.windowToken, 0)
     }
 
+    private fun capitalizeFirstLetter(input: String): String {
+        return if (input.isNotEmpty()) {
+            input.substring(0, 1).uppercase() + input.substring(1).lowercase()
+        } else {
+            input
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
     }
-
 
 }
