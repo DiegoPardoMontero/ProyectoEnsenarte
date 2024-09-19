@@ -117,7 +117,7 @@ class DetallePalabraActivity : AppCompatActivity() {
     }
 
     private fun setupTexts(palabraData: Map<String, Any>) {
-        binding.tvDefinicion.text = palabraData["definicion"] as? String
+        binding.tvDefinicion.text = palabraData["definicion "] as? String
         binding.tvEjemplo.text = palabraData["ejemplo"] as? String
     }
 }

@@ -95,7 +95,7 @@ class DictionaryFragmentActivity : Fragment() {
         }
         startActivity(intent)
     }
-    
+
     private fun setupCategoriesRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->
             navigateToDetallePorCategoria(category.name, category.imageUrl)
