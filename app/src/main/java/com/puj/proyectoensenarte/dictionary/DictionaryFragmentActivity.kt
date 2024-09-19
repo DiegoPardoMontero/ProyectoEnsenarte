@@ -95,7 +95,7 @@ class DictionaryFragmentActivity : Fragment() {
         }
         startActivity(intent)
     }
-
+    
     private fun setupCategoriesRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->
             navigateToDetallePorCategoria(category.name, category.imageUrl)
@@ -176,10 +176,11 @@ class DictionaryFragmentActivity : Fragment() {
     }
 
     private fun navigateToResultadoBusquedaPalabra(palabra: String) {
-        val intent = Intent(requireContext(), ResultadoBusquedaPalabraActivity::class.java).apply {
-            putExtra("SEARCH_QUERY", palabra)
-        }
-        startActivity(intent)
+        val fragment = ResultadoBusquedaPalabraFragment.newInstance(palabra)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun noResultsFound(query: String): Boolean {
