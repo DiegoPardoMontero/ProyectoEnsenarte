@@ -1,6 +1,7 @@
 package com.puj.proyectoensenarte.dictionary
 
 import PalabraAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -39,11 +40,17 @@ class ResultadoBusquedaPalabraFragment : Fragment() {
 
     private fun setupRecyclerView() {
         palabraAdapter = PalabraAdapter { palabra ->
-            // Navegar a la pantalla de detalle de palabra
-            // Implementar la navegación aquí
+            navigateToDetallePalabra(palabra)
         }
         binding.rvSearchResults.adapter = palabraAdapter
         binding.rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
+    }
+
+    private fun navigateToDetallePalabra(palabra: String) {
+        val intent = Intent(requireContext(), DetallePalabraActivity::class.java).apply {
+            putExtra("PALABRA", palabra)
+        }
+        startActivity(intent)
     }
 
     private fun performSearch(query: String) {
