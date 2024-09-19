@@ -1,13 +1,21 @@
-<!-- fragment_home.xml -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:fillViewport="true">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!-- Contenedor de los niveles -->
+    <LinearLayout
+        android:id="@+id/levelsContainer"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Learning Fragment" />
-</LinearLayout>
+        android:orientation="vertical">
+
+        <!-- Fragmento del Nivel 1 -->
+        <FrameLayout
+            android:id="@+id/fragmentContainerLevel1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible" />
+
+    </LinearLayout>
+</ScrollView>
