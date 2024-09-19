@@ -99,3 +99,32 @@ fun signIn(email: String, password: String) {
                     }
                 }
         }
+
+fun getImageNamesAndUrls() {
+        // Referencia a la carpeta en Firebase Storage (en este caso 'imagenesCateg')
+        val listRef: StorageReference = storage.getReference().child("imagenesCateg")
+
+        // Listar todos los archivos en esa referencia
+        listRef.listAll().addOnSuccessListener { listResult ->
+            // Iterar sobre cada item (archivo)
+            for (item in listResult.getItems()) {
+                // Obtener el nombre del archivo
+                val fileName: String = item.getName()
+
+                // Obtener la URL de descarga del archivo
+                item.getDownloadUrl().addOnSuccessListener { uri ->
+                    val downloadUrl: String = uri.toString()
+
+                    // Aquí puedes hacer lo que necesites con el nombre y la URL
+                    println("Nombre: $fileName")
+                    println("URL: $downloadUrl")
+                }.addOnFailureListener { e ->
+                    // Manejo de errores si la URL de descarga no se puede obtener
+                    System.out.println("Error obteniendo URL: " + e.toString())
+                }
+            }
+        }.addOnFailureListener { e ->
+            // Manejo de errores si la lista de archivos no se puede obtener
+            System.out.println("Error obteniendo lista de archivos: " + e.toString())
+        }
+    }

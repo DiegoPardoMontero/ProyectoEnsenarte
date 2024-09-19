@@ -27,7 +27,12 @@
         <activity android:name=".IniciarSesionActivity"/>
         <activity android:name=".authentication.ForgotPasswordActivity"/>
         <!--- Dictionary Activities -->
-
+        <activity android:name=".dictionary.DetallePorLetraActivity"
+            android:exported="true"/>
+        <activity android:name=".dictionary.DetallePorCategoriaActivity"
+            android:exported="true"/>
+        <activity android:name=".dictionary.DetallePalabraActivity"
+            android:exported="true"/>
         <!--- Information Activities -->
 
         <!--- Learning Activities -->

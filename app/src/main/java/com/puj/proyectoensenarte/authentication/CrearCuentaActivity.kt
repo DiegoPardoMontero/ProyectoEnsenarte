@@ -37,7 +37,6 @@ class CrearCuentaActivity : AppCompatActivity() {
             // Validación de los campos antes de crear la cuenta
             if (validateInput(name, email, password, nickname)) {
                 createAccount(name, email, password, nickname)
-
             }
         }
     }
@@ -73,6 +72,7 @@ class CrearCuentaActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+                    // Sign in success, get the user's information
                     val user = auth.currentUser
                     user?.let {
                         val uid = user.uid
@@ -94,7 +94,6 @@ class CrearCuentaActivity : AppCompatActivity() {
                             .addOnSuccessListener {
                                 Log.d(TAG, "User data stored successfully")
                                 Toast.makeText(baseContext, "Registrado exitosamente!.", Toast.LENGTH_SHORT).show()
-
                                 val intent = Intent(this, BottomNavigationActivity::class.java)
                                 startActivity(intent)
                                 finish()

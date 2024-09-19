@@ -56,4 +56,5 @@ dependencies {
     annotationProcessor ("com.github.bumptech.glide:compiler:4.12.0")
     implementation ("com.airbnb.android:lottie:5.2.0")
     implementation ("androidx.fragment:fragment-ktx:1.4.1")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.12.0")
 }
