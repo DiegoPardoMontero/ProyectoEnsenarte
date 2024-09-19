@@ -1,9 +1,9 @@
+package com.puj.proyectoensenarte.dictionary
+
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.puj.proyectoensenarte.databinding.ActivityResultadoBusquedaCategoriaBinding
-import com.puj.proyectoensenarte.dictionary.Category
-import com.puj.proyectoensenarte.dictionary.CategoryAdapter
 
 class ResultadoBusquedaCategoriaActivity : AppCompatActivity() {
 
@@ -37,8 +37,7 @@ class ResultadoBusquedaCategoriaActivity : AppCompatActivity() {
 
     private fun performSearch(query: String) {
         val searchResults = listOf(
-            Category("url_imagen_1", "Categoría 1"),
-            Category("url_imagen_2", "Categoría 2")
+            Category("url_imagen_1", "Vestuario"),
         )
         categoryAdapter.submitList(searchResults)
     }

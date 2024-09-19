@@ -14,6 +14,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.puj.proyectoensenarte.R
@@ -24,6 +25,7 @@ class DictionaryFragmentActivity : Fragment() {
     private var binding: ActivityDictionaryFragmentBinding? = null
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var alphabetAdapter: AlphabetAdapter
+    private val db = FirebaseFirestore.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -118,14 +120,69 @@ class DictionaryFragmentActivity : Fragment() {
     }
 
     private fun performSearch() {
-        navigateToError404()
-        val searchQuery = binding?.etSearch?.text.toString()
-        if (searchQuery.isEmpty() || noResultsFound(searchQuery)) {
-            navigateToError404()
-        } else {
-            //Añadir lógica de búsqueda real
+        val searchQuery = binding?.etSearch?.text.toString().trim()
+        if (searchQuery.isEmpty()) {
+            Toast.makeText(context, "Por favor, ingrese un término de búsqueda", Toast.LENGTH_SHORT).show()
+            return
         }
+
         hideKeyboard()
+
+        // Primero, buscar en las categorías
+        db.collection("dict").document(searchQuery).get()
+            .addOnSuccessListener { documentSnapshot ->
+                if (documentSnapshot.exists()) {
+                    // Es una categoría
+                    navigateToResultadoBusquedaCategoria(searchQuery)
+                } else {
+                    // No es una categoría, buscar en las palabras
+                    searchInPalabras(searchQuery)
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("DictionaryFragment", "Error buscando categoría: ", e)
+                navigateToError404()
+            }
+    }
+
+    private fun searchInPalabras(searchQuery: String) {
+        Log.e("DictionaryFragment", "Buscando la palabra...")
+        db.collection("dictionary").document("palabras").get()
+            .addOnSuccessListener { document ->
+                if (document != null && document.exists()) {
+                    val palabras = document.data
+                    Log.e("DictionaryFragment", "Avance hasta el documento...")
+                    if (palabras?.containsValue(searchQuery) == true) {
+                        // La palabra existe
+                        Log.e("DictionaryFragment", "Palabra encontrada!")
+                        navigateToResultadoBusquedaPalabra(searchQuery)
+                    } else {
+                        Log.e("DictionaryFragment", "Palabra no encontrada!")
+                        navigateToError404()
+                    }
+                } else {
+                    // El documento "palabras" no existe
+                    navigateToError404()
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("DictionaryFragment", "Error buscando palabra: ", e)
+                navigateToError404()
+            }
+    }
+
+    private fun navigateToResultadoBusquedaCategoria(categoria: String) {
+        val intent = Intent(requireContext(), ResultadoBusquedaCategoriaActivity::class.java).apply {
+            putExtra("SEARCH_QUERY", categoria)
+        }
+        startActivity(intent)
+    }
+
+    private fun navigateToResultadoBusquedaPalabra(palabra: String) {
+        val intent = Intent(requireContext(), ResultadoBusquedaPalabraActivity::class.java).apply {
+            putExtra("SEARCH_QUERY", palabra)
+        }
+        startActivity(intent)
     }
 
 
