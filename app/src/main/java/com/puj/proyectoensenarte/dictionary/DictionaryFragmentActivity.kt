@@ -168,10 +168,11 @@ class DictionaryFragmentActivity : Fragment() {
 
     private fun navigateToResultadoBusquedaCategoria(categoria: String) {
         var categoria = capitalizeFirstLetter(categoria)
-        val intent = Intent(requireContext(), ResultadoBusquedaCategoriaActivity::class.java).apply {
-            putExtra("SEARCH_QUERY", categoria)
-        }
-        startActivity(intent)
+        val fragment = ResultadoBusquedaCategoriaFragment.newInstance(categoria)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun navigateToResultadoBusquedaPalabra(palabra: String) {
