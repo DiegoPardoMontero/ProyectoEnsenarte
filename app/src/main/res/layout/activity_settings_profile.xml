@@ -152,10 +152,10 @@
                         android:id="@+id/input_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawableStart="@drawable/ic_us"
+                        android:drawableStart="@drawable/ic_circle_user_round"
                         android:drawablePadding="8dp"
-                        android:fontFamily="@raw/regular"
                         android:hint="Nombre"
+                        android:fontFamily="@raw/regular"
                         android:text="" />
                 </com.google.android.material.textfield.TextInputLayout>
 
