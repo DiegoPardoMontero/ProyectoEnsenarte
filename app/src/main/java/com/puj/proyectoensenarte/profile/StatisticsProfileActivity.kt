@@ -38,7 +38,7 @@ class StatisticsProfileActivity : AppCompatActivity() {
 
         // Cargar las insignias desde Firestore
         loadInsigniasFromFirestore()
-
+        loadStreakDaysPxPoints()
 
     }
 
@@ -54,6 +54,32 @@ class StatisticsProfileActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun loadStreakDaysPxPoints() {
+        val user = FirebaseAuth.getInstance().currentUser
+        val uid = user?.uid
+        val db = FirebaseFirestore.getInstance()
+
+        if (uid != null) {
+            db.collection("users").document(uid).get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+
+                        val streakDays = document.getLong("streakDays")?.toString() ?: "--"
+                        val xpPoints = document.getLong("xpPoints")?.toString() ?: "--"
+
+                        binding.streakDaysText.text = streakDays
+                        binding.XPonints.text = xpPoints
+                    } else {
+                        Log.d("Firestore", "No existe documento para el usuario.")
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Error al cargar racha y puntos de XP", Toast.LENGTH_SHORT).show()
+                    Log.e("Firestore", "Error al obtener documento", e)
+                }
+        }
+    }
 
     private fun loadInsigniasFromFirestore() {
         val db = FirebaseFirestore.getInstance()
