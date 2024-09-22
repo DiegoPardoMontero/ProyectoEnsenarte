@@ -42,12 +42,12 @@ class ScrollableMapActivity : Fragment() {
             }
 
             // Verifica si se alcanzó el nivel Amazonas y no se ha mostrado el banner aún
-            if (scrollY >= binding.level1Amazonas.top && !isAmazonasBannerShown) {
+            if (scrollY >= binding.mapImageAmazonas.top && !isAmazonasBannerShown) {
                 showAmazonasBanner()
             }
 
             // Verifica si el scroll ha regresado a niveles anteriores y no se está ejecutando fade out
-            if (scrollY < binding.level2Caribbean.top && isAmazonasBannerShown && !isFadeOutInProgressAmazonas) {
+            if (scrollY < binding.level2Amazonas.top && isAmazonasBannerShown && !isFadeOutInProgressAmazonas) {
                 fadeOutAmazonasBanner()
             }
         }
@@ -81,7 +81,7 @@ class ScrollableMapActivity : Fragment() {
         binding.bannerAmazonas.apply {
             animate()
                 .alpha(0f) // Desvanecer a 0 (invisible)
-                .setDuration(600) // Duración de la animación
+                .setDuration(800) // Duración de la animación
                 .withEndAction {
                     visibility = View.GONE // Ocultar completamente el banner
                     alpha = 1f // Restaurar alpha a 1 para futuras animaciones
@@ -107,7 +107,7 @@ class ScrollableMapActivity : Fragment() {
         binding.bannerAmazonas.apply {
             visibility = View.VISIBLE // Mostrar el banner
             alpha = 0f // Empezar invisible
-            animate().alpha(1f).setDuration(900).start() // Desvanecer a visible
+            animate().alpha(1f).setDuration(2000).start() // Desvanecer a visible
         }
         isAmazonasBannerShown = true // Actualizar el estado del banner
     }
