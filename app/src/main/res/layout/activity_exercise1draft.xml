@@ -1,0 +1,137 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Exercise1Activity">
+
+    <!-- Título de la lección -->
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lección 1"
+        android:textColor="@color/paciencie"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Pregunta de selección @-->
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Cual de estos videos muestra la seña de “Cama”?"
+        android:textColor="@color/paciencie"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Contenedor del Video 1 con RadioButton -->
+    <LinearLayout
+        android:id="@+id/videoLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp">
+
+        <!-- RadioButton -->
+        <RadioButton
+            android:id="@+id/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:buttonTint="@color/paciencie"/>
+
+        <!-- FrameLayout con VideoView y Botón Play/Pause -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center">
+
+            <!-- VideoView 1 -->
+            <VideoView
+                android:id="@+id/videoView1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!-- Botón de reproducción y pausa -->
+            <ImageButton
+                android:id="@+id/btnPlayPause1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_media_play" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Repite los contenedores para cada video y radio button -->
+    <LinearLayout
+        android:id="@+id/videoLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/videoLayout1"
+        android:layout_marginTop="8dp">
+
+        <!-- RadioButton -->
+        <RadioButton
+            android:id="@+id/radioButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:buttonTint="@color/paciencie"/>
+
+        <!-- FrameLayout con VideoView y Botón Play/Pause -->
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:layout_weight="1"
+            android:layout_marginStart="16dp"
+            android:layout_gravity="center">
+
+            <!-- VideoView 2 -->
+            <VideoView
+                android:id="@+id/videoView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <!-- Botón de reproducción y pausa -->
+            <ImageButton
+                android:id="@+id/btnPlayPause2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_media_play" />
+        </FrameLayout>
+    </LinearLayout>
+
+    <!-- Botón Enviar -->
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="325dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/rage"
+        android:text="Enviar"
+        app:layout_constraintTop_toBottomOf="@id/videoLayout2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

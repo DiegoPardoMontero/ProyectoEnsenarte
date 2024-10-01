@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte.learning
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import com.puj.proyectoensenarte.CrearCuentaActivity
 import com.puj.proyectoensenarte.databinding.ActivityScrollableMapBinding
 
 class ScrollableMapActivity : Fragment() {
@@ -117,6 +119,9 @@ class ScrollableMapActivity : Fragment() {
         // Niveles Región Andina
         binding.level1.setOnClickListener {
             Toast.makeText(context, "Nivel 1: Lección de la Región Andina", Toast.LENGTH_SHORT).show()
+
+            val intent = Intent(activity, Exercise1Activity::class.java)
+            startActivity(intent)
         }
 
         binding.level2.setOnClickListener {
