@@ -155,4 +155,7 @@ Ante las limitaciones de la Lengua Oral, surge la educación bilingüe, reconoci
     <string name="_500dp">500dp</string>
     <string name="nivel_2_regi_n_caribe">Nivel 2: Región Caribe</string>
     <string name="nivel_3_regi_n_amaz_nica">Nivel 3: Región Amazónica</string>
+    <string name="tu_respuesta_es_incorrecta">Tu respuesta es incorrecta</string>
+    <string name="ver_respuesta_correcta">Ver respuesta correcta</string>
+    <string name="continuar">Continuar</string>
 </resources>
