@@ -17,6 +17,7 @@ class Exercise1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         // Inicializar ViewBinding
         binding = ActivityExcercise1Binding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -28,11 +29,15 @@ class Exercise1Activity : AppCompatActivity() {
         binding.btnSubmit.setOnClickListener {
             // Aquí puedes agregar lógica para enviar la respuesta seleccionada
             Toast.makeText(this, "Respuesta enviada", Toast.LENGTH_SHORT).show()
+            val dialog = IncorrectResultBottomSheet()
+            dialog.show(supportFragmentManager, "ResultDialog")
         }
+
+
     }
 
     private fun setUpVideoViews() {
-        // Configurar cada video con su respectivo botón play/pause
+        // Configurar cada video con su respectivo botón play/pause@
         configureVideo(
             binding.videoView1,
             binding.btnPlayPause1,
