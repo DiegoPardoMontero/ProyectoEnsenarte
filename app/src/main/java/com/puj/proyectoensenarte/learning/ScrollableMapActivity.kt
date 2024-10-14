@@ -114,13 +114,13 @@ class ScrollableMapActivity : Fragment() {
         isAmazonasBannerShown = true // Actualizar el estado del banner
     }
 
-    // Configura los clicks de los niveles
+    // Configura los clicks de los niveles@
     private fun setUpClickLevel() {
         // Niveles Región Andina
         binding.level1.setOnClickListener {
             Toast.makeText(context, "Nivel 1: Lección de la Región Andina", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(activity, Exercise1Activity::class.java)
+            val intent = Intent(activity, ActivityExcercise4::class.java)
             startActivity(intent)
         }
 

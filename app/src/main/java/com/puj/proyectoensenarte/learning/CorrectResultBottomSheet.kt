@@ -13,7 +13,7 @@ class CorrectResultBottomSheet : BottomSheetDialogFragment() {
         inflater: android.view.LayoutInflater, container: android.view.ViewGroup?,
         savedInstanceState: Bundle?
     ): android.view.View? {
-        // Inflar la vista con ViewBinding
+        // Inflar la vista con ViewBinding@
         _binding = BottomSheetResultCorrectBinding.inflate(inflater, container, false)
         return binding.root
     }
