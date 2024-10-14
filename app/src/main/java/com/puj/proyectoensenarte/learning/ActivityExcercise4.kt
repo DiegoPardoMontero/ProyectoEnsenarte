@@ -42,6 +42,14 @@ class ActivityExcercise4 : AppCompatActivity() {
         binding.imageView2.setOnClickListener {
             selectImage(binding.imageView2)
         }
+
+        binding.imageView3.setOnClickListener {
+            selectImage(binding.imageView3)
+        }
+
+        binding.imageView4.setOnClickListener {
+            selectImage(binding.imageView4)
+        }
     }
 
     private fun setUpWordListeners() {
@@ -51,6 +59,14 @@ class ActivityExcercise4 : AppCompatActivity() {
 
         binding.wordOption2.setOnClickListener {
             selectWord(binding.wordOption2)
+        }
+
+        binding.wordOption3.setOnClickListener {
+            selectWord(binding.wordOption3)
+        }
+
+        binding.wordOption4.setOnClickListener {
+            selectWord(binding.wordOption4)
         }
     }
 
