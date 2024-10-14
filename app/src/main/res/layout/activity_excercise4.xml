@@ -26,27 +26,28 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- GridLayout para organizar las imágenes y palabras en dos columnas -->
+
+    <!-- Botón Enviar -->
+
     <TextView
         android:id="@+id/tvQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/regular"
         android:text="Unir la seña con la palabra"
         android:textColor="#000"
-        android:fontFamily="@font/regular"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintHorizontal_bias="0.111"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-    <!-- Botón Enviar -->
 
     <GridLayout
         android:id="@+id/gridLayout"
         android:layout_width="245dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="20dp"
         android:alignmentMode="alignMargins"
         android:columnCount="2"
         android:rowCount="3"
@@ -60,7 +61,7 @@
             android:id="@+id/imageView1"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/handsignfree" />
 
         <!-- Primera palabra -->
@@ -80,7 +81,7 @@
             android:id="@+id/imageView2"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
 
             android:src="@drawable/handsignfree" />
 
@@ -101,11 +102,32 @@
             android:id="@+id/imageView3"
             android:layout_width="120dp"
             android:layout_height="120dp"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/handsignfree" />
 
         <!-- Tercera palabra -->
         <TextView
             android:id="@+id/wordOption3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:fontFamily="@font/regular"
+            android:padding="8dp"
+            android:text="Pequeño"
+            android:textSize="16sp" />
+
+        <!-- Tercera imagen -->
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/handsignfree" />
+
+        <!-- Tercera palabra -->
+        <TextView
+            android:id="@+id/wordOption4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -129,6 +151,6 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gridLayout"
-        app:layout_constraintVertical_bias="0.653" />
+        app:layout_constraintVertical_bias="0.325" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
