@@ -57,6 +57,14 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".learning.Exercise3Activity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".learning.ActivityExcercise4"
+            android:exported="true">
+        </activity>
 
         <!--- Onboarding Activities -->
         <activity
