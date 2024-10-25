@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.puj.proyectoensenarte.databinding.BottomSheetResultCorrectBinding
 
-class CorrectResultBottomSheet : BottomSheetDialogFragment() {
+class CorrectResultBottomSheet(private val onContinue: () -> Unit) : BottomSheetDialogFragment() {
 
     private var _binding: BottomSheetResultCorrectBinding? = null
     private val binding get() = _binding!!
@@ -21,9 +21,10 @@ class CorrectResultBottomSheet : BottomSheetDialogFragment() {
     override fun onViewCreated(view: android.view.View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Configurar el botón continuar usando el bindi@ng
+        // Configurar el botón continuar
         binding.btnContinue.setOnClickListener {
-            dismiss()  // Cierra el bottom sheet
+            dismiss()  // Cerrar el BottomSheetDialog
+            onContinue() // Llamar la función callback para continuar
         }
     }
 
