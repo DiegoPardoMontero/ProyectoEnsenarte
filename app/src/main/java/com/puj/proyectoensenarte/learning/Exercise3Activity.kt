@@ -4,6 +4,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.RadioButton
+import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ class Exercise3Activity : AppCompatActivity() {
 
     // Inicializa el objeto de binding@
     private lateinit var binding: ActivityExercise3Binding
+    private var selectedWord: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,36 +25,44 @@ class Exercise3Activity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Configura la lógica de los botones de opción
-        setUpOptionButtons()
+        setUpWordListeners()
 
         setUpVideoViews()
 
-        // Configura el botón "Enviar"
+        // Configura el botón "Enviar@"
         binding.btnSubmit.setOnClickListener {
             Toast.makeText(this, "Respuesta enviada", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setUpOptionButtons() {
-        // Botón de opción 1
-        binding.btnOption1.setOnClickListener {
-            Toast.makeText(this, "Abanico seleccionado", Toast.LENGTH_SHORT).show()
+
+    private fun setUpWordListeners() {
+        binding.wordOption1.setOnClickListener {
+            selectWord(binding.wordOption1)
         }
 
-        // Botón de opción 2
-        binding.btnOption2.setOnClickListener {
-            Toast.makeText(this, "Pan seleccionado", Toast.LENGTH_SHORT).show()
+        binding.wordOption2.setOnClickListener {
+            selectWord(binding.wordOption2)
         }
 
-        // Botón de opción 3
-        binding.btnOption3.setOnClickListener {
-            Toast.makeText(this, "Pequeño seleccionado", Toast.LENGTH_SHORT).show()
+        binding.wordOption3.setOnClickListener {
+            selectWord(binding.wordOption3)
         }
 
-        // Botón de opción 4
-        binding.btnOption4.setOnClickListener {
-            Toast.makeText(this, "Cuñado seleccionado", Toast.LENGTH_SHORT).show()
+        binding.wordOption4.setOnClickListener {
+            selectWord(binding.wordOption4)
         }
+    }
+
+    private fun selectWord(textView: TextView) {
+        // Desmarcar el texto previamente seleccionado
+        selectedWord?.setBackgroundResource(R.drawable.border) // Restablecer el borde original
+
+        // Marcar el texto seleccionado
+        selectedWord = textView
+        selectedWord?.setBackgroundResource(R.drawable.selected_border) // Cambia el borde para mostrar que está seleccionada
+    }
+    private fun checkAnswer() {
     }
 
     private fun setUpVideoViews() {

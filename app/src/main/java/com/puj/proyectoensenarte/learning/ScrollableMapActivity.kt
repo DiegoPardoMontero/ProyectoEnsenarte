@@ -111,7 +111,7 @@ class ScrollableMapActivity : Fragment() {
             alpha = 0f // Empezar invisible
             animate().alpha(1f).setDuration(2000).start() // Desvanecer a visible
         }
-        isAmazonasBannerShown = true // Actualizar el estado del banner
+        isAmazonasBannerShown = true // Actualizar el estado del banner@
     }
 
     // Configura los clicks de los niveles@
@@ -120,7 +120,7 @@ class ScrollableMapActivity : Fragment() {
         binding.level1.setOnClickListener {
             Toast.makeText(context, "Nivel 1: Lección de la Región Andina", Toast.LENGTH_SHORT).show()
 
-            val intent = Intent(activity, ActivityExcercise4::class.java)
+            val intent = Intent(activity, Lesson1Activity::class.java)
             startActivity(intent)
         }
 

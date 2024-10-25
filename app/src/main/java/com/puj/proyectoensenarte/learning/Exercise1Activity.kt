@@ -1,109 +1,98 @@
 package com.puj.proyectoensenarte.learning
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
-import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExcercise1Binding
 
 class Exercise1Activity : AppCompatActivity() {
 
     private lateinit var binding: ActivityExcercise1Binding
+    private lateinit var correctAnswer: String
+    private var points: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
 
         // Inicializar ViewBinding
         binding = ActivityExcercise1Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configurar los videos y botones play/pause
-        setUpVideoViews()
+        // Recibir los datos del ejercicio desde Lesson1Activity
+        val statement = intent.getStringExtra("statement")
+        correctAnswer = intent.getStringExtra("correctAnswer") ?: ""
+        points = intent.getIntExtra("points", 0)
+        val videos = intent.getStringArrayListExtra("videos")
+
+        // Configurar el texto de la pregunta@
+        binding.tvQuestion.text = statement
+
+        // Cargar los videos
+        setUpVideoViews(videos)
 
         // Botón Enviar
         binding.btnSubmit.setOnClickListener {
-            // Aquí puedes agregar lógica para enviar la respuesta seleccionada
-            Toast.makeText(this, "Respuesta enviada", Toast.LENGTH_SHORT).show()
-            val dialog = IncorrectResultBottomSheet()
-            dialog.show(supportFragmentManager, "ResultDialog")
+            validateAnswer()
         }
 
 
     }
 
-    private fun setUpVideoViews() {
-        // Configurar cada video con su respectivo botón play/pause@
-        configureVideo(
-            binding.videoView1,
-            binding.btnPlayPause1,
-            R.raw.video1,  // Reemplaza con tu archivo de video
-            binding.radioButton1
-        )
-        configureVideo(
-            binding.videoView2,
-            binding.btnPlayPause2,
-            R.raw.video2,  // Reemplaza con tu archivo de video
-            binding.radioButton2
-        )
-        configureVideo(
-            binding.videoView3,
-            binding.btnPlayPause3,
-            R.raw.video3,  // Reemplaza con tu archivo de video
-            binding.radioButton3
-        )
-        configureVideo(
-            binding.videoView4,
-            binding.btnPlayPause4,
-            R.raw.video4,  // Reemplaza con tu archivo de video
-            binding.radioButton4
-        )
+    private fun setUpVideoViews(videos: ArrayList<String>?) {
+        configureVideo(binding.videoView1, binding.btnPlayPause1, videos?.getOrNull(0), binding.radioButton1)
+        configureVideo(binding.videoView2, binding.btnPlayPause2, videos?.getOrNull(1), binding.radioButton2)
+        configureVideo(binding.videoView3, binding.btnPlayPause3, videos?.getOrNull(2), binding.radioButton3)
+        configureVideo(binding.videoView4, binding.btnPlayPause4, videos?.getOrNull(3), binding.radioButton4)
     }
 
-    // Método para configurar cada VideoView y su botón de play/pause
+    @SuppressLint("ClickableViewAccessibility")
     private fun configureVideo(
         videoView: VideoView,
         playPauseButton: ImageButton,
-        videoResId: Int,
+        videoUri: String?,
         radioButton: RadioButton
     ) {
-        // Obtener el URI del video
-        val videoUri = Uri.parse("android.resource://${packageName}/$videoResId")
-        videoView.setVideoURI(videoUri)
-
-        // Configurar el comportamiento del VideoView cuando el video se complete
-        videoView.setOnCompletionListener {
-            // Reiniciar el botón a estado de reproducción cuando el video finalice
-            //playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+        videoUri?.let {
+            videoView.setVideoURI(Uri.parse(it))
         }
 
-        // Configurar el botón play/pause
+        playPauseButton.visibility = View.GONE
+
+        videoView.setOnCompletionListener {
+            playPauseButton.visibility = View.VISIBLE
+            playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+        }
+
+        videoView.setOnTouchListener { _, _ ->
+            if (!videoView.isPlaying) {
+                playPauseButton.visibility = View.VISIBLE
+            }
+            false
+        }
+
         playPauseButton.setOnClickListener {
             if (videoView.isPlaying) {
                 videoView.pause()
-                //playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+                playPauseButton.setImageResource(android.R.drawable.ic_media_play)
             } else {
                 videoView.start()
-                //playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
+                playPauseButton.visibility = View.GONE
             }
         }
 
-        // Configurar el comportamiento del RadioButton
         radioButton.setOnClickListener {
-            // Aquí puedes agregar la lógica de selección del video correspondiente
-            Toast.makeText(this, "Seleccionaste un video", Toast.LENGTH_SHORT).show()
-
-            // Si quieres hacer que solo se pueda seleccionar un RadioButton a la vez,
-            // puedes hacer que los otros RadioButtons se desactiven cuando se selecciona uno@.
             clearOtherRadioSelections(radioButton)
         }
     }
 
-    // Método para limpiar la selección de otros RadioButtons
     private fun clearOtherRadioSelections(selectedRadioButton: RadioButton) {
         val radioButtons = listOf(binding.radioButton1, binding.radioButton2, binding.radioButton3, binding.radioButton4)
         for (radioButton in radioButtons) {
@@ -112,4 +101,48 @@ class Exercise1Activity : AppCompatActivity() {
             }
         }
     }
+
+
+
+    private fun validateAnswer() {
+        var selectedAnswer = ""
+
+        // Verificar cuál RadioButton está seleccionado manualmente@
+        if (binding.radioButton1.isChecked) {
+            selectedAnswer = "video1_url"
+            Log.d("pruebaBotonEnviar", "Seleccionado: video1_url")
+        } else if (binding.radioButton2.isChecked) {
+            selectedAnswer = "video2_url"
+            Log.d("pruebaBotonEnviar", "Seleccionado: video2_url")
+        } else if (binding.radioButton3.isChecked) {
+            selectedAnswer = "video3_url"
+            Log.d("pruebaBotonEnviar", "Seleccionado: video3_url")
+        } else if (binding.radioButton4.isChecked) {
+            selectedAnswer = "video4_url"
+            Log.d("pruebaBotonEnviar", "Seleccionado: video4_url")
+        }
+
+        // Si no se seleccionó ningún RadioButton, mostrar un mensaje
+        if (selectedAnswer.isEmpty()) {
+            Toast.makeText(this, "Por favor selecciona una opción", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Comparar la respuesta seleccionada con la respuesta correcta
+        if (selectedAnswer == correctAnswer) {
+            Log.d("pruebaBotonEnviar", "Respuesta correcta")
+            val resultIntent = Intent()
+            resultIntent.putExtra("pointsEarned", points)
+            setResult(RESULT_OK, resultIntent)
+        } else {
+            Log.d("pruebaBotonEnviar", "Respuesta incorrecta")
+            setResult(RESULT_OK)
+        }
+
+        // Finalizar la actividad y regresar a Lesson1Activity@
+        finish()
+    }
+
+
+
 }
