@@ -131,14 +131,14 @@ class Lesson1Activity : AppCompatActivity() {
         Log.d("Lesson1Activity", "onActivityResult llamado con requestCode=$requestCode, resultCode=$resultCode")
 
         if (resultCode == RESULT_OK) {
-
             val pointsEarned = data?.getIntExtra("pointsEarned", 0) ?: 0
             totalPoints += pointsEarned
-            currentExerciseIndex++
-            Log.d("VERIFICAR PUNTOS", totalPoints.toString())
-            loadNextExercise()
+            Log.d("VERIFICAR PUNTOS", "Puntos acumulados: $totalPoints")
         } else {
-            Log.e("Lesson1Activity", "Activity result not OK: requestCode=$requestCode, resultCode=$resultCode")
+            Log.d("Lesson1Activity", "Respuesta incorrecta, no se suman puntos.")
         }
+
+        currentExerciseIndex++
+        loadNextExercise()
     }
 }

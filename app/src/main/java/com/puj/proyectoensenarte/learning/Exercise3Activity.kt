@@ -98,14 +98,23 @@ class Exercise3Activity : AppCompatActivity() {
     }
 
     private fun showCorrectResultDialog() {
-        val dialog = CorrectResultBottomSheet { continueToNextExercise() }
+        val dialog = CorrectResultBottomSheet {
+            val resultIntent = Intent()
+            resultIntent.putExtra("pointsEarned", points)
+            setResult(RESULT_OK, resultIntent)
+            finish() // Volver a Lesson1Activity
+        }
         dialog.show(supportFragmentManager, "CorrectResultDialog")
     }
 
     private fun showIncorrectResultDialog() {
-        val dialog = IncorrectResultBottomSheet { continueToNextExercise() }
+        val dialog = IncorrectResultBottomSheet {
+            setResult(RESULT_CANCELED) // Enviar RESULT_CANCELED para respuestas incorrectas
+            finish() // Volver a Lesson1Activity
+        }
         dialog.show(supportFragmentManager, "IncorrectResultDialog")
     }
+
 
     private fun continueToNextExercise() {
         val resultIntent = Intent()
