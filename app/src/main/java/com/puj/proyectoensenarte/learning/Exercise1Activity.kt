@@ -46,7 +46,7 @@ class Exercise1Activity : AppCompatActivity() {
     }
 
     private fun setUpVideoViews(videos: ArrayList<String>) {
-        videoUrls = videos // Almacenar las URLs de los videos
+        videoUrls = videos // Almacenar las URLs de los videos@
         Log.d("url videos", videoUrls.toString())
         configureVideo(binding.videoView1, binding.btnPlayPause1, videoUrls.getOrNull(0), binding.radioButton1)
         configureVideo(binding.videoView2, binding.btnPlayPause2, videoUrls.getOrNull(1), binding.radioButton2)

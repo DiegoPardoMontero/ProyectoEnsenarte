@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val dictionary = FirestoreDictionary()
 
     // Llamar a la función para buscar una palabra
-        val signName = "Hacer"  // Cambia esto por el nombre que deseas buscar
+        val signName = "Tos"  // Cambia esto por el nombre que deseas buscar
         dictionary.searchSignByName(signName) { found, seniaURL ->
             if (found) {
                 // La seña está en la base de datos y mostramos su URL

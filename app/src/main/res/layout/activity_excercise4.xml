@@ -65,7 +65,7 @@
             android:layout_marginBottom="8dp"
             android:src="@drawable/handsignfree" />
 
-        <!-- Primera palabra -->
+        <!-- Primera palabra@ -->
         <TextView
             android:id="@+id/wordOption1"
             android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
             android:text="Abanico"
             android:textSize="16sp" />
 
-        <!-- Segunda imagen -->
+        <!-- Segun@da imagen -->
         <ImageView
             android:id="@+id/imageView2"
             android:layout_width="120dp"

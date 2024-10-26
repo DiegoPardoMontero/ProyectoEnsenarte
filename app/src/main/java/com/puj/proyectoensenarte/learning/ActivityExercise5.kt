@@ -140,6 +140,19 @@ class ActivityExercise5 : AppCompatActivity() {
 
 
 
+    // Método para validar la respuesta
+    private fun validateAnswer() {
+        // Obtener los IDs de selección ordenados
+        val selectedOrder = selectedImages.keys.sortedBy { selectedImages[it] }.mapNotNull { videoUrls.getOrNull(it - 1) }
+
+        // Comparar la secuencia seleccionada con la respuesta correcta@
+        if (selectedOrder == correctAnswer) {
+            showCorrectResultDialog()
+        } else {
+            showIncorrectResultDialog()
+        }
+    }
+
 
     private fun showCorrectResultDialog() {
         val dialog = CorrectResultBottomSheet { continueToNextExercise() }
@@ -157,17 +170,5 @@ class ActivityExercise5 : AppCompatActivity() {
         resultIntent.putExtra("pointsEarned", points)
         setResult(RESULT_OK, resultIntent)
         finish() // Volver a Lesson1Activity
-    }
-    // Método para validar la respuesta
-    private fun validateAnswer() {
-        // Obtener los IDs de selección ordenados
-        val selectedOrder = selectedImages.keys.sortedBy { selectedImages[it] }.mapNotNull { videoUrls.getOrNull(it - 1) }
-
-        // Comparar la secuencia seleccionada con la respuesta correcta@
-        if (selectedOrder == correctAnswer) {
-            showCorrectResultDialog()
-        } else {
-            showIncorrectResultDialog()
-        }
     }
 }

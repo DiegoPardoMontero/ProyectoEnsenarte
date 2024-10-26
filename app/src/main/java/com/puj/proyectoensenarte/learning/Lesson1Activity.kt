@@ -29,6 +29,8 @@ class Lesson1Activity : AppCompatActivity() {
             if (document != null) {
                 exercises = document.get("exercises") as Map<String, Map<String, Any>>
                 loadNextExercise()
+            } else {
+                Log.e("Lesson1Activity", "Documento no encontrado en Firestore")
             }
         }.addOnFailureListener { exception ->
             Log.e("LessonActivity", "Error fetching lesson", exception)
@@ -45,10 +47,10 @@ class Lesson1Activity : AppCompatActivity() {
             when (exerciseType) {
                 "video_selection" -> launchExercise1(exercise)
                 "ordering" -> launchOrderingExercise(exercise)
-                else -> Toast.makeText(this, "Tipo de ejercicio no soportado", Toast.LENGTH_SHORT).show()
+                "matching" -> launchMatchingExercise(exercise)
+                else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
             }
         } else {
-            // Todos los ejercicios completados
             Toast.makeText(this, "Lección completada con $totalPoints puntos", Toast.LENGTH_LONG).show()
         }
     }
@@ -64,24 +66,34 @@ class Lesson1Activity : AppCompatActivity() {
 
     private fun launchOrderingExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, ActivityExercise5::class.java)
-
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("maxLetters", (exercise["maxLetter"] as Long).toInt())
         intent.putStringArrayListExtra("correctAnswer", ArrayList(exercise["correctAnswer"] as List<String>))
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
         intent.putExtra("points", (exercise["points"] as Long).toInt())
-
-        startActivityForResult(intent, 2)  // Cambi@ar el requestCode para diferenciar de otros tipos de ejercicios
+        startActivityForResult(intent, 2)
     }
+
+    private fun launchMatchingExercise(exercise: Map<String, Any>) {
+        val intent = Intent(this, ActivityExcercise4::class.java)
+        intent.putExtra("statement", exercise["statement"] as? String)
+        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+
+        val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
+        intent.putExtra("correctPairs", ArrayList(correctPairs))
+
+        startActivity(intent)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            // Recibir puntos acumulados desde Exercise1Activity
+        if (resultCode == RESULT_OK) {
             val pointsEarned = data?.getIntExtra("pointsEarned", 0) ?: 0
             totalPoints += pointsEarned
-
             currentExerciseIndex++
             loadNextExercise()
+        } else {
+            Log.e("Lesson1Activity", "Activity result not OK: requestCode=$requestCode, resultCode=$resultCode")
         }
     }
 }
