@@ -36,7 +36,7 @@ class Exercise1Activity : AppCompatActivity() {
         // Configurar el texto de la pregunta
         binding.tvQuestion.text = statement
 
-        // Cargar los videos y almacenar sus URLs
+        // Cargar los videos y almacenar sus URLs@
         setUpVideoViews(videos)
 
         // Botón Enviar
@@ -47,6 +47,7 @@ class Exercise1Activity : AppCompatActivity() {
 
     private fun setUpVideoViews(videos: ArrayList<String>) {
         videoUrls = videos // Almacenar las URLs de los videos
+        Log.d("url videos", videoUrls.toString())
         configureVideo(binding.videoView1, binding.btnPlayPause1, videoUrls.getOrNull(0), binding.radioButton1)
         configureVideo(binding.videoView2, binding.btnPlayPause2, videoUrls.getOrNull(1), binding.radioButton2)
         configureVideo(binding.videoView3, binding.btnPlayPause3, videoUrls.getOrNull(2), binding.radioButton3)
@@ -120,7 +121,10 @@ class Exercise1Activity : AppCompatActivity() {
             return
         }
 
-        // Comparar la respuesta seleccionada con la respuesta correcta
+        Log.d("URL DEL VIDEO SELECCIONADO",selectedAnswer)
+
+
+        // Comparar la respuesta seleccionada con la respuesta correcta@
         if (selectedAnswer == correctAnswer) {
             showCorrectResultDialog()
         } else {
