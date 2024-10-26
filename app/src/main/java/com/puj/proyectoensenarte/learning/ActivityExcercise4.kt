@@ -2,6 +2,7 @@ package com.puj.proyectoensenarte.learning
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -81,7 +82,7 @@ class ActivityExcercise4 : AppCompatActivity() {
         selectedImageView?.setBackgroundResource(R.drawable.border)
         selectedImageView = imageView
         selectedImageView?.setBackgroundResource(R.drawable.selected_border)
-        Toast.makeText(this, "Imagen seleccionada", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, "Imagen seleccionada", Toast.LENGTH_SHORT).show()
     }
 
     private fun selectWord(textView: TextView) {
@@ -92,9 +93,9 @@ class ActivityExcercise4 : AppCompatActivity() {
             textView.isEnabled = false
             textView.setBackgroundResource(R.drawable.selected_border)
 
-            Toast.makeText(this, "Asignaste '${textView.text}' a la imagen seleccionada.", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Asignaste '${textView.text}' a la imagen seleccionada.", Toast.LENGTH_SHORT).show()
         } else {
-            Toast.makeText(this, "Por favor selecciona primero una imagen", Toast.LENGTH_SHORT).show()
+           Toast.makeText(this, "Por favor selecciona primero una imagen", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -139,6 +140,6 @@ class ActivityExcercise4 : AppCompatActivity() {
         val resultIntent = Intent()
         resultIntent.putExtra("pointsEarned", points)
         setResult(RESULT_OK, resultIntent)
-        finish() // Volver a Lesson1Activity
+        finish() // Volver a Lesson1Activity@
     }
 }

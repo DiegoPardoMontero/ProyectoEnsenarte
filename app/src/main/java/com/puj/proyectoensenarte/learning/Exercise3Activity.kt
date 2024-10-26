@@ -1,104 +1,116 @@
 package com.puj.proyectoensenarte.learning
 
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ImageButton
-import android.widget.RadioButton
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
-import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExercise3Binding
 
 class Exercise3Activity : AppCompatActivity() {
 
-    // Inicializa el objeto de binding@
     private lateinit var binding: ActivityExercise3Binding
     private var selectedWord: TextView? = null
+    private lateinit var correctAnswer: String
+    private var points: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        // Infla el layout usando ViewBinding
         binding = ActivityExercise3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Configura la lógica de los botones de opción
-        setUpWordListeners()
+        Log.d("AYDUAAA", "SE CARGA PERO FALLA")
 
-        setUpVideoViews()
+        // Obtener los datos pasados de Lesson1Activity@
+        val statement = intent.getStringExtra("statement") ?: ""
+        correctAnswer = intent.getStringExtra("correctAnswer") ?: ""
+        points = intent.getIntExtra("points", 0)
+        val videoUrl = intent.getStringExtra("video_url") ?: ""
+        val words = intent.getStringArrayListExtra("words") ?: arrayListOf()
 
-        // Configura el botón "Enviar@"
+        // Configurar el enunciado
+        binding.tvQuestion3.text = statement
+
+        // Cargar el video en el VideoView@
+        setUpVideoView(videoUrl)
+
+        // Configurar las palabras
+        setUpWordOptions(words)
+
+        // Configurar el botón Enviar
         binding.btnSubmit.setOnClickListener {
-            Toast.makeText(this, "Respuesta enviada", Toast.LENGTH_SHORT).show()
+            validateAnswer()
         }
     }
 
+    private fun setUpVideoView(videoUrl: String) {
+        binding.videoView1.setVideoURI(Uri.parse(videoUrl))
+        binding.videoView1.setOnPreparedListener { mp -> mp.isLooping = true }
+        binding.videoView1.start()
 
-    private fun setUpWordListeners() {
-        binding.wordOption1.setOnClickListener {
-            selectWord(binding.wordOption1)
+        // Configurar el botón de reproducción/pausa@
+        binding.btnPlayPause1.setOnClickListener {
+            if (binding.videoView1.isPlaying) {
+                binding.videoView1.pause()
+            } else {
+                binding.videoView1.start()
+            }
         }
+    }
 
-        binding.wordOption2.setOnClickListener {
-            selectWord(binding.wordOption2)
-        }
+    private fun setUpWordOptions(words: ArrayList<String>) {
+        val wordViews = listOf(binding.wordOption1, binding.wordOption2, binding.wordOption3, binding.wordOption4)
 
-        binding.wordOption3.setOnClickListener {
-            selectWord(binding.wordOption3)
-        }
-
-        binding.wordOption4.setOnClickListener {
-            selectWord(binding.wordOption4)
+        words.forEachIndexed { index, word ->
+            wordViews.getOrNull(index)?.apply {
+                text = word
+                setOnClickListener {
+                    selectWord(this)
+                }
+            }
         }
     }
 
     private fun selectWord(textView: TextView) {
-        // Desmarcar el texto previamente seleccionado
-        selectedWord?.setBackgroundResource(R.drawable.border) // Restablecer el borde original
+        // Restablecer el borde de la palabra previamente seleccionada
+        selectedWord?.setBackgroundResource(R.drawable.border)
 
-        // Marcar el texto seleccionado
+        // Marcar la palabra seleccionada@
         selectedWord = textView
-        selectedWord?.setBackgroundResource(R.drawable.selected_border) // Cambia el borde para mostrar que está seleccionada
-    }
-    private fun checkAnswer() {
+        selectedWord?.setBackgroundResource(R.drawable.selected_border)
     }
 
-    private fun setUpVideoViews() {
-        // Configurar cada video con su respectivo botón play/pause@
-        configureVideo(
-            binding.videoView1,
-            binding.btnPlayPause1,
-            R.raw.video1
-        )
-    }
-
-    private fun configureVideo(
-        videoView: VideoView,
-        playPauseButton: ImageButton,
-        videoResId: Int
-    ) {
-        // Obtener el URI del video
-        val videoUri = Uri.parse("android.resource://${packageName}/$videoResId")
-        videoView.setVideoURI(videoUri)
-
-        // Configurar el comportamiento del VideoView cuando el video se com@plete
-        videoView.setOnCompletionListener {
-            // Reiniciar el botón a estado de reproducción cuando el video finalice
-            //playPauseButton.setImageResource(android.R.drawable.ic_media_play)
+    private fun validateAnswer() {
+        if (selectedWord == null) {
+            Toast.makeText(this, "Por favor selecciona una palabra", Toast.LENGTH_SHORT).show()
+            return
         }
 
-        // Configurar el botón play/pause
-        playPauseButton.setOnClickListener {
-            if (videoView.isPlaying) {
-                videoView.pause()
-                //playPauseButton.setImageResource(android.R.drawable.ic_media_play)
-            } else {
-                videoView.start()
-                //playPauseButton.setImageResource(android.R.drawable.ic_media_pause)
-            }
+        // Verificar si la palabra seleccionada es correcta@
+        if (selectedWord?.text == correctAnswer) {
+            showCorrectResultDialog()
+        } else {
+           showIncorrectResultDialog()
         }
+    }
 
+    private fun showCorrectResultDialog() {
+        val dialog = CorrectResultBottomSheet { continueToNextExercise() }
+        dialog.show(supportFragmentManager, "CorrectResultDialog")
+    }
+
+    private fun showIncorrectResultDialog() {
+        val dialog = IncorrectResultBottomSheet { continueToNextExercise() }
+        dialog.show(supportFragmentManager, "IncorrectResultDialog")
+    }
+
+    private fun continueToNextExercise() {
+        val resultIntent = Intent()
+        resultIntent.putExtra("pointsEarned", points)
+        setResult(RESULT_OK, resultIntent)
+        finish() // Volver a Lesson1Activity@
     }
 }

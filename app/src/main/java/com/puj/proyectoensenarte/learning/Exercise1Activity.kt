@@ -132,23 +132,24 @@ class Exercise1Activity : AppCompatActivity() {
         }
     }
 
-    // Mostrar diálogo de respuesta correcta
+    // Mostrar diálogo de respuesta correcta@
     private fun showCorrectResultDialog() {
         val dialog = CorrectResultBottomSheet { continueToNextExercise() }
         dialog.show(supportFragmentManager, "CorrectResultDialog")
     }
 
-    // Mostrar diálogo de respuesta incorrecta
+    // Mostrar diálogo de respuesta incorrecta@
     private fun showIncorrectResultDialog() {
         val dialog = IncorrectResultBottomSheet { continueToNextExercise() }
         dialog.show(supportFragmentManager, "IncorrectResultDialog")
     }
 
-    // Esta función será llamada desde el diálogo para continuar
+    // Esta función será llamada desd@e el diálogo para continuar
     private fun continueToNextExercise() {
         val resultIntent = Intent()
         resultIntent.putExtra("pointsEarned", points)
         setResult(RESULT_OK, resultIntent)
         finish() // Volver a Lesson1Activity
     }
+
 }

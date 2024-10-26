@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvQuestion"
+        android:id="@+id/tvQuestion3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
@@ -49,7 +49,7 @@
         android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvQuestion">
+        app:layout_constraintTop_toBottomOf="@+id/tvQuestion3">
 
         <!-- VideoVi@ew 1 -->
         <VideoView
