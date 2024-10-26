@@ -83,7 +83,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         // Ejercicio 5: Selección de palabra
         Map<String, Object> exercise5 = new HashMap<>();
         exercise5.put("statement", "¿Qué significa la seña mostrada en el video?");
-        exercise5.put("exerciseType", "select_word");
+        exercise5.put("exerciseType", "selection");
         exercise5.put("points", 5);
         exercise5.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Apoyar/apoyarSena.m4v");
         exercise5.put("correctAnswer", "Apoyar");
@@ -92,7 +92,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         // Ejercicio 6: Selección de palabra
         Map<String, Object> exercise6 = new HashMap<>();
         exercise6.put("statement", "¿Cuál es el verbo para la seña en el video?");
-        exercise6.put("exerciseType", "select_word");
+        exercise6.put("exerciseType", "selection");
         exercise6.put("points", 5);
         exercise5.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Prohibir/prohibirSena.m4v");
         exercise6.put("correctAnswer", "Prohibir");
@@ -110,7 +110,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         // Ejercicio 8: Selección de palabra
         Map<String, Object> exercise8 = new HashMap<>();
         exercise8.put("statement", "¿Qué verbo se muestra en el video?");
-        exercise8.put("exerciseType", "select_word");
+        exercise8.put("exerciseType", "selection");
         exercise8.put("points", 5);
         exercise5.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Buscar/buscarSena.m4v");
         exercise8.put("correctAnswer", "Buscar");
@@ -134,11 +134,10 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         pair44.put("word", "Bolso");
 
         Map<String, Object> exercise9 = new HashMap<>();
-        exercise4.put("correctPairs", Arrays.asList(pair11, pair22, pair33, pair44));
-        exercise4.put("exerciseType", "matching");
-        exercise4.put("points", 5);
-        exercise4.put("statement", "Une la palabra con su imagen correspondiente");
-
+        exercise9.put("correctPairs", Arrays.asList(pair11, pair22, pair33, pair44));
+        exercise9.put("exerciseType", "matching");
+        exercise9.put("points", 5);
+        exercise9.put("statement", "Une la palabra con su imagen correspondiente");
 
         // Ejercicio 10: Selección de video
         Map<String, Object> exercise10 = new HashMap<>();
