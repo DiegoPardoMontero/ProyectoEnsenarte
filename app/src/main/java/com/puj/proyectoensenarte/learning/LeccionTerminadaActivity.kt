@@ -13,11 +13,11 @@ class LeccionTerminadaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializar ViewBinding
+        // Inicializar ViewBinding@
         binding = ActivityLeccionTerminadaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtener los puntos totales de la lección
+        // Obtener los puntos totales de la lección@
         totalPoints = intent.getIntExtra("totalPoints", 0)
 
         // Mostrar los puntos obtenidos en el TextView correspondiente
