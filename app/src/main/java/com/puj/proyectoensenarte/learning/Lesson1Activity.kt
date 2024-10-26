@@ -44,7 +44,7 @@ class Lesson1Activity : AppCompatActivity() {
 
             when (exerciseType) {
                 "video_selection" -> launchExercise1(exercise)
-                "word_selection" -> launchWordSelectionExercise(exercise)
+                "ordering" -> launchOrderingExercise(exercise)
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado", Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -62,10 +62,17 @@ class Lesson1Activity : AppCompatActivity() {
         startActivityForResult(intent, 1)
     }
 
-    private fun launchWordSelectionExercise(exercise: Map<String, Any>) {
-        // Implementa otro tipo de ejercicio si es necesario.
-    }
+    private fun launchOrderingExercise(exercise: Map<String, Any>) {
+        val intent = Intent(this, ActivityExercise5::class.java)
 
+        intent.putExtra("statement", exercise["statement"] as String)
+        intent.putExtra("maxLetters", (exercise["maxLetter"] as Long).toInt())
+        intent.putStringArrayListExtra("correctAnswer", ArrayList(exercise["correctAnswer"] as List<String>))
+        intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
+        intent.putExtra("points", (exercise["points"] as Long).toInt())
+
+        startActivityForResult(intent, 2)  // Cambi@ar el requestCode para diferenciar de otros tipos de ejercicios
+    }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1 && resultCode == RESULT_OK) {

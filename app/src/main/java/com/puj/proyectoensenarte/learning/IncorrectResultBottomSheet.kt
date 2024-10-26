@@ -2,11 +2,11 @@ package com.puj.proyectoensenarte.learning
 
 import android.os.Bundle
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.puj.proyectoensenarte.databinding.BottomSheetResultCorrectBinding
+import com.puj.proyectoensenarte.databinding.BottomSheetResultIncorrectBinding
 
 class IncorrectResultBottomSheet(private val onContinue: () -> Unit) : BottomSheetDialogFragment() {
 
-    private var _binding: BottomSheetResultCorrectBinding? = null
+    private var _binding: BottomSheetResultIncorrectBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -14,7 +14,7 @@ class IncorrectResultBottomSheet(private val onContinue: () -> Unit) : BottomShe
         savedInstanceState: Bundle?
     ): android.view.View? {
         // Inflar la vista con ViewBinding@
-        _binding = BottomSheetResultCorrectBinding.inflate(inflater, container, false)
+        _binding = BottomSheetResultIncorrectBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -23,7 +23,7 @@ class IncorrectResultBottomSheet(private val onContinue: () -> Unit) : BottomShe
 
         // Configurar el botón continuar
         binding.btnContinue.setOnClickListener {
-            dismiss()  // Cerrar el BottomSheetDialog
+            dismiss()  // Cerrar el BottomSheetDialog@
             onContinue() // Llamar la función callback para continuar
         }
     }
