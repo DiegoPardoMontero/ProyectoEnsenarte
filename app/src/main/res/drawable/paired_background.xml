@@ -1,0 +1,4 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/rage" /> <!-- Color sólido para indicar emparejamiento -->
+    <corners android:radius="8dp" />
+</shape>

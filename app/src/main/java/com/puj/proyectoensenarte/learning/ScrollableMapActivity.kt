@@ -118,13 +118,13 @@ class ScrollableMapActivity : Fragment() {
     private fun setUpClickLevel() {
         // Niveles Región Andina
         binding.level1.setOnClickListener {
-            Toast.makeText(context, "Nivel 1: Lección de la Región Andina", Toast.LENGTH_SHORT).show()
-
             val intent = Intent(activity, Lesson1Activity::class.java)
             startActivity(intent)
         }
 
         binding.level2.setOnClickListener {
+            val intent = Intent(activity,Lesson2Activity::class.java)
+            startActivity(intent)
             Toast.makeText(context, "Nivel 2: Lección de la Región Andina", Toast.LENGTH_SHORT).show()
         }
 
