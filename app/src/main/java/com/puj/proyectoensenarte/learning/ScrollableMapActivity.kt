@@ -76,13 +76,13 @@ class ScrollableMapActivity : Fragment() {
                     if (document != null && document.exists()) {
                         // Obtiene el valor de "xpPoints" y actualiza el TextView
                         val xpPoints = document.getLong("xpPoints") ?: 0
-                        val streakPoints = document.getLong("streakPoints") ?: 0
+                        val streakDays = document.getLong("streakDays") ?: 0
                         binding.tvPoints.text = "${xpPoints}xp"
                         binding.tvPointsCaribe.text = "${xpPoints}xp"
                         binding.tvPoints3.text = "${xpPoints}xp"
-                        binding.strakDaysCaribe.text = "${streakPoints}"
-                        binding.tvStreakAndina.text = "${streakPoints}"
-                        binding.tvStreakAmazonas.text = "${streakPoints}"
+                        binding.strakDaysCaribe.text = "${streakDays}"
+                        binding.tvStreakAndina.text = "${streakDays}"
+                        binding.tvStreakAmazonas.text = "${streakDays}"
                     } else {
                         Log.w("FRAGMENTOS DE NIVELES LOG", "Documento de usuario no encontrado.")
                     }
