@@ -1,41 +1,48 @@
-package com.puj.proyectoensenarte.learning
-
-import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import android.util.Log
 
 class FirestoreDictionary {
 
-    // Función para buscar una palabra y devolver si está y la seniaURL
-    fun searchSignByName(signName: String, onResult: (Boolean, String?) -> Unit) {
-        val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()
+
+    // Lista de señas específicas a buscar
+    private val targetSigns = listOf(
+        "Cama", "Lavar", "Cocina", "Escoba", "Cuchillo", "Recogedor",
+        "Desayunar", "Cocinar", "Bailar", "Jugar", "Dibujar", "Limpiar",
+        "Estudiar", "Television", "Televisión", "Computador", "Ducha", "Gustar", "Aspiradora","Tijeras","Tijera","Bañar","Comer","Estudiar","Buscar","Entrar"
+    )
+
+    // Función para obtener las URLs de las señas específicas
+    fun fetchSpecificSignUrls(onResult: (Map<String, String?>) -> Unit) {
         val dictRef = db.collection("dict").document("palabras")
 
         dictRef.get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    // Aquí obtenemos el mapa de las palabras
                     val wordsMap = document.data
+                    val signUrls = mutableMapOf<String, String?>()
 
-                    // Verificar si la palabra está en el documento
-                    if (wordsMap != null && wordsMap.containsKey(signName)) {
-                        // Obtener los datos de la palabra
-                        val signData = wordsMap[signName] as? Map<String, Any>
-                        val seniaURL = signData?.get("seniaURL") as? String
-
-                        Log.d("FirestoreDictionary", "Palabra '$signName' encontrada con URL: $seniaURL")
-                        onResult(true, seniaURL)  // Indicar que la palabra fue encontrada y devolver la URL
-                    } else {
-                        Log.d("FirestoreDictionary", "Palabra '$signName' no encontrada.")
-                        onResult(false, null)  // Indicar que la palabra no fue encontrada
+                    // Iterar sobre cada entrada en el documento y extraer solo las señas específicas
+                    if (wordsMap != null) {
+                        for ((key, value) in wordsMap) {
+                            if (key in targetSigns) {
+                                val signData = value as? Map<*, *>
+                                val seniaURL = signData?.get("seniaURL") as? String
+                                signUrls[key] = seniaURL
+                            }
+                        }
                     }
+
+                    Log.d("FirestoreDictionary", "URLs de señas específicas: $signUrls")
+                    onResult(signUrls) // Devolver el mapa de nombres y URLs
                 } else {
                     Log.d("FirestoreDictionary", "Documento 'palabras' no encontrado.")
-                    onResult(false, null)
+                    onResult(emptyMap())
                 }
             }
             .addOnFailureListener { exception ->
-                Log.e("FirestoreDictionary", "Error al buscar la palabra: ", exception)
-                onResult(false, null)
+                Log.e("FirestoreDictionary", "Error al obtener URLs de señas específicas", exception)
+                onResult(emptyMap())
             }
     }
 }

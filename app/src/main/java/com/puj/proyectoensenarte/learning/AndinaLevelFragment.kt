@@ -1,13 +1,13 @@
 package com.puj.proyectoensenarte.learning
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.FragmentAndinaLevelBinding
 
@@ -34,6 +34,8 @@ class AndinaLevelFragment : Fragment() {
             (parentFragment as? LearningFragmentActivity)?.loadFragment(CaribbeanLevelFragment(), R.id.fragmentContainerLevel1)
         }
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
