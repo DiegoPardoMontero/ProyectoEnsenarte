@@ -128,6 +128,45 @@ class Lesson1Activity : AppCompatActivity() {
             Log.e("Lesson1Activity", "Error al obtener los datos del usuario", e)
         }
     }
+
+    private fun updateUserPointsForLesson(lessonName: String) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        // Verifica si la lección ya fue completada sin errores
+        userRef.get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val completedWithoutErrors = document.getBoolean("${lessonName}_completedWithoutErrors") ?: false
+
+                // Si la lección ya fue completada sin errores, no sumamos puntos
+                if (completedWithoutErrors) {
+                    Log.d("Lesson1Activity", "Lección ya completada sin errores, no se sumarán puntos nuevamente.")
+                    return@addOnSuccessListener
+                }
+
+                // Sumar puntos solo si la lección no ha sido completada sin errores antes
+                if (errorCount == 0) {
+                    val previousXpPoints = document.getLong("xpPoints")?.toInt() ?: 0
+                    val updatedPoints = previousXpPoints + totalPoints
+
+                    // Actualizar los puntos y marcar la lección como completada sin errores
+                    userRef.update(
+                        mapOf(
+                            "xpPoints" to updatedPoints,
+                            "${lessonName}_completedWithoutErrors" to true // Marcar lección como completada sin errores
+                        )
+                    ).addOnSuccessListener {
+                        Log.d("Lesson1Activity", "Puntos actualizados exitosamente: $updatedPoints y lección marcada como completada sin errores.")
+                    }.addOnFailureListener { e ->
+                        Log.e("Lesson1Activity", "Error al actualizar los puntos y la marca de lección", e)
+                    }
+                }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("Lesson1Activity", "Error al obtener los datos del usuario", e)
+        }
+    }
     private fun updateUserPoints() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val db = FirebaseFirestore.getInstance()
@@ -187,14 +226,15 @@ class Lesson1Activity : AppCompatActivity() {
 
             // Llama a updateUserStreakAndPoints() para actualizar la racha y los puntos en la base de datos@
 
-            updateUserPoints()
-            checkExperiencia()
+            updateUserPointsForLesson("lesson1")
+
 
             // Llama a checkAchievements() para verificar y desbloquear logros, si corresponde
             if (errorCount == 0) {
                 updateUserStreak()
                 checkAchievements()
             }
+            checkExperiencia()
 
             finish()
         }
@@ -282,6 +322,15 @@ class Lesson1Activity : AppCompatActivity() {
             .addOnSuccessListener { result ->
                 if (result.documents.isNotEmpty()) {
                     val insigniaDoc = result.documents[0]
+                    val status = insigniaDoc.getString("status")
+
+                    // Verificar si la insignia ya está activada
+                    if (status == "activated") {
+                        Log.d("Lesson1Activity", "Insignia $insigniaName ya está activada. No se requiere desbloquear nuevamente.")
+                        return@addOnSuccessListener
+                    }
+
+                    // Si no está activada, procede a activarla
                     val insigniaImageUrl = insigniaDoc.getString("url") ?: ""
                     val insigniaDescription = insigniaDoc.getString("description") ?: ""
 
