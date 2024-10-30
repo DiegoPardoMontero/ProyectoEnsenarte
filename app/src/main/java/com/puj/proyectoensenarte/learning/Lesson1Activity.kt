@@ -185,7 +185,7 @@ class Lesson1Activity : AppCompatActivity() {
             intent.putExtra("totalPoints", totalPoints)
             startActivity(intent)
 
-            // Llama a updateUserStreakAndPoints() para actualizar la racha y los puntos en la base de datos
+            // Llama a updateUserStreakAndPoints() para actualizar la racha y los puntos en la base de datos@
 
             updateUserPoints()
             checkExperiencia()
