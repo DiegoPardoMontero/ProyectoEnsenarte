@@ -93,8 +93,6 @@ class StatisticsProfileActivity : AppCompatActivity() {
                     for (document in result) {
                         val nombre = document.getString("name") ?: "Nombre desconocido"
                         val status = document.getString("status") ?: "inactivo"
-
-                        // Verificar si el estado es "activated" o "inactivo"
                         val fotoUrl = if (status == "activated") {
                             document.getString("url") ?: ""
                         } else {
@@ -102,7 +100,7 @@ class StatisticsProfileActivity : AppCompatActivity() {
                         }
 
                         if (fotoUrl.isNotEmpty()) {
-                            insigniaList.add(Insignia(fotoUrl, nombre))
+                            insigniaList.add(Insignia(fotoUrl, nombre, status))
                         } else {
                             Log.e("Firestore", "URL de la foto no disponible para $nombre")
                         }

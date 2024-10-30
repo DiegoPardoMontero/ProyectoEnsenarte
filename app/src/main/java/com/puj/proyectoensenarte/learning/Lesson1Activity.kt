@@ -134,37 +134,45 @@ class Lesson1Activity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val userRef = db.collection("users").document(uid)
 
-        // Verifica si la lección ya fue completada sin errores
         userRef.get().addOnSuccessListener { document ->
             if (document != null && document.exists()) {
+                // Obtener el estado de completado sin errores y los puntos actuales
                 val completedWithoutErrors = document.getBoolean("${lessonName}_completedWithoutErrors") ?: false
+                val previousXpPoints = document.getLong("xpPoints")?.toInt() ?: 0
+                val pointsToAdd = totalPoints
 
-                // Si la lección ya fue completada sin errores, no sumamos puntos
+                // Caso 1: Si ya fue completada sin errores anteriormente, no se suman más puntos
                 if (completedWithoutErrors) {
-                    Log.d("Lesson1Activity", "Lección ya completada sin errores, no se sumarán puntos nuevamente.")
+                    Log.d("Lesson1Activity", "Lección ya completada sin errores. No se sumarán puntos nuevamente.")
                     return@addOnSuccessListener
                 }
 
-                // Sumar puntos solo si la lección no ha sido completada sin errores antes
+                // Caso 2: Si se completa ahora sin errores y no estaba previamente marcada como tal
                 if (errorCount == 0) {
-                    val previousXpPoints = document.getLong("xpPoints")?.toInt() ?: 0
-                    val updatedPoints = previousXpPoints + totalPoints
-
-                    // Actualizar los puntos y marcar la lección como completada sin errores
+                    val updatedPoints = previousXpPoints + pointsToAdd
                     userRef.update(
                         mapOf(
                             "xpPoints" to updatedPoints,
-                            "${lessonName}_completedWithoutErrors" to true // Marcar lección como completada sin errores
+                            "${lessonName}_completedWithoutErrors" to true
                         )
                     ).addOnSuccessListener {
-                        Log.d("Lesson1Activity", "Puntos actualizados exitosamente: $updatedPoints y lección marcada como completada sin errores.")
+                        Log.d("Lesson1Activity", "Puntos actualizados: $updatedPoints y lección marcada como completada sin errores.")
                     }.addOnFailureListener { e ->
-                        Log.e("Lesson1Activity", "Error al actualizar los puntos y la marca de lección", e)
+                        Log.e("Lesson1Activity", "Error al actualizar puntos y marca de lección", e)
                     }
+                } else {
+                    // Caso 3: Si la lección se completa con errores, solo sumamos puntos esta vez
+                    val updatedPoints = previousXpPoints + pointsToAdd
+                    userRef.update("xpPoints", updatedPoints)
+                        .addOnSuccessListener {
+                            Log.d("Lesson1Activity", "Puntos por lección completada con errores actualizados: $updatedPoints.")
+                        }.addOnFailureListener { e ->
+                            Log.e("Lesson1Activity", "Error al actualizar puntos para lección completada con errores", e)
+                        }
                 }
             }
         }.addOnFailureListener { e ->
-            Log.e("Lesson1Activity", "Error al obtener los datos del usuario", e)
+            Log.e("Lesson1Activity", "Error al obtener datos del usuario", e)
         }
     }
     private fun updateUserPoints() {
@@ -218,25 +226,34 @@ class Lesson1Activity : AppCompatActivity() {
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
             }
         } else {
-            // Lección completada
-            Toast.makeText(this, "Lección completada con $totalPoints puntos", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, LeccionTerminadaActivity::class.java)
-            intent.putExtra("totalPoints", totalPoints)
-            startActivity(intent)
+            // Lección completada; revisar si se debe otorgar pantalla de puntos
+            val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+            val db = FirebaseFirestore.getInstance()
+            val userRef = db.collection("users").document(uid)
 
-            // Llama a updateUserStreakAndPoints() para actualizar la racha y los puntos en la base de datos@
+            userRef.get().addOnSuccessListener { document ->
+                val completedWithoutErrors = document.getBoolean("lesson1_completedWithoutErrors") ?: false
 
-            updateUserPointsForLesson("lesson1")
+                if (!completedWithoutErrors || errorCount > 0) {
+                    // Solo mostrar pantalla si esta es una completación válida para otorgar puntos
+                    Toast.makeText(this, "Lección completada con $totalPoints puntos", Toast.LENGTH_LONG).show()
+                    val intent = Intent(this, LeccionTerminadaActivity::class.java)
+                    intent.putExtra("totalPoints", totalPoints)
+                    startActivity(intent)
+                }
 
+                // Actualizar puntos y racha según el caso
+                updateUserPointsForLesson("lesson1")
+                if (errorCount == 0) {
+                    updateUserStreak()
+                    checkAchievements()
+                }
+                checkExperiencia()
 
-            // Llama a checkAchievements() para verificar y desbloquear logros, si corresponde
-            if (errorCount == 0) {
-                updateUserStreak()
-                checkAchievements()
+                finish()
+            }.addOnFailureListener { e ->
+                Log.e("Lesson1Activity", "Error al verificar lección completada: ", e)
             }
-            checkExperiencia()
-
-            finish()
         }
     }
 
