@@ -2,12 +2,15 @@ package com.puj.proyectoensenarte.learning
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.CrearCuentaActivity
 import com.puj.proyectoensenarte.databinding.ActivityScrollableMapBinding
 
@@ -30,7 +33,7 @@ class ScrollableMapActivity : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        loadUserXpPoints()
         // Listener de scroll para detectar la posición
         binding.scrollView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
             // Verifica si se alcanzó el nivel caribe y no se ha mostrado el banner aún
@@ -56,6 +59,40 @@ class ScrollableMapActivity : Fragment() {
 
         // Configura los clics para los niveles
         setUpClickLevel()
+    }
+
+    private fun loadUserXpPoints() {
+        // Obtén el UID del usuario autenticado@
+        val user = FirebaseAuth.getInstance().currentUser
+        val uid = user?.uid
+
+        if (uid != null) {
+            // Accede a la base de datos de Firestore@
+            val db = FirebaseFirestore.getInstance()
+            val userRef = db.collection("users").document(uid)
+
+            userRef.get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        // Obtiene el valor de "xpPoints" y actualiza el TextView
+                        val xpPoints = document.getLong("xpPoints") ?: 0
+                        val streakPoints = document.getLong("streakPoints") ?: 0
+                        binding.tvPoints.text = "${xpPoints}xp"
+                        binding.tvPointsCaribe.text = "${xpPoints}xp"
+                        binding.tvPoints3.text = "${xpPoints}xp"
+                        binding.strakDaysCaribe.text = "${streakPoints}"
+                        binding.tvStreakAndina.text = "${streakPoints}"
+                        binding.tvStreakAmazonas.text = "${streakPoints}"
+                    } else {
+                        Log.w("FRAGMENTOS DE NIVELES LOG", "Documento de usuario no encontrado.")
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Log.e("AndinaLevelFragment", "Error al cargar los puntos de experiencia del usuario", e)
+                }
+        } else {
+            Log.w("AndinaLevelFragment", "No se encontró un usuario autenticado.")
+        }
     }
 
     // Función para ocultar el banner del Caribe con animación
@@ -125,11 +162,12 @@ class ScrollableMapActivity : Fragment() {
         binding.level2.setOnClickListener {
             val intent = Intent(activity,Lesson2Activity::class.java)
             startActivity(intent)
-            Toast.makeText(context, "Nivel 2: Lección de la Región Andina", Toast.LENGTH_SHORT).show()
+
         }
 
         binding.level3.setOnClickListener {
-            Toast.makeText(context, "Nivel 3: Lección de la Región Andina", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity,Lesson3Activity::class.java)
+            startActivity(intent)
         }
 
         binding.lockAndina.setOnClickListener {

@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte
 
+import FirestoreDictionary
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -9,7 +10,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.puj.proyectoensenarte.learning.FirestoreDictionary
 import com.puj.proyectoensenarte.databinding.ActivityMainBinding
 import com.puj.proyectoensenarte.onboarding.SliderActivity
 
@@ -22,17 +22,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // Crear una instancia de la clase FirestoreDictionary
-        val dictionary = FirestoreDictionary()
+        val firestoreDictionary = FirestoreDictionary()
 
-    // Llamar a la función para buscar una palabra
-        val signName = "Ducha"  // Cambia esto por el nombre que deseas buscar
-        dictionary.searchSignByName(signName) { found, seniaURL ->
-            if (found) {
-                // La seña está en la base de datos y mostramos su URL
-                Log.d("Resultado", "La palabra '$signName' está en el diccionario. seniaURL: $seniaURL")
-            } else {
-                // La seña no está en la base de datos
-                Log.d("Resultado", "La palabra '$signName' no está en el diccionario.")
+        firestoreDictionary.fetchSpecificSignUrls { signUrls ->
+            signUrls.forEach { (signName, url) ->
+                Log.d("SignURL", "Seña: $signName, URL: $url")
             }
         }
 

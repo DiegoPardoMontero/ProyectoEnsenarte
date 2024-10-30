@@ -80,7 +80,7 @@ public class CrearLeccion2 extends AppCompatActivity {
         exercise4.put("correctPairs", Arrays.asList(pair1, pair2, pair3, pair4));
         exercise4.put("exerciseType", "matching_videos");
         exercise4.put("points", 5);
-        exercise4.put("statement", "Empareja las señas con los nombres correctos. (Ej: “mamá”, “papá”, “hermano”)");
+        exercise4.put("statement", "Empareja las señas con los nombres correctos (haz click dos veces en el video)");
 
         // Ejercicio 2: Selección de video
         Map<String, Object> exercise5 = new HashMap<>();
@@ -148,7 +148,7 @@ public class CrearLeccion2 extends AppCompatActivity {
         exercise10.put("correctPairs", Arrays.asList(pair11, pair22, pair33, pair44));
         exercise10.put("exerciseType", "matching_videos");
         exercise10.put("points", 5);
-        exercise10.put("statement", "Une la palabra con su seña correspondiente");
+        exercise10.put("statement", "Une la palabra con su seña correspondiente (haz click dos veces en el video)");
 
         // Añadir los ejercicios a la lección
         Map<String, Object> exercises = new HashMap<>();

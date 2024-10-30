@@ -32,7 +32,7 @@ class StatisticsProfileActivity : AppCompatActivity() {
         // Configura el RecyclerView con un GridLayoutManager
         binding.recyclerViewInsignias.layoutManager = GridLayoutManager(this, 3)
         adapter = InsigniaAdapter(this, listOf()) { insignia ->
-            //Toast.makeText(this, "Seleccionaste: ${insignia.name}", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(this, "Seleccionaste: ${insignia.name}", Toast.LENGTH_SHORT).show()@
         }
         binding.recyclerViewInsignias.adapter = adapter
 
@@ -83,24 +83,39 @@ class StatisticsProfileActivity : AppCompatActivity() {
 
     private fun loadInsigniasFromFirestore() {
         val db = FirebaseFirestore.getInstance()
-        db.collection("insignia").get()
-            .addOnSuccessListener { result ->
-                val insigniaList = mutableListOf<Insignia>()
-                for (document in result) {
-                    val nombre = document.getString("name") ?: "Nombre desconocido"
-                    val fotoUrl = document.getString("url") ?: ""
+        val user = FirebaseAuth.getInstance().currentUser
+        val uid = user?.uid
 
-                    if (fotoUrl.isNotEmpty()) {
-                        insigniaList.add(Insignia(fotoUrl, nombre))
-                    } else {
-                        Log.e("Firestore", "URL de la foto no disponible para $nombre")
+        if (uid != null) {
+            db.collection("users").document(uid).collection("insignias").get()
+                .addOnSuccessListener { result ->
+                    val insigniaList = mutableListOf<Insignia>()
+                    for (document in result) {
+                        val nombre = document.getString("name") ?: "Nombre desconocido"
+                        val status = document.getString("status") ?: "inactivo"
+
+                        // Verificar si el estado es "activated" o "inactivo"
+                        val fotoUrl = if (status == "activated") {
+                            document.getString("url") ?: ""
+                        } else {
+                            document.getString("url_deactivated") ?: ""
+                        }
+
+                        if (fotoUrl.isNotEmpty()) {
+                            insigniaList.add(Insignia(fotoUrl, nombre))
+                        } else {
+                            Log.e("Firestore", "URL de la foto no disponible para $nombre")
+                        }
                     }
+                    // Actualizar el adaptador con la lista de insignias@
+                    adapter.updateData(insigniaList)
                 }
-                adapter.updateData(insigniaList)
-            }
-            .addOnFailureListener { exception ->
-                Toast.makeText(this, "Error al cargar las insignias: ${exception.message}", Toast.LENGTH_SHORT).show()
-            }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(this, "Error al cargar las insignias: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(this, "Usuario no autenticado", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun loadProfileImageFromFirestore() {
