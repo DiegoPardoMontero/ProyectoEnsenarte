@@ -72,15 +72,28 @@ class CrearCuentaActivity : AppCompatActivity() {
         val streakDays: Number = 0
         val xpPoints: Number = 0
         val lastExerciseDate: Timestamp? = null
+
+        // Marcas de lección completada sin errores, inicializadas en false
+        val lessonCompletionMarks = mapOf(
+            "lesson1_completedWithoutErrors" to false,
+            "lesson2_completedWithoutErrors" to false,
+            "lesson3_completedWithoutErrors" to false,
+            "lesson4_completedWithoutErrors" to false,
+            "lesson5_completedWithoutErrors" to false,
+            "lesson6_completedWithoutErrors" to false,
+            "lesson7_completedWithoutErrors" to false,
+            "lesson8_completedWithoutErrors" to false,
+            "lesson9_completedWithoutErrors" to false
+        )
+
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Registro exitoso, obtén la información del usuario
                     val user = auth.currentUser
                     user?.let {
                         val uid = user.uid
 
-                        // Crear datos principales del usuario
+                        // Crear datos principales del usuario, incluyendo las marcas de lecciones
                         val userMap = hashMapOf(
                             "email" to email,
                             "uid" to uid,
@@ -90,14 +103,14 @@ class CrearCuentaActivity : AppCompatActivity() {
                             "streakDays" to streakDays,
                             "xpPoints" to xpPoints,
                             "lastExerciseDate" to lastExerciseDate
-                        )
+                        ) + lessonCompletionMarks // Añadir las marcas de lección al mapa
 
                         // Guardar datos del usuario en Firestore
                         db.collection("users").document(uid)
                             .set(userMap)
                             .addOnSuccessListener {
                                 Log.d(TAG, "Datos del usuario guardados correctamente")
-                                // Crear colección de insignias para el usuario@
+                                // Crear colección de insignias para el usuario
                                 createInsigniaCollection(uid)
 
                                 Toast.makeText(baseContext, "Registrado exitosamente!", Toast.LENGTH_SHORT).show()
@@ -115,7 +128,6 @@ class CrearCuentaActivity : AppCompatActivity() {
                 }
             }
     }
-
     // Función para crear la colección de insignias en Firestore@
     private fun createInsigniaCollection(uid: String) {
         val db = FirebaseFirestore.getInstance()
