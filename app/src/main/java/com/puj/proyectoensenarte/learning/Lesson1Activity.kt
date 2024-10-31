@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
@@ -254,11 +255,41 @@ class Lesson1Activity : AppCompatActivity() {
                 checkExperiencia()
                 checkColeccionador()
                 updateFinishedFirstTime()
-
+                incrementReviewCounter()
                 finish()
             }.addOnFailureListener { e ->
                 Log.e("Lesson1Activity", "Error al verificar lección completada: ", e)
             }
+        }
+    }
+
+    private fun incrementReviewCounter() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            val finishedFirstTime = document.getBoolean("lesson1_completedWithoutErrors") ?: false
+
+            if (finishedFirstTime) {
+                userRef.update("num_practice_lessons", FieldValue.increment(1))
+                    .addOnSuccessListener {
+                        Log.d("Lesson1Activity", "Contador de lección práctica incrementado.")
+
+                        // Verificar si ha alcanzado el número para desbloquear la insignia@
+                        userRef.get().addOnSuccessListener { updatedDoc ->
+                            val practiceCount = updatedDoc.getLong("num_practice_lessons") ?: 0
+                            if (practiceCount >= 3) {
+                                unlockInsignia("Insignia de revisión")
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("Lesson1Activity", "Error al incrementar el contador de lección práctica", e)
+                    }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("Lesson1Activity", "Error al verificar 'finished_first_time'", e)
         }
     }
 
