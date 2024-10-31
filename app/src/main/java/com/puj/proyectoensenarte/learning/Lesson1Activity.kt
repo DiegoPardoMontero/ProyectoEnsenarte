@@ -176,22 +176,6 @@ class Lesson1Activity : AppCompatActivity() {
             Log.e("Lesson1Activity", "Error al obtener datos del usuario", e)
         }
     }
-    private fun updateUserPoints() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val db = FirebaseFirestore.getInstance()
-        val userRef = db.collection("users").document(uid)
-
-        // Calcular los puntos actualizados
-        val updatedPoints = previousXpPoints + totalPoints
-
-        userRef.update("xpPoints", updatedPoints)
-            .addOnSuccessListener {
-                Log.d("Lesson1Activity", "Puntos actualizados exitosamente: $updatedPoints")
-            }
-            .addOnFailureListener { e ->
-                Log.e("Lesson1Activity", "Error al actualizar los puntos", e)
-            }
-    }
 
     private fun loadLessonFromFirebase() {
         val db = FirebaseFirestore.getInstance()
@@ -252,6 +236,8 @@ class Lesson1Activity : AppCompatActivity() {
                 if (errorCount == 0) {
                     checkAchievements()
                 }
+                updateFinishedFirstTime()
+                updatePerfectLessonCount()
                 checkExperiencia()
                 checkColeccionador()
                 updateFinishedFirstTime()
@@ -297,7 +283,7 @@ class Lesson1Activity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val lessonRef = db.collection("lessons").document("lesson1")
 
-        // Actualizar el campo solo si es la primera vez que se completa la lección
+        // Actualizar el campo solo si es la primera vez que se completa la lección@
         lessonRef.update("finished_first_time", true)
             .addOnSuccessListener {
                 Log.d("Lesson1Activity", "Campo finished_first_time actualizado correctamente en Firestore")
@@ -305,6 +291,37 @@ class Lesson1Activity : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.e("Lesson1Activity", "Error al actualizar el campo finished_first_time en Firestore", e)
             }
+    }
+
+    private fun updatePerfectLessonCount() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val currentPerfectLessons = document.getLong("num_perfect_lessons")?.toInt() ?: 0
+
+                // Incrementar contador si la lección se completó sin errores (independienteme@nte de si es la primera vez o no)
+                if (errorCount == 0) {
+                    val updatedPerfectLessons = currentPerfectLessons + 1
+                    userRef.update("num_perfect_lessons", updatedPerfectLessons)
+                        .addOnSuccessListener {
+                            Log.d("Lesson1Activity", "Lecciones perfectas actualizadas: $updatedPerfectLessons")
+
+                            // Verificar si el usuario ha alcanzado 5 lecciones perfectas para desbloquear la insignia
+                            if (updatedPerfectLessons >= 5) {
+                                unlockInsignia("Insignia de Excelencia")
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Lesson1Activity", "Error al actualizar el contador de lecciones perfectas", e)
+                        }
+                }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("Lesson1Activity", "Error al obtener los datos del usuario", e)
+        }
     }
 
 
@@ -337,7 +354,9 @@ class Lesson1Activity : AppCompatActivity() {
         }
     }
     private fun checkExperiencia() {
-        unlockInsignia("Insignia de Experiencia")
+        if (totalPoints >= 50) {
+            unlockInsignia("Insignia de Experiencia")
+        }
     }
 
     private fun checkColeccionador(){
