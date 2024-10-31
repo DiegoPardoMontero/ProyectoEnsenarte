@@ -135,6 +135,16 @@
         <item name="android:fontFamily">@raw/regular</item>
     </style>
 
+    <style name="OptionButton">
+
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:background">@drawable/rounded_buttonn</item>
+        <item name="android:textColor">@color/paco  </item>
+        <item name="android:fontFamily">@raw/regular</item>
+    </style>
+
+
     <!-- styles.xml -->
 
     <!-- Define un estilo para el título del Toolbar -->

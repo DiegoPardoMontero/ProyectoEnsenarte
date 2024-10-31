@@ -1,0 +1,5 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/portakal" /> <!-- Color de fondo del círculo -->
+    <corners android:radius="50dp"/> <!-- Redondea las esquinas para formar un círculo -->
+    <size android:width="32dp" android:height="32dp"/> <!-- Tamaño del círculo -->
+</shape>
