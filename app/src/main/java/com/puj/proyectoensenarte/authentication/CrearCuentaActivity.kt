@@ -72,6 +72,10 @@ class CrearCuentaActivity : AppCompatActivity() {
         val streakDays: Number = 0
         val xpPoints: Number = 0
         val lastExerciseDate: Timestamp? = null
+        val num_practice_lessons= 0
+        val num_lessons_andina = 0
+        val num_lessons_caribe = 0
+        val num_lessons_amazonas = 0
 
         // Marcas de lección completada sin errores, inicializadas en false
         val lessonCompletionMarks = mapOf(
@@ -102,7 +106,11 @@ class CrearCuentaActivity : AppCompatActivity() {
                             "photo_url" to photoUrl,
                             "streakDays" to streakDays,
                             "xpPoints" to xpPoints,
-                            "lastExerciseDate" to lastExerciseDate
+                            "lastExerciseDate" to lastExerciseDate,
+                            "num_practice_lessons" to num_practice_lessons,
+                            "num_lessons_andina" to num_lessons_andina,
+                            "num_lessons_caribe" to num_lessons_caribe,
+                            "num_lessons_amazonas" to num_lessons_amazonas
                         ) + lessonCompletionMarks // Añadir las marcas de lección al mapa
 
                         // Guardar datos del usuario en Firestore
