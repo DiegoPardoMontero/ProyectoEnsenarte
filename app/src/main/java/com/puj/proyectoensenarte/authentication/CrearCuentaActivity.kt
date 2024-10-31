@@ -76,6 +76,7 @@ class CrearCuentaActivity : AppCompatActivity() {
         val num_lessons_andina = 0
         val num_lessons_caribe = 0
         val num_lessons_amazonas = 0
+        val num_perfect_lessons = 0
 
         // Marcas de lección completada sin errores, inicializadas en false
         val lessonCompletionMarks = mapOf(
@@ -110,7 +111,8 @@ class CrearCuentaActivity : AppCompatActivity() {
                             "num_practice_lessons" to num_practice_lessons,
                             "num_lessons_andina" to num_lessons_andina,
                             "num_lessons_caribe" to num_lessons_caribe,
-                            "num_lessons_amazonas" to num_lessons_amazonas
+                            "num_lessons_amazonas" to num_lessons_amazonas,
+                            "num_perfect_lessons" to num_perfect_lessons
                         ) + lessonCompletionMarks // Añadir las marcas de lección al mapa@
 
                         // Guardar datos del usuario en Firestore
