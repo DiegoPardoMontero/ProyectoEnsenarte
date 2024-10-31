@@ -42,8 +42,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@raw/regularbold"
-                        android:paddingStart="35dp"
-                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="1dp"
                         android:text="@string/nivel_1_regi_n_andina"
                         android:textColor="#585554"
                         android:textSize="18sp"
@@ -54,7 +54,7 @@
                         android:id="@+id/iconStreakAndina"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginEnd="1dp"
                         android:contentDescription="@string/rachainc"
                         android:src="@drawable/ic_fires" />
 
@@ -65,7 +65,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@raw/regularbold"
-                        android:text="@string/_1"
+                        android:text=""
                         android:textColor="#8D8A89"
                         android:textSize="18sp" />
 
@@ -81,11 +81,11 @@
 
                     <!-- Texto de Puntos -->
                     <TextView
-                        android:id="@+id/tvPointsAndina"
+                        android:id="@+id/tvPoints"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@raw/regularbold"
-                        android:text="@string/_500dp"
+                        android:text="0xp"
                         android:textColor="#8D8A89"
                         android:textSize="18sp" />
 
@@ -185,13 +185,13 @@
 
                     <!-- Título de Nivel -->
                     <TextView
-                        android:id="@+id/tvTitleCaribbean"
+                        android:id="@+id/tvTitleCaribe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@raw/regularbold"
-                        android:paddingStart="35dp"
-                        android:paddingEnd="15dp"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="1dp"
                         android:text="@string/nivel_2_regi_n_caribe"
                         android:textColor="#585554"
                         android:textSize="18sp"
@@ -199,27 +199,27 @@
 
                     <!-- Ícono de Racha -->
                     <ImageView
-                        android:id="@+id/iconStreakCaribbean"
+                        android:id="@+id/iconStreakCaribe"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginEnd="1dp"
                         android:contentDescription="@string/rachainc"
                         android:src="@drawable/ic_fires" />
 
                     <!-- Texto de Racha -->
                     <TextView
-                        android:id="@+id/tvStreakCaribbean"
+                        android:id="@+id/strakDaysCaribe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@raw/regularbold"
-                        android:text="@string/_1"
+                        android:text=""
                         android:textColor="#8D8A89"
                         android:textSize="18sp" />
 
                     <!-- Ícono de Puntos -->
                     <ImageView
-                        android:id="@+id/iconPointsCaribbean"
+                        android:id="@+id/iconPointsCaribe"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_marginEnd="4dp"
@@ -229,11 +229,11 @@
 
                     <!-- Texto de Puntos -->
                     <TextView
-                        android:id="@+id/tvPointsCaribbean"
+                        android:id="@+id/tvPointsCaribe"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@raw/regularbold"
-                        android:text="@string/_500dp"
+                        android:text="0xp"
                         android:textColor="#8D8A89"
                         android:textSize="18sp" />
 
@@ -342,7 +342,7 @@
                         android:id="@+id/iconStreakAmazonas"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginEnd="1dp"
                         android:contentDescription="@string/rachainc"
                         android:src="@drawable/ic_fires" />
 
@@ -353,7 +353,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="16dp"
                         android:fontFamily="@raw/regularbold"
-                        android:text="@string/_1"
+                        android:text=""
                         android:textColor="#8D8A89"
                         android:textSize="18sp" />
 
@@ -369,11 +369,11 @@
 
                     <!-- Texto de Puntos -->
                     <TextView
-                        android:id="@+id/tvPointsAmazonas"
+                        android:id="@+id/tvPoints3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@raw/regularbold"
-                        android:text="@string/_500dp"
+                        android:text="0dp"
                         android:textColor="#8D8A89"
                         android:textSize="18sp" />
 
