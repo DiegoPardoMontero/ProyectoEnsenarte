@@ -243,12 +243,17 @@ class Lesson1Activity : AppCompatActivity() {
                 }
 
                 // Actualizar puntos y racha según el caso
+                updateUserStreak()
+                if(streakDays>=2){
+                    checkInsigniaConstancia()
+                }
                 updateUserPointsForLesson("lesson1")
                 if (errorCount == 0) {
-                    updateUserStreak()
                     checkAchievements()
                 }
                 checkExperiencia()
+                checkColeccionador()
+                updateFinishedFirstTime()
 
                 finish()
             }.addOnFailureListener { e ->
@@ -257,10 +262,23 @@ class Lesson1Activity : AppCompatActivity() {
         }
     }
 
+    private fun updateFinishedFirstTime() {
+        val db = FirebaseFirestore.getInstance()
+        val lessonRef = db.collection("lessons").document("lesson1")
+
+        // Actualizar el campo solo si es la primera vez que se completa la lección
+        lessonRef.update("finished_first_time", true)
+            .addOnSuccessListener {
+                Log.d("Lesson1Activity", "Campo finished_first_time actualizado correctamente en Firestore")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Lesson1Activity", "Error al actualizar el campo finished_first_time en Firestore", e)
+            }
+    }
+
 
     private fun checkAchievements() {
         checkAprendizRapido()
-        //checkConstancia()
         //checkExplorador()
         checkLeccionPerfecta()
         //checkRevisor()
@@ -288,9 +306,11 @@ class Lesson1Activity : AppCompatActivity() {
         }
     }
     private fun checkExperiencia() {
-        if (totalPoints >= 50) {
-            unlockInsignia("Insignia de Experiencia")
-        }
+        unlockInsignia("Insignia de Experiencia")
+    }
+
+    private fun checkColeccionador(){
+        unlockInsignia("Insignia coleccionador de señas")
     }
 
     private fun checkInsigniaConstancia() {
@@ -307,21 +327,22 @@ class Lesson1Activity : AppCompatActivity() {
                 val lastExerciseDate = document.getString("lastExerciseDate") ?: ""
                 var streakDays = document.getLong("streakDays")?.toInt() ?: 0
 
-                // Verificar si el último ejercicio fue ayer o hoy@
+                // Calcular la fecha de ayer
                 val calendar = Calendar.getInstance()
                 calendar.add(Calendar.DATE, -1)
                 val yesterdayDate = dateFormat.format(calendar.time)
 
+                // Si el usuario realizó la actividad ayer o hoy, no se reinicia la racha
                 if (lastExerciseDate == yesterdayDate || lastExerciseDate == todayDate) {
-                    // El usuario ha mantenido su racha; no hacemos nada aquí
+                    // No se hace nada aquí, racha continua
                 } else {
-                    // Reiniciar la racha si no ha sido continuo
+                    // Si el último ejercicio no fue ayer ni hoy, reiniciar la racha
                     streakDays = 1
                     userRef.update("streakDays", streakDays)
                 }
 
-                // Verificar si se ha alcanzado la racha de 5 días para la Insignia de Constancia
-                if (streakDays >= 5) {
+                // Otorgar insignia de constancia si alcanzó los 5 días consecutivos@
+                if (streakDays >= 2) {
                     unlockInsignia("Insignia de Constancia")
                 }
             }
