@@ -111,7 +111,7 @@ class CrearCuentaActivity : AppCompatActivity() {
                             "num_lessons_andina" to num_lessons_andina,
                             "num_lessons_caribe" to num_lessons_caribe,
                             "num_lessons_amazonas" to num_lessons_amazonas
-                        ) + lessonCompletionMarks // Añadir las marcas de lección al mapa
+                        ) + lessonCompletionMarks // Añadir las marcas de lección al mapa@
 
                         // Guardar datos del usuario en Firestore
                         db.collection("users").document(uid)
