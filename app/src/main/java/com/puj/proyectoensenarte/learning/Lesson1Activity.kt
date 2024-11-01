@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
@@ -40,7 +41,7 @@ class Lesson1Activity : AppCompatActivity() {
     }
     override fun onBackPressed() {
         super.onBackPressed()
-        // Si deseas que no haga nada al presionar el botón de retroceso,
+        // Si deseas que no haga nada al presionar el botón de retroceso,@
         // deja el método vacío.
     }
 
@@ -147,7 +148,7 @@ class Lesson1Activity : AppCompatActivity() {
                     return@addOnSuccessListener
                 }
 
-                // Caso 2: Si se completa ahora sin errores y no estaba previamente marcada como tal
+                // Caso 2: Si se completa ahora sin errores y no estaba previamente marcada como tal@
                 if (errorCount == 0) {
                     val updatedPoints = previousXpPoints + pointsToAdd
                     userRef.update(
@@ -175,22 +176,6 @@ class Lesson1Activity : AppCompatActivity() {
             Log.e("Lesson1Activity", "Error al obtener datos del usuario", e)
         }
     }
-    private fun updateUserPoints() {
-        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
-        val db = FirebaseFirestore.getInstance()
-        val userRef = db.collection("users").document(uid)
-
-        // Calcular los puntos actualizados
-        val updatedPoints = previousXpPoints + totalPoints
-
-        userRef.update("xpPoints", updatedPoints)
-            .addOnSuccessListener {
-                Log.d("Lesson1Activity", "Puntos actualizados exitosamente: $updatedPoints")
-            }
-            .addOnFailureListener { e ->
-                Log.e("Lesson1Activity", "Error al actualizar los puntos", e)
-            }
-    }
 
     private fun loadLessonFromFirebase() {
         val db = FirebaseFirestore.getInstance()
@@ -216,6 +201,7 @@ class Lesson1Activity : AppCompatActivity() {
             val exercise = exercises[currentExerciseKey]!!
             val exerciseType = exercise["exerciseType"] as String
             Log.d("Lesson1Activity", "Tipo de ejercicio: $exerciseType")
+
 
             when (exerciseType) {
                 "video_selection" -> launchExercise1(exercise)
@@ -243,13 +229,20 @@ class Lesson1Activity : AppCompatActivity() {
                 }
 
                 // Actualizar puntos y racha según el caso
+                updateUserStreak()
+                if(streakDays>=2){
+                    checkInsigniaConstancia()
+                }
                 updateUserPointsForLesson("lesson1")
                 if (errorCount == 0) {
-                    updateUserStreak()
                     checkAchievements()
                 }
+                updateFinishedFirstTime()
+                updatePerfectLessonCount()
                 checkExperiencia()
-
+                checkColeccionador()
+                updateFinishedFirstTime()
+                incrementReviewCounter()
                 finish()
             }.addOnFailureListener { e ->
                 Log.e("Lesson1Activity", "Error al verificar lección completada: ", e)
@@ -258,9 +251,84 @@ class Lesson1Activity : AppCompatActivity() {
     }
 
 
+    private fun incrementReviewCounter() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            val finishedFirstTime = document.getBoolean("lesson1_completedWithoutErrors") ?: false
+
+            if (finishedFirstTime) {
+                userRef.update("num_practice_lessons", FieldValue.increment(1))
+                    .addOnSuccessListener {
+                        Log.d("Lesson1Activity", "Contador de lección práctica incrementado.")
+
+                        // Verificar si ha alcanzado el número para desbloquear la insignia@
+                        userRef.get().addOnSuccessListener { updatedDoc ->
+                            val practiceCount = updatedDoc.getLong("num_practice_lessons") ?: 0
+                            if (practiceCount >= 3) {
+                                unlockInsignia("Insignia de revisión")
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("Lesson1Activity", "Error al incrementar el contador de lección práctica", e)
+                    }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("Lesson1Activity", "Error al verificar 'finished_first_time'", e)
+        }
+    }
+
+    private fun updateFinishedFirstTime() {
+        val db = FirebaseFirestore.getInstance()
+        val lessonRef = db.collection("lessons").document("lesson1")
+
+        // Actualizar el campo solo si es la primera vez que se completa la lección@
+        lessonRef.update("finished_first_time", true)
+            .addOnSuccessListener {
+                Log.d("Lesson1Activity", "Campo finished_first_time actualizado correctamente en Firestore")
+            }
+            .addOnFailureListener { e ->
+                Log.e("Lesson1Activity", "Error al actualizar el campo finished_first_time en Firestore", e)
+            }
+    }
+
+    private fun updatePerfectLessonCount() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val currentPerfectLessons = document.getLong("num_perfect_lessons")?.toInt() ?: 0
+
+                // Incrementar contador si la lección se completó sin errores (independienteme@nte de si es la primera vez o no)
+                if (errorCount == 0) {
+                    val updatedPerfectLessons = currentPerfectLessons + 1
+                    userRef.update("num_perfect_lessons", updatedPerfectLessons)
+                        .addOnSuccessListener {
+                            Log.d("Lesson1Activity", "Lecciones perfectas actualizadas: $updatedPerfectLessons")
+
+                            // Verificar si el usuario ha alcanzado 5 lecciones perfecta@s para desbloquear la insignia
+                            if (updatedPerfectLessons >= 5) {
+                                unlockInsignia("Insignia de Excelencia")
+                            }
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("Lesson1Activity", "Error al actualizar el contador de lecciones perfectas", e)
+                        }
+                }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("Lesson1Activity", "Error al obtener los datos del usuario", e)
+        }
+    }
+
+
     private fun checkAchievements() {
         checkAprendizRapido()
-        //checkConstancia()
         //checkExplorador()
         checkLeccionPerfecta()
         //checkRevisor()
@@ -293,6 +361,10 @@ class Lesson1Activity : AppCompatActivity() {
         }
     }
 
+    private fun checkColeccionador(){
+        unlockInsignia("Insignia coleccionador de señas")
+    }
+
     private fun checkInsigniaConstancia() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val db = FirebaseFirestore.getInstance()
@@ -307,21 +379,22 @@ class Lesson1Activity : AppCompatActivity() {
                 val lastExerciseDate = document.getString("lastExerciseDate") ?: ""
                 var streakDays = document.getLong("streakDays")?.toInt() ?: 0
 
-                // Verificar si el último ejercicio fue ayer o hoy@
+                // Calcular la fecha de ayer
                 val calendar = Calendar.getInstance()
                 calendar.add(Calendar.DATE, -1)
                 val yesterdayDate = dateFormat.format(calendar.time)
 
+                // Si el usuario realizó la actividad ayer o hoy, no se reinicia la racha
                 if (lastExerciseDate == yesterdayDate || lastExerciseDate == todayDate) {
-                    // El usuario ha mantenido su racha; no hacemos nada aquí
+                    // No se hace nada aquí, racha continua
                 } else {
-                    // Reiniciar la racha si no ha sido continuo
+                    // Si el último ejercicio no fue ayer ni hoy, reiniciar la racha
                     streakDays = 1
                     userRef.update("streakDays", streakDays)
                 }
 
-                // Verificar si se ha alcanzado la racha de 5 días para la Insignia de Constancia
-                if (streakDays >= 5) {
+                // Otorgar insignia de constancia si alcanzó los 5 días consecutivos@
+                if (streakDays >= 2) {
                     unlockInsignia("Insignia de Constancia")
                 }
             }
@@ -410,18 +483,21 @@ class Lesson1Activity : AppCompatActivity() {
         startActivityForResult(intent, 3)
     }
 
+
+
+
     private fun launchSelectWordExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
         Log.d("Lesson1Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
 
-        // Manejo seguro de los datos obtenidos
+        // Manejo seguro de los datos obtenidos@
         val statement = exercise["statement"] as? String ?: "Pregunta no disponible"
         val correctAnswer = exercise["correctAnswer"] as? String ?: "Respuesta no disponible"
         val points = (exercise["points"] as? Long)?.toInt() ?: 0
         val videoUrl = exercise["video_url"] as? String ?: ""
         val words = exercise["words"] as? List<String> ?: emptyList()
 
-        // Agregar los valores al intent
+        // Agregar los valores al intent@
         intent.putExtra("statement", statement)
         intent.putExtra("correctAnswer", correctAnswer)
         intent.putExtra("points", points)

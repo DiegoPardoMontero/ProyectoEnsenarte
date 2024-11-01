@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.puj.proyectoensenarte.R
@@ -31,10 +32,41 @@ class ActivityExcercise4 : AppCompatActivity() {
         binding.tvQuestion.text = statement
         loadImages()
         setUpWordOptions()
+        configureCloseButton()
 
         binding.btnSubmit.setOnClickListener {
             validateAnswer()
         }
+    }
+
+
+    private fun configureCloseButton() {
+        binding.closeButton.setOnClickListener {
+            showExitConfirmationDialog()
+        }
+    }
+
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Salir de la lección")
+            .setMessage("¿Estás seguro de que deseas salir? No ganarás puntos por esta lección.")
+            .setPositiveButton("Sí") { _, _ ->
+                try {
+                    // Redirigir a ScrollableMapActivity@
+                    val intent = Intent(this, ScrollableMapActivity::class.java)
+                    startActivity(intent)
+                    Log.d("Exercise1Activity", "Navigating to ScrollableMapActivity")
+                    finish() // Cierra Exercise1Activity
+                } catch (e: Exception) {
+                    Log.e("Exercise1Activity", "Error al navegar a ScrollableMapActivity", e)
+                }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
     }
 
     private fun loadImages() {
@@ -125,6 +157,9 @@ class ActivityExcercise4 : AppCompatActivity() {
             showIncorrectResultDialog()
         }
     }
+
+
+
 
     private fun showCorrectResultDialog() {
         val dialog = CorrectResultBottomSheet {
