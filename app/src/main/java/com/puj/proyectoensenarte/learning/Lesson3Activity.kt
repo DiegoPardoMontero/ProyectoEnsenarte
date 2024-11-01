@@ -44,7 +44,7 @@ class Lesson3Activity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("Lesson3Activity", "Error al cargar los puntos de experiencia del usuario", e)
+                    Log.e("Lesson2Activity", "Error al cargar los puntos de experiencia del usuario", e)
                     onSuccess(0) // En caso de error, iniciar en 0
                 }
         } else {
@@ -54,14 +54,14 @@ class Lesson3Activity : AppCompatActivity() {
 
     private fun loadLessonFromFirebase() {
         val db = FirebaseFirestore.getInstance()
-        val lessonRef = db.collection("lessons").document("Lesson3")
+        val lessonRef = db.collection("lessons").document("lesson3")
 
         lessonRef.get().addOnSuccessListener { document ->
             if (document != null) {
                 exercises = document.get("exercises") as Map<String, Map<String, Any>>
                 loadNextExercise()
             } else {
-                Log.e("Lesson3Activity", "Documento no encontrado en Firestore")
+                Log.e("Lesson2Activity", "Documento no encontrado en Firestore")
             }
         }.addOnFailureListener { exception ->
             Log.e("LessonActivity", "Error fetching lesson", exception)
@@ -70,17 +70,18 @@ class Lesson3Activity : AppCompatActivity() {
 
     private fun loadNextExercise() {
         val currentExerciseKey = "exercise$currentExerciseIndex"
-        Log.d("Lesson3Activity", "Intentando cargar ejercicio: $currentExerciseKey")
+        Log.d("Lesson2Activity", "Intentando cargar ejercicio: $currentExerciseKey")
 
         if (exercises.containsKey(currentExerciseKey)) {
             val exercise = exercises[currentExerciseKey]!!
             val exerciseType = exercise["exerciseType"] as String
-            Log.d("Lesson3Activity", "Tipo de ejercicio: $exerciseType")
+            Log.d("Lesson2Activity", "Tipo de ejercicio: $exerciseType")
 
             when (exerciseType) {
                 "video_selection" -> launchExercise1(exercise)
                 "ordering" -> launchOrderingExercise(exercise)
                 "matching" -> launchMatchingExercise(exercise)
+                "matching_videos" -> launchMatchingVideosExercise(exercise)
                 "selection" -> launchSelectWordExercise(exercise)
                 "selection2" -> launchSelectWordExercise2(exercise)
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
@@ -94,7 +95,7 @@ class Lesson3Activity : AppCompatActivity() {
             val intent = Intent(this, LeccionTerminadaActivity::class.java)
             intent.putExtra("totalPoints", totalPoints) // Pasar los puntos totales
             startActivity(intent)
-            finish() // Cierra la actividad actual para evitar volver a ella
+            finish() // Cierra la actividad ac@tual para evitar volver a ella@
         }
     }
     private fun updateUserXpPoints(newXpPoints: Int) {
@@ -104,10 +105,10 @@ class Lesson3Activity : AppCompatActivity() {
             db.collection("users").document(uid)
                 .update("xpPoints", newXpPoints)
                 .addOnSuccessListener {
-                    Log.d("Lesson3Activity", "Puntos actualizados exitosamente: $newXpPoints")
+                    Log.d("Lesson2Activity", "Puntos actualizados exitosamente: $newXpPoints")
                 }
                 .addOnFailureListener { e ->
-                    Log.e("Lesson3Activity", "Error al actualizar los puntos de experiencia", e)
+                    Log.e("Lesson2Activity", "Error al actualizar los puntos de experiencia", e)
                 }
         }
     }
@@ -118,6 +119,17 @@ class Lesson3Activity : AppCompatActivity() {
         intent.putExtra("points", (exercise["points"] as Long).toInt())
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
         startActivityForResult(intent, 1)
+    }
+    private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
+        Log.d("Lesson2Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
+
+        val intent = Intent(this, ActivityExercise2::class.java)
+        intent.putExtra("statement", exercise["statement"] as? String)
+        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+        val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
+        intent.putExtra("correctPairs", java.util.ArrayList(correctPairs))
+
+        startActivityForResult(intent, 6)
     }
 
     private fun launchOrderingExercise(exercise: Map<String, Any>) {
@@ -143,7 +155,7 @@ class Lesson3Activity : AppCompatActivity() {
 
     private fun launchSelectWordExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
-        Log.d("Lesson3Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
+        Log.d("Lesson2Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
 
         // Manejo seguro de los datos obtenidos
         val statement = exercise["statement"] as? String ?: "Pregunta no disponible"
@@ -163,7 +175,7 @@ class Lesson3Activity : AppCompatActivity() {
     }
     private fun launchSelectWordExercise2(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
-        Log.d("Lesson3Activity", "Iniciando Exercise3Activity con datos: $exercise") // @Verifica los datos
+        Log.d("Lesson2Activity", "Iniciando Exercise3Activity con datos: $exercise") // @Verifica los datos
 
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("correctAnswer", exercise["correctAnswer"] as String)
@@ -176,14 +188,14 @@ class Lesson3Activity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("Lesson3Activity", "onActivityResult llamado con requestCode=$requestCode, resultCode=$resultCode")
+        Log.d("Lesson2Activity", "onActivityResult llamado con requestCode=$requestCode, resultCode=$resultCode")
 
         if (resultCode == RESULT_OK) {
             val pointsEarned = data?.getIntExtra("pointsEarned", 0) ?: 0
             totalPoints += pointsEarned
             Log.d("VERIFICAR PUNTOS", "Puntos acumulados: $totalPoints")
         } else {
-            Log.d("Lesson3Activity", "Respuesta incorrecta, no se suman puntos.")
+            Log.d("Lesson2Activity", "Respuesta incorrecta, no se suman puntos.")
         }
 
         currentExerciseIndex++

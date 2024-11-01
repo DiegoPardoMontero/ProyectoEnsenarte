@@ -10,6 +10,7 @@ import android.widget.ImageButton
 import android.widget.RadioButton
 import android.widget.Toast
 import android.widget.VideoView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.puj.proyectoensenarte.databinding.ActivityExcercise1Binding
 
@@ -38,6 +39,7 @@ class Exercise1Activity : AppCompatActivity() {
 
         // Cargar los videos y almacenar sus URLs@
         setUpVideoViews(videos)
+        configureCloseButton()
 
         // Botón Enviar
         binding.btnSubmit.setOnClickListener {
@@ -45,6 +47,34 @@ class Exercise1Activity : AppCompatActivity() {
         }
     }
 
+    private fun configureCloseButton() {
+        binding.closeButton.setOnClickListener {
+            showExitConfirmationDialog()
+        }
+    }
+
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Salir de la lección")
+            .setMessage("¿Estás seguro de que deseas salir? No ganarás puntos por esta lección.")
+            .setPositiveButton("Sí") { _, _ ->
+                try {
+                    // Redirigir a ScrollableMapActivity@
+                    val intent = Intent(this, ScrollableMapActivity::class.java)
+                    startActivity(intent)
+                    Log.d("Exercise1Activity", "Navigating to ScrollableMapActivity")
+                    finish() // Cierra Exercise1Activity
+                } catch (e: Exception) {
+                    Log.e("Exercise1Activity", "Error al navegar a ScrollableMapActivity", e)
+                }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
+    }
     private fun setUpVideoViews(videos: ArrayList<String>) {
         videoUrls = videos // Almacenar las URLs de los videos@
         Log.d("url videos", videoUrls.toString())

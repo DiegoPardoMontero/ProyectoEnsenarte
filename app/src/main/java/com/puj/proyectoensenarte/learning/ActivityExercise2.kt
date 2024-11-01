@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import android.widget.VideoView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExercise2Binding
@@ -33,10 +34,40 @@ class ActivityExercise2 : AppCompatActivity() {
         binding.tvQuestion.text = statement
         loadVideos()
         setUpWordOptions()
+        configureCloseButton()
 
         binding.btnSubmit.setOnClickListener {
             validateAnswer()
         }
+    }
+
+    private fun configureCloseButton() {
+        binding.closeButton.setOnClickListener {
+            showExitConfirmationDialog()
+        }
+    }
+
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Salir de la lección")
+            .setMessage("¿Estás seguro de que deseas salir? No ganarás puntos por esta lección.")
+            .setPositiveButton("Sí") { _, _ ->
+                try {
+                    // Redirigir a ScrollableMapActivity@
+                    val intent = Intent(this, ScrollableMapActivity::class.java)
+                    startActivity(intent)
+                    Log.d("Exercise1Activity", "Navigating to ScrollableMapActivity")
+                    finish() // Cierra Exercise1Activity
+                } catch (e: Exception) {
+                    Log.e("Exercise1Activity", "Error al navegar a ScrollableMapActivity", e)
+                }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
     }
 
     private fun loadVideos() {
@@ -87,7 +118,7 @@ class ActivityExercise2 : AppCompatActivity() {
     }
 
     private fun selectVideo(videoView: VideoView) {
-        // Pausar el video previamente seleccionado (si no está ya emparejado) y eliminar el borde temporal
+        // Pausar el video previamente seleccionado (si no está ya emparejado) y eliminar el borde temporal@
         if (selectedVideoView != null && !matchedVideos.contains(selectedVideoView)) {
             selectedVideoView?.pause()
             selectedVideoView?.setBackgroundResource(0) // Quitar el borde temporal
