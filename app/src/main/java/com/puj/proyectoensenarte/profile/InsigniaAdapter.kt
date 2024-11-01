@@ -9,11 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.puj.proyectoensenarte.R
 
-data class Insignia(val imageUrl: String, val name: String)
+data class Insignia(val imageUrl: String, val name: String, val status: String)
 
 class InsigniaAdapter(
     private val context: Context,
@@ -44,12 +45,16 @@ class InsigniaAdapter(
 
         // Manejar clic en cada ítem
         holder.itemView.setOnClickListener {
-            onItemClicked(insignia)
+            if (insignia.status == "activated") {
+                onItemClicked(insignia)
 
-            val intent = Intent(context, ZoomInsigniaActivity::class.java)
-            intent.putExtra("insignia_name", insignia.name)
-            intent.putExtra("insignia_image", insignia.imageUrl)
-            context.startActivity(intent)
+                val intent = Intent(context, ZoomInsigniaActivity::class.java)
+                intent.putExtra("insignia_name", insignia.name)
+                intent.putExtra("insignia_image", insignia.imageUrl)
+                context.startActivity(intent)
+            } else {
+                Toast.makeText(context, "Esta insignia no está activada.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

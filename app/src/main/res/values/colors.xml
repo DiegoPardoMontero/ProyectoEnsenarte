@@ -11,4 +11,10 @@
     <color name="inactive">#AED0DC</color>
     <color name="active">#358CB2</color>
     <color name="fondoBottomAppBar">#FCFAF7</color>
+    <color name="correct">#314C1C</color>
+    <color name="correctBody">#892626</color>
+    <color name="incorrect">#892626</color>
+    <color name= "incorrectBackground">#DAC3C2</color>
+    <color name= "correctBackground">#CDDAC2</color>
+    <color name="incorrectBody">#76322C</color>
 </resources>
