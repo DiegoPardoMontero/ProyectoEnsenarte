@@ -27,7 +27,7 @@
         android:fontFamily="@raw/regularbold"
         android:text="¡Estamos procesando tus\nresultados!"
         android:textAlignment="center"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="@color/portakal"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
