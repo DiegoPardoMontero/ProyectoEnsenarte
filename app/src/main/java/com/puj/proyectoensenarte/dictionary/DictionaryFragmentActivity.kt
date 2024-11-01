@@ -146,7 +146,7 @@ class DictionaryFragmentActivity : Fragment() {
     }
 
     private fun searchInPalabras(searchQuery: String) {
-        db.collection("dictionary").document("palabras").get()
+        db.collection("dict").document("dict").get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val palabras = document.data

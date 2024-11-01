@@ -37,7 +37,7 @@ class DetallePorLetraActivity : AppCompatActivity() {
     }
 
     private fun loadPalabras(letra: String) {
-        db.collection("dictionary").document("palabras")
+        db.collection("dict").document("dict")
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="@color/correctBackground"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <!-- Ícono de resultado -->
+
+    <!-- Texto de resultado -->
+    <ImageView
+        android:id="@+id/ivResultIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_correct" />
+
+    <TextView
+        android:id="@+id/tvResultTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/regularbold"
+        android:text="@string/tu_respuesta_es_correcta"
+        android:textColor="@color/correct"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+
+    <!-- Botón para continuar -->
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@raw/subtitulo"
+        android:text="@string/continuar"
+        android:textColor="@android:color/white"
+        android:backgroundTint="@color/sage" />
+</LinearLayout>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <!-- Título de la lección -->
+
+    <!-- Instrucción del ejercicio -->
+
+    <!-- GridLayout para organizar las imágenes y palabras en dos columnas -->
+
+    <!-- Botón Enviar -->
+
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/regularbold"
+        android:text="Lección 1"
+        android:textColor="#000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.082"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvQuestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/regular"
+        android:text="Unir la seña con la palabra"
+        android:textColor="#000"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="245dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:alignmentMode="alignMargins"
+        android:columnCount="2"
+        android:rowCount="3"
+        android:useDefaultMargins="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvQuestion">
+
+        <!-- Primera imagen -->
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/handsignfree" />
+
+        <!-- Primera palabra@ -->
+        <TextView
+            android:id="@+id/wordOption1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:fontFamily="@font/regular"
+            android:padding="8dp"
+            android:text="Abanico"
+            android:textSize="16sp" />
+
+        <!-- Segun@da imagen -->
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
+
+            android:src="@drawable/handsignfree" />
+
+        <!-- Segunda palabra -->
+        <TextView
+            android:id="@+id/wordOption2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:fontFamily="@font/regular"
+            android:padding="8dp"
+            android:text="Pan"
+            android:textSize="16sp" />
+
+        <!-- Tercera imagen -->
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/handsignfree" />
+
+        <!-- Tercera palabra -->
+        <TextView
+            android:id="@+id/wordOption3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:fontFamily="@font/regular"
+            android:padding="8dp"
+            android:text="Pequeño"
+            android:textSize="16sp" />
+
+        <!-- Tercera imagen -->
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/handsignfree" />
+
+        <!-- Tercera palabra -->
+        <TextView
+            android:id="@+id/wordOption4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:fontFamily="@font/regular"
+            android:padding="8dp"
+            android:text="Pequeño"
+            android:textSize="16sp" />
+    </GridLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="272dp"
+        android:layout_height="44dp"
+        android:backgroundTint="@color/portakal"
+        android:fontFamily="@raw/subtitulo"
+        android:text="Enviar"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/gridLayout"
+        app:layout_constraintVertical_bias="0.283" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

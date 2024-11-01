@@ -1,8 +1,10 @@
 package com.puj.proyectoensenarte
 
+import FirestoreDictionary
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +21,16 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        // Crear una instancia de la clase FirestoreDictionary@
+        val firestoreDictionary = FirestoreDictionary()
+
+        firestoreDictionary.fetchSpecificSignUrls { signUrls ->
+            signUrls.forEach { (signName, url) ->
+                Log.d("SignURL", "Seña: $signName, URL: $url")
+            }
+        }
+
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -27,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding =
-            ActivityMainBinding.inflate(layoutInflater) // infla el XML y crea una instancia de ActivityMainBinding con todas las referencias de las vistas
+            ActivityMainBinding.inflate(layoutInflater) // infla el XM@L y crea una instancia de ActivityMainBinding con todas las referencias de las vistas
         setContentView(binding.root) // vista raíz del xml referenciado
 
         // Configura el VideoView
