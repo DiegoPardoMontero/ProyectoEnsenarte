@@ -158,4 +158,5 @@ Ante las limitaciones de la Lengua Oral, surge la educación bilingüe, reconoci
     <string name="tu_respuesta_es_incorrecta">Tu respuesta es incorrecta</string>
     <string name="ver_respuesta_correcta">Ver respuesta correcta</string>
     <string name="continuar">Continuar</string>
+    <string name="tu_respuesta_es_correcta">!Tu respuesta es correcta!</string>
 </resources>
