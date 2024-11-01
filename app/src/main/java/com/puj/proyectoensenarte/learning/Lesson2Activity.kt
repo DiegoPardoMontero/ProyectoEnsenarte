@@ -81,6 +81,7 @@ class Lesson2Activity : AppCompatActivity() {
                 "video_selection" -> launchExercise1(exercise)
                 "ordering" -> launchOrderingExercise(exercise)
                 "matching" -> launchMatchingExercise(exercise)
+                "matching_videos" -> launchMatchingVideosExercise(exercise)
                 "selection" -> launchSelectWordExercise(exercise)
                 "selection2" -> launchSelectWordExercise2(exercise)
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
@@ -94,7 +95,7 @@ class Lesson2Activity : AppCompatActivity() {
             val intent = Intent(this, LeccionTerminadaActivity::class.java)
             intent.putExtra("totalPoints", totalPoints) // Pasar los puntos totales
             startActivity(intent)
-            finish() // Cierra la actividad actual para evitar volver a ella
+            finish() // Cierra la actividad ac@tual para evitar volver a ella@
         }
     }
     private fun updateUserXpPoints(newXpPoints: Int) {
@@ -118,6 +119,17 @@ class Lesson2Activity : AppCompatActivity() {
         intent.putExtra("points", (exercise["points"] as Long).toInt())
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
         startActivityForResult(intent, 1)
+    }
+    private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
+        Log.d("Lesson2Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
+
+        val intent = Intent(this, ActivityExercise2::class.java)
+        intent.putExtra("statement", exercise["statement"] as? String)
+        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+        val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
+        intent.putExtra("correctPairs", java.util.ArrayList(correctPairs))
+
+        startActivityForResult(intent, 6)
     }
 
     private fun launchOrderingExercise(exercise: Map<String, Any>) {

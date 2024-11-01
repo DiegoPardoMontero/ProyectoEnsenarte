@@ -41,7 +41,7 @@ class Lesson1Activity : AppCompatActivity() {
     }
     override fun onBackPressed() {
         super.onBackPressed()
-        // Si deseas que no haga nada al presionar el botón de retroceso,
+        // Si deseas que no haga nada al presionar el botón de retroceso,@
         // deja el método vacío.
     }
 
@@ -148,7 +148,7 @@ class Lesson1Activity : AppCompatActivity() {
                     return@addOnSuccessListener
                 }
 
-                // Caso 2: Si se completa ahora sin errores y no estaba previamente marcada como tal
+                // Caso 2: Si se completa ahora sin errores y no estaba previamente marcada como tal@
                 if (errorCount == 0) {
                     val updatedPoints = previousXpPoints + pointsToAdd
                     userRef.update(
@@ -202,6 +202,7 @@ class Lesson1Activity : AppCompatActivity() {
             val exerciseType = exercise["exerciseType"] as String
             Log.d("Lesson1Activity", "Tipo de ejercicio: $exerciseType")
 
+
             when (exerciseType) {
                 "video_selection" -> launchExercise1(exercise)
                 "ordering" -> launchOrderingExercise(exercise)
@@ -248,6 +249,7 @@ class Lesson1Activity : AppCompatActivity() {
             }
         }
     }
+
 
     private fun incrementReviewCounter() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -309,7 +311,7 @@ class Lesson1Activity : AppCompatActivity() {
                         .addOnSuccessListener {
                             Log.d("Lesson1Activity", "Lecciones perfectas actualizadas: $updatedPerfectLessons")
 
-                            // Verificar si el usuario ha alcanzado 5 lecciones perfectas para desbloquear la insignia
+                            // Verificar si el usuario ha alcanzado 5 lecciones perfecta@s para desbloquear la insignia
                             if (updatedPerfectLessons >= 5) {
                                 unlockInsignia("Insignia de Excelencia")
                             }
@@ -481,18 +483,21 @@ class Lesson1Activity : AppCompatActivity() {
         startActivityForResult(intent, 3)
     }
 
+
+
+
     private fun launchSelectWordExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
         Log.d("Lesson1Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
 
-        // Manejo seguro de los datos obtenidos
+        // Manejo seguro de los datos obtenidos@
         val statement = exercise["statement"] as? String ?: "Pregunta no disponible"
         val correctAnswer = exercise["correctAnswer"] as? String ?: "Respuesta no disponible"
         val points = (exercise["points"] as? Long)?.toInt() ?: 0
         val videoUrl = exercise["video_url"] as? String ?: ""
         val words = exercise["words"] as? List<String> ?: emptyList()
 
-        // Agregar los valores al intent
+        // Agregar los valores al intent@
         intent.putExtra("statement", statement)
         intent.putExtra("correctAnswer", correctAnswer)
         intent.putExtra("points", points)

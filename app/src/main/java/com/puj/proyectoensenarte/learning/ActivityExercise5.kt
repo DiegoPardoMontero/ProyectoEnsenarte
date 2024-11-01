@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import androidx.appcompat.app.AppCompatActivity
 import com.puj.proyectoensenarte.databinding.ActivityExercise5Binding
@@ -42,7 +43,7 @@ class ActivityExercise5 : AppCompatActivity() {
         Log.d ("VIDEOOOOOOOSSSS", videoUrls.toString())
         // Cargar las imágenes o videos según las URLs obtenidas@
         loadVideos(videoUrls)
-
+        configureCloseButton()
 
 
         // Configurar selección de imágenes
@@ -66,6 +67,35 @@ class ActivityExercise5 : AppCompatActivity() {
                 Toast.makeText(this, "Selecciona exactamente $maxLetters letras", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun configureCloseButton() {
+        binding.closeButton.setOnClickListener {
+            showExitConfirmationDialog()
+        }
+    }
+
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Salir de la lección")
+            .setMessage("¿Estás seguro de que deseas salir? No ganarás puntos por esta lección.")
+            .setPositiveButton("Sí") { _, _ ->
+                try {
+                    // Redirigir a ScrollableMapActivity@
+                    val intent = Intent(this, ScrollableMapActivity::class.java)
+                    startActivity(intent)
+                    Log.d("Exercise1Activity", "Navigating to ScrollableMapActivity")
+                    finish() // Cierra Exercise1Activity
+                } catch (e: Exception) {
+                    Log.e("Exercise1Activity", "Error al navegar a ScrollableMapActivity", e)
+                }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
     }
 
     // Método para cargar las imágenes o videos en los ImageViews correspondientes@

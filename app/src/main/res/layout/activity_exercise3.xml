@@ -9,6 +9,18 @@
 
     <!-- Título de la lección -->
 
+    <ImageView
+        android:id="@+id/closeButton"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="16dp"
+        android:layout_marginTop="40dp"
+        android:contentDescription="@string/todo"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.958"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <!-- Pregunta de selección@ -->
     <TextView
         android:id="@+id/tvTitle"

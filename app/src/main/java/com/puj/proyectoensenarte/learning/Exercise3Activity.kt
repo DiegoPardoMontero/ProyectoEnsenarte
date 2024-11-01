@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExercise3Binding
@@ -22,7 +23,6 @@ class Exercise3Activity : AppCompatActivity() {
         binding = ActivityExercise3Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Log.d("AYDUAAA", "SE CARGA PERO FALLA")
 
         // Obtener los datos pasados de Lesson1Activity@
         val statement = intent.getStringExtra("statement") ?: ""
@@ -40,10 +40,42 @@ class Exercise3Activity : AppCompatActivity() {
         // Configurar las palabras
         setUpWordOptions(words)
 
+        configureCloseButton()
+
         // Configurar el botón Enviar
         binding.btnSubmit.setOnClickListener {
             validateAnswer()
         }
+    }
+
+
+    private fun configureCloseButton() {
+        binding.closeButton.setOnClickListener {
+            showExitConfirmationDialog()
+        }
+    }
+
+
+    private fun showExitConfirmationDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Salir de la lección")
+            .setMessage("¿Estás seguro de que deseas salir? No ganarás puntos por esta lección.")
+            .setPositiveButton("Sí") { _, _ ->
+                try {
+                    // Redirigir a ScrollableMapActivity@
+                    val intent = Intent(this, ScrollableMapActivity::class.java)
+                    startActivity(intent)
+                    Log.d("Exercise1Activity", "Navigating to ScrollableMapActivity")
+                    finish() // Cierra Exercise1Activity
+                } catch (e: Exception) {
+                    Log.e("Exercise1Activity", "Error al navegar a ScrollableMapActivity", e)
+                }
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .setCancelable(true)
+            .show()
     }
 
     private fun setUpVideoView(videoUrl: String) {

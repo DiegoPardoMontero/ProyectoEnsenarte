@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Crear una instancia de la clase FirestoreDictionary
+        // Crear una instancia de la clase FirestoreDictionary@
         val firestoreDictionary = FirestoreDictionary()
 
         firestoreDictionary.fetchSpecificSignUrls { signUrls ->
