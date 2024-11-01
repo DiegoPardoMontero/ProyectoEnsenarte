@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityVideoProcesamientoBinding
 import com.puj.proyectoensenarte.utils.SignLanguageVideoProcessor // Ajusta según donde tengas el procesador
 import kotlinx.coroutines.Dispatchers
@@ -99,17 +98,12 @@ class ProcessingActivity : AppCompatActivity() {
     private fun navigateToResult(isCorrect: Boolean) {
         // Crear el intent según el resultado
         val intent = if (isCorrect) {
-            //Intent(this, CorrectResultActivity::class.java)
+            Intent(this, CorrectResultActivity::class.java)
         } else {
-            //Intent(this, IncorrectResultActivity::class.java)
+            Intent(this, IncorrectResultActivity::class.java)
         }
-
-        // Pasar datos necesarios a la siguiente actividad
-        //intent.putExtra("lesson_number",
-            //getIntent().getStringExtra("lesson_number"))
-
         // Iniciar la actividad y finalizar esta
-        //startActivity(intent)
+        startActivity(intent)
         finish()
     }
 

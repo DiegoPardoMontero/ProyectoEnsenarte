@@ -34,12 +34,12 @@ class DetallePalabraActivity : AppCompatActivity() {
     }
 
     fun primeraLetraMinuscula(texto: String): String {
-        return texto.replaceFirstChar { it.lowercase() }
+        return texto.replaceFirstChar { it.uppercase() }
     }
 
     private fun loadPalabraDetails(palabra: String) {
         var palabra = primeraLetraMinuscula(palabra)
-        db.collection("dictionary").document("palabras")
+        db.collection("dict").document("palabras")
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
@@ -57,8 +57,8 @@ class DetallePalabraActivity : AppCompatActivity() {
 
     private fun setupVideos(palabraData: Map<String, Any>) {
         binding.videoContainerSena.setupVideo(palabraData["seniaURL"] as? String)
-        binding.videoContainerDefinicion.setupVideo(palabraData["definicionURL"] as? String)
-        binding.videoContainerEjemplo.setupVideo(palabraData["ejemploURL"] as? String)
+        binding.videoContainerDefinicion.setupVideo(palabraData["DefinicionURL"] as? String)
+        binding.videoContainerEjemplo.setupVideo(palabraData["EjemploURL"] as? String)
     }
 
     private fun setupVideo(url: String?, videoViewContainer: FrameLayout) {
@@ -117,7 +117,7 @@ class DetallePalabraActivity : AppCompatActivity() {
     }
 
     private fun setupTexts(palabraData: Map<String, Any>) {
-        binding.tvDefinicion.text = palabraData["definicion "] as? String
-        binding.tvEjemplo.text = palabraData["ejemplo"] as? String
+        binding.tvDefinicion.text = palabraData["Definicion"] as? String
+        binding.tvEjemplo.text = palabraData["Ejemplo"] as? String
     }
 }
