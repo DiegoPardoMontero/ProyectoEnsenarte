@@ -162,7 +162,7 @@ class CameraRecordingActivity : AppCompatActivity() {
             val intent = Intent(this, ProcessingActivity::class.java).apply {
                 putExtra("video_uri", uri.toString())
                 putExtra("lesson_number", "1") // O el número que corresponda
-                putExtra("expected_sign", "TU_SEÑA_ESPERADA")
+                putExtra("expected_sign", "hombre")
             }
             startActivity(intent)
             finish()
