@@ -38,7 +38,7 @@ class StatisticsProfileActivity : AppCompatActivity() {
         }
         binding.recyclerViewInsignias.adapter = adapter
 
-        // Cargar las insignias desde Firestore
+        // Cargar las insignias desde Firestore@
         loadInsigniasFromFirestore()
         loadStreakDaysPxPoints()
 
