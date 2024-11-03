@@ -123,6 +123,9 @@ class CrearCuentaActivity : AppCompatActivity() {
                                 // Crear colección de insignias para el usuario
                                 createInsigniaCollection(uid)
 
+                                // Crear subcolección de lecciones completadas
+                                createCompletedLessonsCollection(uid)
+
                                 Toast.makeText(baseContext, "Registrado exitosamente!", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(this, BottomNavigationActivity::class.java)
                                 startActivity(intent)
@@ -138,6 +141,31 @@ class CrearCuentaActivity : AppCompatActivity() {
                 }
             }
     }
+
+
+    // Función para crear la subcolección completedLessons
+    private fun createCompletedLessonsCollection(uid: String) {
+        val db = FirebaseFirestore.getInstance()
+        val completedLessons = (1..9).associate { lessonNumber ->
+            "lesson$lessonNumber" to mapOf(
+                "lessonNumber" to lessonNumber,
+                "completionDate" to null
+            )
+        }
+
+        completedLessons.forEach { (lessonId, lessonData) ->
+            db.collection("users").document(uid).collection("completedLessons")
+                .document(lessonId)
+                .set(lessonData)
+                .addOnSuccessListener {
+                    Log.d(TAG, "Lección $lessonId inicializada correctamente en Firestore para el usuario $uid")
+                }
+                .addOnFailureListener { e ->
+                    Log.w(TAG, "Error al inicializar lección $lessonId en Firestore", e)
+                }
+        }
+    }
+
     // Función para crear la colección de insignias en Firestore@
     private fun createInsigniaCollection(uid: String) {
         val db = FirebaseFirestore.getInstance()
