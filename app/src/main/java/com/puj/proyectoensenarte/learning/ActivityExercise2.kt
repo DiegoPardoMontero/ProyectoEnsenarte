@@ -30,7 +30,9 @@ class ActivityExercise2 : AppCompatActivity() {
         val statement = intent.getStringExtra("statement") ?: ""
         correctPairs = intent.getSerializableExtra("correctPairs") as? List<Map<String, String>> ?: emptyList()
         points = intent.getIntExtra("points", 0)
+        val lessonName = intent.getStringExtra("lessonName") ?: "Lección desconocida"
 
+        binding.tvTitle.text = lessonName
         binding.tvQuestion.text = statement
         loadVideos()
         setUpWordOptions()

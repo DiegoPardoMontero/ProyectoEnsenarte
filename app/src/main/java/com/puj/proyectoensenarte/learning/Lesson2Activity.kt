@@ -25,6 +25,9 @@ class Lesson2Activity : AppCompatActivity() {
     private var lessonStartTime: Long = 0 // Tiempo de inicio de la lección@
     private var streakDays = 0
     private var errorCount = 0
+
+    private val lessonName = "Lección 2"
+
     private lateinit var exercises: Map<String, Map<String, Any>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -639,6 +642,7 @@ class Lesson2Activity : AppCompatActivity() {
         intent.putExtra("correctAnswer", exercise["correctAnswer"] as String)
         intent.putExtra("points", (exercise["points"] as Long).toInt())
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
+        intent.putExtra("lessonName", lessonName)  // Usa la constante lessonName definida en esta actividad
         startActivityForResult(intent, 1)
     }
     private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
@@ -647,6 +651,7 @@ class Lesson2Activity : AppCompatActivity() {
         val intent = Intent(this, ActivityExercise2::class.java)
         intent.putExtra("statement", exercise["statement"] as? String)
         intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+        intent.putExtra("lessonName", lessonName)
         val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
         intent.putExtra("correctPairs", java.util.ArrayList(correctPairs))
 
@@ -658,6 +663,7 @@ class Lesson2Activity : AppCompatActivity() {
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("maxLetters", (exercise["maxLetter"] as Long).toInt())
         intent.putStringArrayListExtra("correctAnswer", ArrayList(exercise["correctAnswer"] as List<String>))
+        intent.putExtra("lessonName", lessonName)
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
         intent.putExtra("points", (exercise["points"] as Long).toInt())
         startActivityForResult(intent, 2)
@@ -667,7 +673,7 @@ class Lesson2Activity : AppCompatActivity() {
         val intent = Intent(this, ActivityExcercise4::class.java)
         intent.putExtra("statement", exercise["statement"] as? String)
         intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
-
+        intent.putExtra("lessonName", lessonName)
         val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
         intent.putExtra("correctPairs", ArrayList(correctPairs))
 
@@ -679,7 +685,7 @@ class Lesson2Activity : AppCompatActivity() {
 
     private fun launchSelectWordExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
-        Log.d("Lesson2Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
+        Log.d("Lesson1Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
 
         // Manejo seguro de los datos obtenidos@
         val statement = exercise["statement"] as? String ?: "Pregunta no disponible"
@@ -694,19 +700,19 @@ class Lesson2Activity : AppCompatActivity() {
         intent.putExtra("points", points)
         intent.putExtra("video_url", videoUrl)
         intent.putStringArrayListExtra("words", ArrayList(words))
-
+        intent.putExtra("lessonName", lessonName)
         startActivityForResult(intent, 4)
     }
     private fun launchSelectWordExercise2(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
-        Log.d("Lesson2Activity", "Iniciando Exercise3Activity con datos: $exercise") // @Verifica los datos
+        Log.d("Lesson1Activity", "Iniciando Exercise3Activity con datos: $exercise") // @Verifica los datos
 
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("correctAnswer", exercise["correctAnswer"] as String)
         intent.putExtra("points", (exercise["points"] as Long).toInt())
         intent.putExtra("video_url", exercise["video_url"] as String)
         intent.putStringArrayListExtra("words", ArrayList(exercise["words"] as List<String>))
-
+        intent.putExtra("lessonName", lessonName)
         startActivityForResult(intent, 5)
     }
 

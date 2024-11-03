@@ -33,7 +33,8 @@ class Exercise1Activity : AppCompatActivity() {
         correctAnswer = intent.getStringExtra("correctAnswer") ?: ""
         points = intent.getIntExtra("points", 0)
         val videos = intent.getStringArrayListExtra("videos") ?: arrayListOf()
-
+        val lessonName = intent.getStringExtra("lessonName") ?: "Lección desconocida"
+        binding.tvTitle.text = lessonName
         // Configurar el texto de la pregunta
         binding.tvQuestion.text = statement
 
