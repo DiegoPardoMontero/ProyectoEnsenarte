@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte.profile
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityStatisticsProfileBinding
 
@@ -42,12 +44,14 @@ class StatisticsProfileActivity : AppCompatActivity() {
 
     }
 
-    // Método para manejar la acción de retroceso del botón en la Toolbar
+    // Método para manejar la acción de retroceso del botón en la Toolb@ar
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                // Regresar a la actividad anterior
-                onBackPressed()
+                // Crear un intent para volver a BottomNavigationActivity y cargar el fragmento de perfil
+                val intent = Intent(this, BottomNavigationActivity::class.java)
+                intent.putExtra("navigate_to_item", R.id.item_4)  // Indicar que queremos abrir el item 4 (perfil)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
