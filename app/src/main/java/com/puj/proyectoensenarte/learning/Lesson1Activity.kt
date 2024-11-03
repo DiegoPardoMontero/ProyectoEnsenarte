@@ -40,6 +40,7 @@ class Lesson1Activity : AppCompatActivity() {
             loadLessonFromFirebase()
         }
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
         // Si deseas que no haga nada al presionar el botón de retroceso,@
@@ -250,12 +251,38 @@ class Lesson1Activity : AppCompatActivity() {
                 updateFinishedFirstTime()
                 incrementReviewCounter()
                 updateLevelCompletion(1)
+                updateProgress(1)
                 finish()
             }.addOnFailureListener { e ->
                 Log.e("Lesson1Activity", "Error al verificar lección completada: ", e)
             }
         }
     }
+
+//para no dejar que haga lecciones  más avanzadas que la esta
+    private fun updateProgress(lessonNumber: Int) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            val highestLessonCompleted = document.getLong("highestLessonCompleted")?.toInt() ?: 0
+
+            // Si la lección actual es mayor que el progreso registrado, actualizamos
+            if (lessonNumber > highestLessonCompleted) {
+                userRef.update("highestLessonCompleted", lessonNumber)
+                    .addOnSuccessListener {
+                        Log.d("LessonActivity", "Progreso actualizado a la lección $lessonNumber")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("LessonActivity", "Error al actualizar el progreso", e)
+                    }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("LessonActivity", "Error al obtener datos del usuario", e)
+        }
+    }
+
 
     private fun updateLevelCompletion(lessonId: Int) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return

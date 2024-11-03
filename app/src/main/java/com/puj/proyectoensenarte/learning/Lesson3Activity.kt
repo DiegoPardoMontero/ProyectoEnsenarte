@@ -30,14 +30,38 @@ class Lesson3Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Registrar la hora de inicio de la lección
-        lessonStartTime = System.currentTimeMillis()
+        canAccessLesson(lessonNumber = 3) { canAccess ->
+            if (canAccess) {
+                // Permitir el acceso, continuar con la configuración de la lección
+                lessonStartTime = System.currentTimeMillis() // Registrar la hora de inicio
 
-        // Cargar los puntos actuales del usuario antes de iniciar la lección
-        loadUserInfo { xpPoints, streak ->
-            previousXpPoints = xpPoints
-            streakDays = streak
-            loadLessonFromFirebase()
+                // Cargar los puntos actuales del usuario antes de iniciar la lección
+                loadUserInfo { xpPoints, streak ->
+                    previousXpPoints = xpPoints
+                    streakDays = streak
+                    loadLessonFromFirebase()
+                }
+            } else {
+                // Bloquear el acceso y mostrar un mensaje al usuario
+                Toast.makeText(this, "Completa las lecciones anteriores para acceder a esta lección.", Toast.LENGTH_SHORT).show()
+                finish() // Finalizar la actividad para que el usuario no pueda acceder a la lección
+            }
+        }
+    }
+
+    private fun canAccessLesson(lessonNumber: Int, onSuccess: (Boolean) -> Unit) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            val highestLessonCompleted = document.getLong("highestLessonCompleted")?.toInt() ?: 0
+
+            // Permitir el acceso solo si el progreso alcanza el requisito
+            onSuccess(lessonNumber <= highestLessonCompleted + 1)
+        }.addOnFailureListener { e ->
+            Log.e("LessonActivity", "Error al verificar el acceso a la lección", e)
+            onSuccess(false)
         }
     }
     override fun onBackPressed() {
@@ -250,10 +274,34 @@ class Lesson3Activity : AppCompatActivity() {
                 updateFinishedFirstTime()
                 incrementReviewCounter()
                 updateLevelCompletion(3)
+                updateProgress(3)
                 finish()
             }.addOnFailureListener { e ->
                 Log.e("Lesson3Activity", "Error al verificar lección completada: ", e)
             }
+        }
+    }
+
+    private fun updateProgress(lessonNumber: Int) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            val highestLessonCompleted = document.getLong("highestLessonCompleted")?.toInt() ?: 0
+
+            // Si la lección actual es mayor que el progreso registrado, actualizamos
+            if (lessonNumber > highestLessonCompleted) {
+                userRef.update("highestLessonCompleted", lessonNumber)
+                    .addOnSuccessListener {
+                        Log.d("LessonActivity", "Progreso actualizado a la lección $lessonNumber")
+                    }
+                    .addOnFailureListener { e ->
+                        Log.e("LessonActivity", "Error al actualizar el progreso", e)
+                    }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("LessonActivity", "Error al obtener datos del usuario", e)
         }
     }
 
