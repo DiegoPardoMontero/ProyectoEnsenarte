@@ -23,7 +23,10 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <!--- Authentication Activit@ies -->
         <activity android:name=".CrearCuentaActivity"/>
@@ -157,11 +160,6 @@
         <activity
             android:name=".video.CameraRecordingActivity"
             android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".video.ProcessingActivity"
