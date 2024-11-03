@@ -23,64 +23,58 @@ class ProcessingActivity : AppCompatActivity() {
         binding = ActivityVideoProcesamientoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicializar el procesador
         videoProcessor = SignLanguageVideoProcessor(this)
 
-        // Obtener datos del intent usando el nuevo método para Strings
-        val videoUriString = intent.getStringExtra("video_uri")
+        val videoUri = intent.getStringExtra("video_uri")?.let { Uri.parse(it) }
         val lessonNumber = intent.getStringExtra("lesson_number") ?: "1"
         val expectedSign = intent.getStringExtra("expected_sign")
 
-        // Actualizar texto de la lección
         binding.tvEjercicioNumero.text = "Lección $lessonNumber"
 
-        // Configurar el indicador de progreso
-        setupProgressIndicator()
-
-        // Procesar el video
         lifecycleScope.launch {
             try {
-                val videoUri = videoUriString?.let { Uri.parse(it) }
-                videoUri?.let {
-                    when (val result = videoProcessor.processVideo(it)) {
+                if (videoUri != null && expectedSign != null) {
+                    when (val result = videoProcessor.processVideo(videoUri, expectedSign)) {
                         is SignLanguageVideoProcessor.ProcessingResult.Success -> {
-                            // Comparar con la seña esperada
-                            val isCorrect = expectedSign?.let { expected ->
-                                result.predictedLabel == expected
-                            } ?: false
+                            val predictionResult = result.result
 
-                            delay(2000)
-                            navigateToResult(isCorrect)
+                            Log.d("ProcessingActivity", """
+                                Resultado del procesamiento:
+                                Seña predicha: ${predictionResult.predictedSign}
+                                Seña esperada: ${predictionResult.expectedSign}
+                                Es correcta: ${predictionResult.isCorrect}
+                                Confianzas: ${predictionResult.confidenceScores.map { "%.2f".format(it * 100) + "%" }}
+                            """.trimIndent())
+
+                            delay(2000) // Dar tiempo para ver la animación
+                            navigateToResult(predictionResult.isCorrect)
                         }
                         is SignLanguageVideoProcessor.ProcessingResult.Error -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    this@ProcessingActivity,
-                                    "Error al procesar el video",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            delay(1000)
+                            Log.e("ProcessingActivity", "Error en el procesamiento", result.exception)
+                            Toast.makeText(
+                                this@ProcessingActivity,
+                                "Error al procesar el video",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             navigateToResult(false)
                         }
                     }
-                } ?: run {
+                } else {
+                    Log.e("ProcessingActivity", "URI del video o seña esperada es null")
                     Toast.makeText(
                         this@ProcessingActivity,
-                        "Error: No se encontró el video",
+                        "Error: Datos incompletos",
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
                 }
             } catch (e: Exception) {
-                Log.e("ProcessingActivity", "Error processing video", e)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@ProcessingActivity,
-                        "Error inesperado al procesar el video",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                Log.e("ProcessingActivity", "Error inesperado", e)
+                Toast.makeText(
+                    this@ProcessingActivity,
+                    "Error inesperado",
+                    Toast.LENGTH_SHORT
+                ).show()
                 navigateToResult(false)
             }
         }

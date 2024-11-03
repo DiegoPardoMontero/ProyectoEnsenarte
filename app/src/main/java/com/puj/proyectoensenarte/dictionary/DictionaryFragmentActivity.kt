@@ -20,7 +20,6 @@ import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityDictionaryFragmentBinding
 
 class DictionaryFragmentActivity : Fragment() {
-
     private var binding: ActivityDictionaryFragmentBinding? = null
     private lateinit var categoryAdapter: CategoryAdapter
     private lateinit var alphabetAdapter: AlphabetAdapter
@@ -181,11 +180,6 @@ class DictionaryFragmentActivity : Fragment() {
             .replace(R.id.container, fragment)
             .addToBackStack(null)
             .commit()
-    }
-
-    private fun noResultsFound(query: String): Boolean {
-        // Implementar la lógica si no se encuentran resultados
-        return false
     }
 
     private fun navigateToError404() {

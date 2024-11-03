@@ -84,28 +84,114 @@ class SignLanguageVideoProcessor(private val context: Context) {
         return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
     }
 
-    suspend fun processVideo(videoUri: Uri): ProcessingResult = withContext(Dispatchers.IO) {
+    suspend fun processVideo(videoUri: Uri, expectedSign: String): ProcessingResult = withContext(Dispatchers.IO) {
         try {
+            Log.d(TAG, "Iniciando procesamiento de video. Seña esperada: $expectedSign")
+
             val frames = extractFrames(videoUri)
             if (frames.isEmpty()) {
+                Log.e(TAG, "No se pudieron extraer frames del video")
                 return@withContext ProcessingResult.Error(Exception("No frames extracted"))
             }
 
+            Log.d(TAG, "Frames extraídos: ${frames.size}")
+
             // Procesar frame por frame
-            val frame = frames.firstOrNull() ?:
-            return@withContext ProcessingResult.Error(Exception("No frames available"))
+            val frame = frames.firstOrNull()
+            if (frame == null) {
+                Log.e(TAG, "No hay frames disponibles para procesar")
+                return@withContext ProcessingResult.Error(Exception("No frames available"))
+            }
 
             val inputBuffer = prepareInputBuffer(frame)
             val outputBuffer = Array(1) { FloatArray(NUM_CLASSES) }
 
             interpreter?.run(inputBuffer, outputBuffer)
 
-            val predictedClass = getPredictedClass(outputBuffer[0])
-            ProcessingResult.Success(predictedClass)
+            // Obtener predicciones y logging detallado
+            val predictions = outputBuffer[0]
+            logPredictions(predictions, expectedSign)
+
+            val predictedClass = getPredictedClass(predictions)
+            val isCorrect = compareSignPrediction(predictedClass, expectedSign)
+
+            ProcessingResult.Success(
+                PredictionResult(
+                    predictedSign = predictedClass,
+                    expectedSign = expectedSign,
+                    isCorrect = isCorrect,
+                    confidenceScores = predictions.toList()
+                )
+            )
         } catch (e: Exception) {
             Log.e(TAG, "Error processing video", e)
             ProcessingResult.Error(e)
         }
+    }
+
+    private fun logPredictions(predictions: FloatArray, expectedSign: String) {
+        val predictionsList = predictions.mapIndexed { index, confidence ->
+            val label = labelMap[index] ?: "Unknown"
+            label to confidence
+        }.sortedByDescending { it.second }
+
+        Log.d(TAG, "=== Predicciones Detalladas ===")
+        Log.d(TAG, "Seña Esperada: $expectedSign")
+        Log.d(TAG, "Todas las predicciones (ordenadas por confianza):")
+        predictionsList.forEachIndexed { index, (label, confidence) ->
+            val percentage = confidence * 100
+            Log.d(TAG, "${index + 1}. $label: ${"%.2f".format(percentage)}%")
+        }
+
+        val maxPrediction = predictionsList.first()
+        Log.d(TAG, "Predicción con mayor confianza: ${maxPrediction.first} (${"%.2f".format(maxPrediction.second * 100)}%)")
+    }
+
+    private fun getPredictedClass(outputArray: FloatArray): String {
+        var maxIndex = 0
+        var maxValue = outputArray[0]
+
+        for (i in 1 until outputArray.size) {
+            if (outputArray[i] > maxValue) {
+                maxValue = outputArray[i]
+                maxIndex = i
+            }
+        }
+
+        val predictedLabel = labelMap[maxIndex] ?: "Unknown"
+        Log.d(TAG, "Índice predicho: $maxIndex, Etiqueta: $predictedLabel, Confianza: ${maxValue * 100}%")
+        return predictedLabel
+    }
+
+    private fun compareSignPrediction(predicted: String, expected: String): Boolean {
+        val normalizedPredicted = normalizeSignName(predicted)
+        val normalizedExpected = normalizeSignName(expected)
+
+        Log.d(TAG, "Comparando predicciones:")
+        Log.d(TAG, "Original - Predicha: $predicted, Esperada: $expected")
+        Log.d(TAG, "Normalizada - Predicha: $normalizedPredicted, Esperada: $normalizedExpected")
+
+        return normalizedPredicted == normalizedExpected
+    }
+
+    private fun normalizeSignName(sign: String): String {
+        return sign.toLowerCase()
+            .trim()
+            .replace(" ", "")
+            .replace("-", "")
+            .replace("_", "")
+    }
+
+    data class PredictionResult(
+        val predictedSign: String,
+        val expectedSign: String,
+        val isCorrect: Boolean,
+        val confidenceScores: List<Float>
+    )
+
+    sealed class ProcessingResult {
+        data class Success(val result: PredictionResult) : ProcessingResult()
+        data class Error(val exception: Exception) : ProcessingResult()
     }
 
     private fun extractFrames(videoUri: Uri): List<Bitmap> {
@@ -158,25 +244,6 @@ class SignLanguageVideoProcessor(private val context: Context) {
 
         inputBuffer.rewind()
         return inputBuffer
-    }
-
-    private fun getPredictedClass(outputArray: FloatArray): String {
-        var maxIndex = 0
-        var maxValue = outputArray[0]
-
-        for (i in 1 until outputArray.size) {
-            if (outputArray[i] > maxValue) {
-                maxValue = outputArray[i]
-                maxIndex = i
-            }
-        }
-
-        return labelMap[maxIndex] ?: "Unknown"
-    }
-
-    sealed class ProcessingResult {
-        data class Success(val predictedLabel: String) : ProcessingResult()
-        data class Error(val exception: Exception) : ProcessingResult()
     }
 
     companion object {
