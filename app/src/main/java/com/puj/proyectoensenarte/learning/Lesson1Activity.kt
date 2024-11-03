@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -207,6 +208,7 @@ class Lesson1Activity : AppCompatActivity() {
                 "video_selection" -> launchExercise1(exercise)
                 "ordering" -> launchOrderingExercise(exercise)
                 "matching" -> launchMatchingExercise(exercise)
+                "matching_videos" -> launchMatchingVideosExercise(exercise)
                 "selection" -> launchSelectWordExercise(exercise)
                 "selection2" -> launchSelectWordExercise2(exercise)
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
@@ -228,6 +230,9 @@ class Lesson1Activity : AppCompatActivity() {
                     startActivity(intent)
                 }
 
+                // Actualizar fecha de finalización de la lección@
+                updateCompletionDate("lesson1")
+
                 // Actualizar puntos y racha según el caso
                 updateUserStreak()
                 if(streakDays>=2){
@@ -241,8 +246,10 @@ class Lesson1Activity : AppCompatActivity() {
                 updatePerfectLessonCount()
                 checkExperiencia()
                 checkColeccionador()
+                checkDedicatedExplorerBadge("andino")
                 updateFinishedFirstTime()
                 incrementReviewCounter()
+                updateLevelCompletion(1)
                 finish()
             }.addOnFailureListener { e ->
                 Log.e("Lesson1Activity", "Error al verificar lección completada: ", e)
@@ -250,6 +257,82 @@ class Lesson1Activity : AppCompatActivity() {
         }
     }
 
+    private fun updateLevelCompletion(lessonId: Int) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                var fieldToUpdate = ""
+                when (lessonId) {
+                    in 1..3 -> fieldToUpdate = "num_lessons_andina" // Nivel Andino
+                    in 4..6 -> fieldToUpdate = "num_lessons_caribe" // Nivel Caribe
+                    in 7..9 -> fieldToUpdate = "num_lessons_amazonas" // Nivel Amazonas
+                }
+
+                if (fieldToUpdate.isNotEmpty()) {
+                    userRef.update(fieldToUpdate, FieldValue.increment(1))
+                        .addOnSuccessListener {
+                            Log.d("LessonCompletion", "$fieldToUpdate incrementado correctamente")
+                            checkLevelCompletionAndUnlockInsignia()
+                        }
+                        .addOnFailureListener { e ->
+                            Log.e("LessonCompletion", "Error al incrementar $fieldToUpdate", e)
+                        }
+                }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("LessonCompletion", "Error al obtener los datos del usuario", e)
+        }
+    }
+
+    private fun checkLevelCompletionAndUnlockInsignia() {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+
+        userRef.get().addOnSuccessListener { document ->
+            if (document != null && document.exists()) {
+                val numLessonsAndina = document.getLong("num_lessons_andina")?.toInt() ?: 0
+                val numLessonsCaribe = document.getLong("num_lessons_caribe")?.toInt() ?: 0
+                val numLessonsAmazonas = document.getLong("num_lessons_amazonas")?.toInt() ?: 0
+
+                // Verificar si se ha completado el nivel Andino (3 lecciones)
+                if (numLessonsAndina >= 3) {
+                    unlockInsignia("Insignia de la sabiduría andina")
+                }
+                // Verificar si se ha completado el nivel Caribe (3 lecciones)
+                if (numLessonsCaribe >= 3) {
+                    unlockInsignia("Insignia del navegante caribeño")
+                }
+                // Verificar si se ha completado el nivel Amazonas (3 lecciones)
+                if (numLessonsAmazonas >= 3) {
+                    unlockInsignia("Insignia del explorador amazónico")
+                }
+            }
+        }.addOnFailureListener { e ->
+            Log.e("CheckLevelCompletion", "Error al verificar el progreso de nivel", e)
+        }
+    }
+
+    private fun updateCompletionDate(lessonId: String) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val lessonRef = db.collection("users").document(uid).collection("completedLessons").document(lessonId)
+
+        val completionData = mapOf(
+            "completionDate" to Timestamp.now()
+        )
+
+        lessonRef.set(completionData) // Usa `set` para crear o actualizar el documento
+            .addOnSuccessListener {
+                Log.d("LessonActivity", "Fecha de finalización de $lessonId actualizada correctamente.")
+            }
+            .addOnFailureListener { e ->
+                Log.e("LessonActivity", "Error al actualizar la fecha de finalización para $lessonId", e)
+            }
+    }
 
     private fun incrementReviewCounter() {
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -337,7 +420,6 @@ class Lesson1Activity : AppCompatActivity() {
         //checkExploradorAmazonico()
     }
 
-
     private fun checkAprendizRapido() {
         // Calcular el tiempo en segundos
         val lessonEndTime = System.currentTimeMillis()
@@ -402,6 +484,45 @@ class Lesson1Activity : AppCompatActivity() {
             Log.e("ZoomInsigniaActivity", "Error al obtener los datos del usuario", e)
         }
     }
+
+    private fun checkDedicatedExplorerBadge(level: String) {
+        val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
+        val userRef = db.collection("users").document(uid)
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val todayDate = dateFormat.format(Date())
+
+        // Determinar el rango de lecciones por nivel
+        val levelRange = when (level) {
+            "andino" -> 1..3
+            "caribe" -> 4..6
+            "amazonico" -> 7..9
+            else -> return // Salir si el nivel no es válido
+        }
+
+        // Obtener el historial de lecciones completadas del usuario
+        userRef.collection("completedLessons")
+            .whereIn("lessonNumber", levelRange.toList())
+            .get()
+            .addOnSuccessListener { querySnapshot ->
+                val completedLessonsToday = querySnapshot.documents.filter { document ->
+                    val completionDate = document.getString("completionDate") ?: ""
+                    completionDate == todayDate
+                }
+
+                // Verificar si todas las lecciones en el nivel se completaron hoy
+                if (completedLessonsToday.size == levelRange.count()) {
+                    unlockInsignia("Insignia de Explorador Dedicado")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.e("Lesson1Activity", "Error al verificar lecciones completadas: ", e)
+            }
+    }
+
+
+
+
     private fun unlockInsignia(insigniaName: String) {
         val user = FirebaseAuth.getInstance().currentUser
         val uid = user?.uid ?: return
@@ -460,6 +581,17 @@ class Lesson1Activity : AppCompatActivity() {
         intent.putExtra("points", (exercise["points"] as Long).toInt())
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
         startActivityForResult(intent, 1)
+    }
+    private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
+        Log.d("Lesson2Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
+
+        val intent = Intent(this, ActivityExercise2::class.java)
+        intent.putExtra("statement", exercise["statement"] as? String)
+        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+        val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
+        intent.putExtra("correctPairs", java.util.ArrayList(correctPairs))
+
+        startActivityForResult(intent, 6)
     }
 
     private fun launchOrderingExercise(exercise: Map<String, Any>) {

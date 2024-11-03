@@ -24,7 +24,7 @@ class Exercise1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializar ViewBinding
+        // Inicializar ViewBinding@
         binding = ActivityExcercise1Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
