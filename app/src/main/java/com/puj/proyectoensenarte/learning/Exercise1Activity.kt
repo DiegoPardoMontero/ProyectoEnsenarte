@@ -12,6 +12,7 @@ import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.databinding.ActivityExcercise1Binding
 
 class Exercise1Activity : AppCompatActivity() {
@@ -62,12 +63,12 @@ class Exercise1Activity : AppCompatActivity() {
             .setPositiveButton("Sí") { _, _ ->
                 try {
                     // Redirigir a ScrollableMapActivity@
-                    val intent = Intent(this, ScrollableMapActivity::class.java)
+                    val intent = Intent(this, BottomNavigationActivity::class.java)
                     startActivity(intent)
-                    Log.d("Exercise1Activity", "Navigating to ScrollableMapActivity")
+                    Log.d("Exercise1Activity", "Navigating to BottomNavigationActivity")
                     finish() // Cierra Exercise1Activity
                 } catch (e: Exception) {
-                    Log.e("Exercise1Activity", "Error al navegar a ScrollableMapActivity", e)
+                    Log.e("Exercise1Activity", "Error al navegar a BottomNavigationActivity", e)
                 }
             }
             .setNegativeButton("No") { dialog, _ ->
