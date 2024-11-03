@@ -171,7 +171,7 @@ class ScrollableMapActivity : Fragment() {
         }
 
         binding.lockAndina.setOnClickListener {
-            val intent = Intent(activity, TestAndinaLevelActivity::class.java)
+            val intent = Intent(activity, ActivityTestInfo::class.java)
             startActivity(intent)
             //Toast.makeText(context, "Nivel bloqueado en Andina", Toast.LENGTH_SHORT).show()
         }
