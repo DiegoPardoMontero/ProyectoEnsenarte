@@ -30,7 +30,9 @@ class Exercise3Activity : AppCompatActivity() {
         points = intent.getIntExtra("points", 0)
         val videoUrl = intent.getStringExtra("video_url") ?: ""
         val words = intent.getStringArrayListExtra("words") ?: arrayListOf()
+        val lessonName = intent.getStringExtra("lessonName") ?: "Lección desconocida"
 
+        binding.tvTitle.text = lessonName
         // Configurar el enunciado
         binding.tvQuestion3.text = statement
 

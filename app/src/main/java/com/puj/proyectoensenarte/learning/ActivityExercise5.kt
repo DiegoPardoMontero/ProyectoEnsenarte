@@ -26,7 +26,7 @@ class ActivityExercise5 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inicializar ViewBinding
+        // Inicializar ViewBinding@
         binding = ActivityExercise5Binding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -36,7 +36,9 @@ class ActivityExercise5 : AppCompatActivity() {
         maxLetters = intent.getIntExtra("maxLetters", 5)
         videoUrls = intent.getStringArrayListExtra("videos") ?: arrayListOf()
         points = intent.getIntExtra("points", 0)
+        val lessonName = intent.getStringExtra("lessonName") ?: "Lección desconocida"
 
+        binding.tvTitle.text = lessonName
         binding.tvQuestion.text = statement
 
 
