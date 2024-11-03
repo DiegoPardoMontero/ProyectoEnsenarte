@@ -88,10 +88,6 @@ class DetallePorCategoriaActivity : AppCompatActivity() {
                 // Manejar el error
             }
     }
-
-    fun primeraLetraMinuscula(texto: String): String {
-        return texto.replaceFirstChar { it.lowercase() }
-    }
 }
 
 data class Palabra(val id: String, val texto: String)

@@ -11,6 +11,7 @@ import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityDetallePorPalabraBinding
+import java.text.Normalizer
 
 class DetallePalabraActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetallePorPalabraBinding
@@ -21,7 +22,7 @@ class DetallePalabraActivity : AppCompatActivity() {
         binding = ActivityDetallePorPalabraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val palabra = intent.getStringExtra("PALABRA") ?: return
+        var palabra = intent.getStringExtra("PALABRA") ?: return
 
         setupUI(palabra)
         loadPalabraDetails(palabra)
@@ -32,12 +33,20 @@ class DetallePalabraActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener { finish() }
     }
 
+    private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+    private fun CharSequence.unaccent(): String {
+        val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+        return REGEX_UNACCENT.replace(temp, "")
+    }
+
     fun primeraLetraMayuscula(texto: String): String {
         return texto.replaceFirstChar { it.uppercase() }
     }
 
     private fun loadPalabraDetails(palabra: String) {
-        var palabra = primeraLetraMayuscula(palabra)
+        var palabra = palabra.unaccent().lowercase().replace(" ", "")
+        palabra = primeraLetraMayuscula(palabra)
+
         db.collection("dict").document("palabras")
             .get()
             .addOnSuccessListener { document ->
