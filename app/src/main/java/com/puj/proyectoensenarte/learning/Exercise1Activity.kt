@@ -62,7 +62,7 @@ class Exercise1Activity : AppCompatActivity() {
             .setMessage("¿Estás seguro de que deseas salir? No ganarás puntos por esta lección.")
             .setPositiveButton("Sí") { _, _ ->
                 try {
-                    // Redirigir a ScrollableMapActivity@
+                    // Redirigir a perfil@
                     val intent = Intent(this, BottomNavigationActivity::class.java)
                     startActivity(intent)
                     Log.d("Exercise1Activity", "Navigating to BottomNavigationActivity")

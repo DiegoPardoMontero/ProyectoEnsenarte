@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivitySettingsProfileBinding
 
@@ -26,13 +27,14 @@ class SettingsProfileActivity : AppCompatActivity() {
 
 
 
-        // Configura el listener del botón editar
+        // Configura el listener del botón editar@
         binding.botonEditar.setOnClickListener {
             saveUserData()
         }
 
         binding.backButton.setOnClickListener {
-            val intent = Intent(this, ProfileFragmentActivity::class.java)
+            val intent = Intent(this, BottomNavigationActivity::class.java)
+            intent.putExtra("navigate_to_item", R.id.item_4)  // Indicar que queremos abrir el item 4 (perfil)
             startActivity(intent)
         }
 
