@@ -35,7 +35,7 @@ class Lesson3Activity : AppCompatActivity() {
                 // Permitir el acceso, continuar con la configuración de la lección
                 lessonStartTime = System.currentTimeMillis() // Registrar la hora de inicio
 
-                // Cargar los puntos actuales del usuario antes de iniciar la lección
+                // Cargar los puntos actuales del usuario antes de iniciar la lección∑@
                 loadUserInfo { xpPoints, streak ->
                     previousXpPoints = xpPoints
                     streakDays = streak

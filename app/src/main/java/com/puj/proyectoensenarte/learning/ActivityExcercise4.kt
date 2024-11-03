@@ -165,6 +165,7 @@ class ActivityExcercise4 : AppCompatActivity() {
         val dialog = CorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
+            resultIntent.putExtra("correctAnswer", true) // Indicar que la respuesta fue correcta
             setResult(RESULT_OK, resultIntent)
             finish() // Volver a Lesson1Activity
         }
@@ -173,12 +174,13 @@ class ActivityExcercise4 : AppCompatActivity() {
 
     private fun showIncorrectResultDialog() {
         val dialog = IncorrectResultBottomSheet {
+            val resultIntent = Intent()
+            resultIntent.putExtra("correctAnswer", false) // Indicar que la respuesta fue incorrecta
             setResult(RESULT_CANCELED) // Enviar RESULT_CANCELED para respuestas incorrectas
             finish() // Volver a Lesson1Activity
         }
         dialog.show(supportFragmentManager, "IncorrectResultDialog")
     }
-
 
     private fun continueToNextExercise() {
         val resultIntent = Intent()
