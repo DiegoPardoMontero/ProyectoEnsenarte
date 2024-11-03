@@ -321,8 +321,12 @@ class Lesson1Activity : AppCompatActivity() {
         val db = FirebaseFirestore.getInstance()
         val lessonRef = db.collection("users").document(uid).collection("completedLessons").document(lessonId)
 
+        // Obtener la fecha actual y formatearla a "yyyy-MM-dd"
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+        val formattedDate = dateFormat.format(Date())
+
         val completionData = mapOf(
-            "completionDate" to Timestamp.now()
+            "completionDate" to formattedDate // Guardar la fecha en el formato deseado
         )
 
         lessonRef.set(completionData) // Usa `set` para crear o actualizar el documento
@@ -486,42 +490,49 @@ class Lesson1Activity : AppCompatActivity() {
     }
 
     private fun checkDedicatedExplorerBadge(level: String) {
+        Log.e("Lesson1Activity", "ENTRA A VERIFICAR INSIGNIA EXPLORADOR")
+
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val db = FirebaseFirestore.getInstance()
         val userRef = db.collection("users").document(uid)
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val todayDate = dateFormat.format(Date())
 
         // Determinar el rango de lecciones por nivel
-        val levelRange = when (level) {
-            "andino" -> 1..3
-            "caribe" -> 4..6
-            "amazonico" -> 7..9
+        val levelLessons = when (level) {
+            "andino" -> listOf("lesson1", "lesson2", "lesson3")
+            "caribe" -> listOf("lesson4", "lesson5", "lesson6")
+            "amazonico" -> listOf("lesson7", "lesson8", "lesson9")
             else -> return // Salir si el nivel no es válido
         }
 
-        // Obtener el historial de lecciones completadas del usuario
-        userRef.collection("completedLessons")
-            .whereIn("lessonNumber", levelRange.toList())
-            .get()
-            .addOnSuccessListener { querySnapshot ->
-                val completedLessonsToday = querySnapshot.documents.filter { document ->
-                    val completionDate = document.getString("completionDate") ?: ""
-                    completionDate == todayDate
-                }
+        // Variable para almacenar las fechas de finalización de las lecciones en este nivel@
+        val completionDates = mutableListOf<String>()
 
-                // Verificar si todas las lecciones en el nivel se completaron hoy
-                if (completedLessonsToday.size == levelRange.count()) {
-                    unlockInsignia("Insignia de Explorador Dedicado")
+        // Iterar sobre cada lección en el nivel y obtener la fecha de finalización
+        for (lesson in levelLessons) {
+            userRef.collection("completedLessons").document(lesson).get()
+                .addOnSuccessListener { document ->
+                    val completionDate = document.getString("completionDate")
+                    if (completionDate != null) {
+                        completionDates.add(completionDate)
+                    }
+
+                    // Cuando hemos revisado todas las lecciones en el nivel, verificamos si las fechas coinciden
+                    if (completionDates.size == levelLessons.size) {
+                        // Verificar si todas las fechas de finalización son iguales
+                        val allDatesMatch = completionDates.distinct().size == 1
+                        if (allDatesMatch) {
+                            unlockInsignia("Insignia de explorador dedicado")
+                            Log.d("Lesson1ActivityEXPLORER", "Insignia de explorador dedicado desbloqueada")
+                        } else {
+                            Log.d("Lesson1ActivityEXPLORER", "No todas las lecciones están completadas en la misma fecha para desbloquear la insignia")
+                        }
+                    }
                 }
-            }
-            .addOnFailureListener { e ->
-                Log.e("Lesson1Activity", "Error al verificar lecciones completadas: ", e)
-            }
+                .addOnFailureListener { e ->
+                    Log.e("Lesson1ActivityEXPLORER", "Error al verificar lección $lesson", e)
+                }
+        }
     }
-
-
-
 
     private fun unlockInsignia(insigniaName: String) {
         val user = FirebaseAuth.getInstance().currentUser
