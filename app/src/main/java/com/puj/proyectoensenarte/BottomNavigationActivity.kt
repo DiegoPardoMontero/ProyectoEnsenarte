@@ -41,11 +41,9 @@ class BottomNavigationActivity : AppCompatActivity() {
             }
         }
 
-
-        // Carga el fragmento por defecto
-        if (savedInstanceState == null) {
-            binding.bottomNavigation.selectedItemId = R.id.item_1
-        }
+        // Verificar si hay un fragmento específico al que queremos navegar@
+        val itemToNavigate = intent.getIntExtra("navigate_to_item", R.id.item_1)
+        binding.bottomNavigation.selectedItemId = itemToNavigate
     }
 
     private fun loadFragment(fragment: Fragment) {
@@ -53,5 +51,4 @@ class BottomNavigationActivity : AppCompatActivity() {
             .replace(R.id.container, fragment)
             .commit()
     }
-
 }

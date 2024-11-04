@@ -9,6 +9,7 @@ import android.widget.Toast
 import android.widget.VideoView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExercise2Binding
 
@@ -30,7 +31,9 @@ class ActivityExercise2 : AppCompatActivity() {
         val statement = intent.getStringExtra("statement") ?: ""
         correctPairs = intent.getSerializableExtra("correctPairs") as? List<Map<String, String>> ?: emptyList()
         points = intent.getIntExtra("points", 0)
+        val lessonName = intent.getStringExtra("lessonName") ?: "Lección desconocida"
 
+        binding.tvTitle.text = lessonName
         binding.tvQuestion.text = statement
         loadVideos()
         setUpWordOptions()
@@ -40,7 +43,13 @@ class ActivityExercise2 : AppCompatActivity() {
             validateAnswer()
         }
     }
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, BottomNavigationActivity::class.java)
+        intent.putExtra("selected_fragment", R.id.item_1) // Seleccionar el fragmento deseado
+        startActivity(intent)
+        finishAffinity() // Cierra todas las actividades anteriores en la pila
+    }
     private fun configureCloseButton() {
         binding.closeButton.setOnClickListener {
             showExitConfirmationDialog()
@@ -55,12 +64,12 @@ class ActivityExercise2 : AppCompatActivity() {
             .setPositiveButton("Sí") { _, _ ->
                 try {
                     // Redirigir a ScrollableMapActivity@
-                    val intent = Intent(this, ScrollableMapActivity::class.java)
+                    val intent = Intent(this, BottomNavigationActivity::class.java)
                     startActivity(intent)
-                    Log.d("Exercise1Activity", "Navigating to ScrollableMapActivity")
-                    finish() // Cierra Exercise1Activity
+                    Log.d("Exercise1Activity", "Navigating to BottomNavigationActivity")
+                    finish() // Cierra Exercise1Activity@
                 } catch (e: Exception) {
-                    Log.e("Exercise1Activity", "Error al navegar a ScrollableMapActivity", e)
+                    Log.e("Exercise1Activity", "Error al navegar a BottomNavigationActivity", e)
                 }
             }
             .setNegativeButton("No") { dialog, _ ->
@@ -179,6 +188,7 @@ class ActivityExercise2 : AppCompatActivity() {
         val dialog = CorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
+            resultIntent.putExtra("correctAnswer", true) // Indicar que la respuesta fue correcta
             setResult(RESULT_OK, resultIntent)
             finish() // Volver a Lesson1Activity
         }
@@ -187,6 +197,8 @@ class ActivityExercise2 : AppCompatActivity() {
 
     private fun showIncorrectResultDialog() {
         val dialog = IncorrectResultBottomSheet {
+            val resultIntent = Intent()
+            resultIntent.putExtra("correctAnswer", false) // Indicar que la respuesta fue incorrecta
             setResult(RESULT_CANCELED) // Enviar RESULT_CANCELED para respuestas incorrectas
             finish() // Volver a Lesson1Activity
         }
