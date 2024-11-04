@@ -12,6 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import androidx.appcompat.app.AppCompatActivity
 import com.puj.proyectoensenarte.BottomNavigationActivity
+import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExercise5Binding
 
 class ActivityExercise5 : AppCompatActivity() {
@@ -71,7 +72,13 @@ class ActivityExercise5 : AppCompatActivity() {
             }
         }
     }
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, BottomNavigationActivity::class.java)
+        intent.putExtra("selected_fragment", R.id.item_1) // Seleccionar el fragmento deseado
+        startActivity(intent)
+        finishAffinity() // Cierra todas las actividades anteriores en la pila
+    }
     private fun configureCloseButton() {
         binding.closeButton.setOnClickListener {
             showExitConfirmationDialog()

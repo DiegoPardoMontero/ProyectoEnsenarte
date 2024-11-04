@@ -13,6 +13,7 @@ import android.widget.VideoView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.puj.proyectoensenarte.BottomNavigationActivity
+import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExcercise1Binding
 
 class Exercise1Activity : AppCompatActivity() {
@@ -24,7 +25,6 @@ class Exercise1Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         // Inicializar ViewBinding@
         binding = ActivityExcercise1Binding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -48,6 +48,14 @@ class Exercise1Activity : AppCompatActivity() {
             validateAnswer()
         }
     }
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, BottomNavigationActivity::class.java)
+        intent.putExtra("selected_fragment", R.id.item_1) // Seleccionar el fragmento deseado
+        startActivity(intent)
+        finishAffinity() // Cierra todas las actividades anteriores en la pila
+    }
+
 
     private fun configureCloseButton() {
         binding.closeButton.setOnClickListener {

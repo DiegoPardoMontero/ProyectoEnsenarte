@@ -6,12 +6,15 @@ import android.os.Bundle
 import android.os.UserManager
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
 import java.text.SimpleDateFormat
@@ -32,6 +35,15 @@ class Lesson1Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+        onBackPressedDispatcher.addCallback(this) {
+            val intent = Intent(this@Lesson1Activity, BottomNavigationActivity::class.java)
+            intent.putExtra("selected_fragment", R.id.item_4) // Seleccionar el fragmento deseado
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finishAffinity() // Cierra todas las actividades anteriores en la pila@
+        }
+
         // Registrar la hora de inicio de la lección
         lessonStartTime = System.currentTimeMillis()
 
@@ -43,11 +55,6 @@ class Lesson1Activity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        // Si deseas que no haga nada al presionar el botón de retroceso,@
-        // deja el método vacío.
-    }
 
     private fun loadUserInfo(onSuccess: (Int, Int) -> Unit) {
         val uid = FirebaseAuth.getInstance().currentUser?.uid
