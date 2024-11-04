@@ -655,6 +655,7 @@ class Lesson1Activity : AppCompatActivity() {
         intent.putExtra("lessonName", lessonName) // Usa la constante@ lessonName definida en esta actividad
         startActivityForResult(intent, 1)
     }
+
     private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
         Log.d("Lesson2Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
 

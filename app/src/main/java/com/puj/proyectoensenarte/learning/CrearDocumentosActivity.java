@@ -32,6 +32,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
     }
 
     private void crearLeccion() {
+
         // Ejercicio 1: Selección de video@
         Map<String, Object> exercise1 = new HashMap<>();
         exercise1.put("statement", "¿Cuál de estos videos muestra la seña de “ayudar”?");
