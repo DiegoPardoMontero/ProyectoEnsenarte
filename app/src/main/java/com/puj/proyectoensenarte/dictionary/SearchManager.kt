@@ -66,10 +66,11 @@ class SearchManager(private val db: FirebaseFirestore, private val storage: Fire
                 .addOnSuccessListener { document ->
                     if (document != null && document.exists()) {
                         val palabras = document.data
-                        if (palabras?.containsValue(query.capitalize()) == true) {
+                        val capitalizedQuery = query.capitalize()
+                        if (palabras?.containsValue(capitalizedQuery) == true) {
                             continuation.resume(SearchResult.Word(
-                                word = query.capitalize(),
-                                meaning = palabras[query.capitalize()].toString()
+                                id = capitalizedQuery,    // Usando la palabra como ID
+                                texto = capitalizedQuery  // Usando la palabra como texto
                             ))
                         } else {
                             continuation.resume(null)

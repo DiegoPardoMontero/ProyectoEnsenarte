@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte.dictionary
 
+import Palabra
 import PalabraAdapter
 import android.content.Intent
 import android.os.Bundle
@@ -90,4 +91,3 @@ class DetallePorCategoriaActivity : AppCompatActivity() {
     }
 }
 
-data class Palabra(val id: String, val texto: String)

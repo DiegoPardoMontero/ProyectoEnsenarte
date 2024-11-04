@@ -1,25 +1,20 @@
+package com.puj.proyectoensenarte.dictionary
+
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.fragment.app.Fragment
-import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityError404FragmentBinding
-import com.puj.proyectoensenarte.dictionary.ResultadoBusquedaCategoriaFragment
-import com.puj.proyectoensenarte.dictionary.ResultadoBusquedaPalabraFragment
 
-class Error404 : Fragment() {
 
+class Error404 : BaseSearchFragment() {
     private var _binding: ActivityError404FragmentBinding? = null
     private val binding get() = _binding!!
-    private val db = FirebaseFirestore.getInstance()
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +27,6 @@ class Error404 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupSearchBar()
     }
 
@@ -52,28 +46,13 @@ class Error404 : Fragment() {
     }
 
     private fun performSearch() {
-        var searchQuery = binding?.etSearch?.text.toString().trim()
-        searchQuery = searchQuery.lowercase()
+        val searchQuery = binding.etSearch.text.toString().trim()
         if (searchQuery.isEmpty()) {
             Toast.makeText(context, "Por favor, ingrese un término de búsqueda", Toast.LENGTH_SHORT).show()
             return
         }
-
         hideKeyboard()
-
-        db.collection("dict").document(searchQuery).get()
-            .addOnSuccessListener { documentSnapshot ->
-                if (documentSnapshot.exists()) {
-                    navigateToResultadoBusquedaCategoria(searchQuery)
-                } else {
-                    searchQuery = capitalizeFirstLetter(searchQuery)
-                    searchInPalabras(searchQuery)
-                }
-            }
-            .addOnFailureListener { e ->
-                Log.e("DictionaryFragment", "Error buscando categoría: ", e)
-                navigateToError404()
-            }
+        handleSearch(searchQuery)
     }
 
     private fun hideKeyboard() {
@@ -81,54 +60,29 @@ class Error404 : Fragment() {
         imm.hideSoftInputFromWindow(binding.etSearch.windowToken, 0)
     }
 
-    private fun searchInPalabras(searchQuery: String) {
-        db.collection("dict").document("dict").get()
-            .addOnSuccessListener { document ->
-                if (document != null && document.exists()) {
-                    val palabras = document.data
-                    if (palabras?.containsValue(searchQuery) == true) {
-                        navigateToResultadoBusquedaPalabra(searchQuery)
-                    } else {
-                        navigateToError404()
-                    }
-                } else {
-                    navigateToError404()
-                }
-            }
-            .addOnFailureListener { e ->
-                navigateToError404()
-            }
-    }
-
-    private fun navigateToResultadoBusquedaCategoria(categoria: String) {
-        var categoria = capitalizeFirstLetter(categoria)
-        val fragment = ResultadoBusquedaCategoriaFragment.newInstance(categoria)
+    override fun navigateToCategory(category: SearchResult.Category) {
+        val fragment = ResultadoBusquedaCategoriaFragment.newInstance(category.name)
         parentFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .addToBackStack(null)
             .commit()
     }
 
-    private fun navigateToResultadoBusquedaPalabra(palabra: String) {
-        val fragment = ResultadoBusquedaPalabraFragment.newInstance(palabra)
+    override fun navigateToWord(word: SearchResult.Word) {
+        val fragment = ResultadoBusquedaPalabraFragment.newInstance(word.texto)
         parentFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .addToBackStack(null)
             .commit()
     }
 
-    private fun navigateToError404() {
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.container, Error404())
-            .addToBackStack(null)
-            .commit()
+    override fun navigateToError404() {
+        // Ya estamos en Error404, no necesitamos navegar
+        Toast.makeText(context, "No se encontraron resultados", Toast.LENGTH_SHORT).show()
     }
 
-    private fun capitalizeFirstLetter(input: String): String {
-        return if (input.isNotEmpty()) {
-            input.substring(0, 1).uppercase() + input.substring(1).lowercase()
-        } else {
-            input
-        }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

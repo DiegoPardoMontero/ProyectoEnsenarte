@@ -2,17 +2,14 @@ package com.puj.proyectoensenarte.dictionary
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import com.puj.proyectoensenarte.R
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.storage.FirebaseStorage
 import com.puj.proyectoensenarte.databinding.ActivityResultadoBusquedaCategoriaBinding
 
-class ResultadoBusquedaCategoriaFragment : Fragment() {
-
+class ResultadoBusquedaCategoriaFragment : BaseSearchFragment() {
     private var _binding: ActivityResultadoBusquedaCategoriaBinding? = null
     private val binding get() = _binding!!
     private lateinit var categoryAdapter: CategoryAdapter
@@ -24,49 +21,50 @@ class ResultadoBusquedaCategoriaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupSearchBar()
         setupRecyclerView()
-        performSearch(arguments?.getString("SEARCH_QUERY") ?: "")
+        arguments?.getString("SEARCH_QUERY")?.let { performInitialSearch(it) }
     }
 
     private fun setupSearchBar() {
         binding.ivSearch.setOnClickListener {
-            performSearch(binding.etSearch.text.toString())
+            val query = binding.etSearch.text.toString()
+            handleSearch(query)
         }
+    }
+
+    private fun performInitialSearch(query: String) {
+        handleSearch(query)
     }
 
     private fun setupRecyclerView() {
         categoryAdapter = CategoryAdapter { category ->
             navigateToDetallePorCategoria(category.name, category.imageUrl)
         }
-        binding.rvSearchResults.adapter = categoryAdapter
-        binding.rvSearchResults.layoutManager = LinearLayoutManager(requireContext())
-    }
-
-    private fun performSearch(query: String) {
-        var capitalizedQuery = capitalizeFirstLetter(query)
-        val storage = FirebaseStorage.getInstance()
-        val imageRef = storage.reference.child("imagenesCategorias/$capitalizedQuery.png")
-
-        imageRef.downloadUrl.addOnSuccessListener { uri ->
-            val downloadUrl = uri.toString()
-            val formattedQuery = capitalizedQuery.replace(Regex("(?<=.)([A-Z])"), " $1")
-            val category = Category(downloadUrl, formattedQuery)
-            categoryAdapter.submitList(listOf(category))
-        }.addOnFailureListener { exception ->
-            Log.e("ResultadoBusqueda", "Error al cargar la imagen de la categoría: ${exception.message}")
-            val category = Category("url_imagen_por_defecto", capitalizedQuery)
-            categoryAdapter.submitList(listOf(category))
+        binding.rvSearchResults.apply {
+            adapter = categoryAdapter
+            layoutManager = LinearLayoutManager(requireContext())
         }
     }
 
-    private fun capitalizeFirstLetter(input: String): String {
-        return if (input.isNotEmpty()) {
-            input.substring(0, 1).uppercase() + input.substring(1).lowercase()
-        } else {
-            input
-        }
+    override fun navigateToCategory(category: SearchResult.Category) {
+        categoryAdapter.submitList(listOf(Category(category.imageUrl, category.name)))
+    }
+
+    override fun navigateToWord(word: SearchResult.Word) {
+        // Navegar al fragmento de palabra
+        val fragment = ResultadoBusquedaPalabraFragment.newInstance(word.texto)
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun navigateToError404() {
+        parentFragmentManager.beginTransaction()
+            .replace(R.id.container, Error404())
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun navigateToDetallePorCategoria(categoria: String, imageUrl : String) {

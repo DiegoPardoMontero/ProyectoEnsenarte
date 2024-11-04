@@ -1,7 +1,6 @@
 package com.puj.proyectoensenarte.dictionary
 
 import AlphabetAdapter
-import Error404
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,7 +11,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
@@ -75,7 +73,7 @@ class DictionaryFragmentActivity : BaseSearchFragment() {
     }
 
     override fun navigateToWord(word: SearchResult.Word) {
-        val fragment = ResultadoBusquedaPalabraFragment.newInstance(word.word)
+        val fragment = ResultadoBusquedaPalabraFragment.newInstance(word.texto)
         parentFragmentManager.beginTransaction()
             .replace(R.id.container, fragment)
             .addToBackStack(null)
