@@ -79,7 +79,10 @@ class DetallePorCategoriaActivity : AppCompatActivity() {
                 if (document != null && document.exists()) {
                     val palabras = document.data?.map { (key, value) ->
                         Palabra(key, value.toString())
+                    }?.sortedBy {
+                        it.texto.unaccent().lowercase() // Ordenar ignorando acentos y mayúsculas
                     } ?: emptyList()
+
                     palabraAdapter.submitList(palabras)
                 } else {
                     // Manejar el caso en que no se encuentren palabras
