@@ -88,6 +88,8 @@
             android:exported="true">
         </activity>
 
+
+
         <activity
             android:name=".learning.ActivityExercise2"
             android:exported="true">
@@ -111,6 +113,10 @@
 
         <activity
             android:name=".learning.LeccionRepasadaActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".learning.ActivityExercise6"
             android:exported="true">
         </activity>
 
