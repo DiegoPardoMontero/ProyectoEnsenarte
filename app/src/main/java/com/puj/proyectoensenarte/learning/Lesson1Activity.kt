@@ -155,9 +155,21 @@ class Lesson1Activity : AppCompatActivity() {
 
                 // Caso 1: Si ya fue completada sin errores anteriormente, no se suman más puntos
                 if (completedWithoutErrors) {
-                    Log.d("Lesson1Activity", "Lección ya completada sin errores. No se sumarán puntos nuevamente.")
+
+                    val updatedPoints = previousXpPoints + 5
+                    userRef.update(
+                        mapOf(
+                            "xpPoints" to updatedPoints,
+                            "${lessonName}_completedWithoutErrors" to true
+                        )
+                    ).addOnSuccessListener {
+                        Log.d("Lesson1Activity", "Puntos actualizados: $updatedPoints y lección marcada como completada por repasar.")
+                    }.addOnFailureListener { e ->
+                        Log.e("Lesson1Activity", "Error al actualizar puntos y marca de lección", e)
+                    }
                     return@addOnSuccessListener
                 }
+
 
                 // Caso 2: Si se completa ahora sin errores y no estaba previamente marcada como tal@
                 if (errorCount == 0) {
@@ -224,7 +236,7 @@ class Lesson1Activity : AppCompatActivity() {
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
             }
         } else {
-            // Lección completada; revisar si se debe otorgar pantalla de puntos
+            // Lección completada; revisar si se debe otorgar pantalla de puntos@
             val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
             val db = FirebaseFirestore.getInstance()
             val userRef = db.collection("users").document(uid)
@@ -232,13 +244,19 @@ class Lesson1Activity : AppCompatActivity() {
             userRef.get().addOnSuccessListener { document ->
                 val completedWithoutErrors = document.getBoolean("lesson1_completedWithoutErrors") ?: false
 
-                if (!completedWithoutErrors || errorCount > 0) {
-                    // Solo mostrar pantalla si esta es una completación válida para otorgar puntos
+                if (!completedWithoutErrors && errorCount > 0) {
+                    // Solo mostrar pantalla si esta es una completación válida para otorgar puntos@
                     Toast.makeText(this, "Lección completada con $totalPoints puntos", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, LeccionTerminadaActivity::class.java)
                     intent.putExtra("totalPoints", totalPoints)
                     startActivity(intent)
                 }
+                else if (completedWithoutErrors && errorCount >= 0) {
+                    val intent = Intent(this, LeccionRepasadaActivity::class.java)
+                    intent.putExtra("totalPoints", 5)
+                    startActivity(intent)
+                }
+
 
                 // Actualizar fecha de finalización de la lección@
                 updateCompletionDate("lesson1")
@@ -330,20 +348,27 @@ class Lesson1Activity : AppCompatActivity() {
 
         userRef.get().addOnSuccessListener { document ->
             if (document != null && document.exists()) {
-                val numLessonsAndina = document.getLong("num_lessons_andina")?.toInt() ?: 0
-                val numLessonsCaribe = document.getLong("num_lessons_caribe")?.toInt() ?: 0
-                val numLessonsAmazonas = document.getLong("num_lessons_amazonas")?.toInt() ?: 0
+                // Obtener las lecciones completadas sin errores como booleanos
+                val lesson1CompletedWithoutErrors = document.getBoolean("lesson1_completedWithoutErrors") ?: false
+                val lesson2CompletedWithoutErrors = document.getBoolean("lesson2_completedWithoutErrors") ?: false
+                val lesson3CompletedWithoutErrors = document.getBoolean("lesson3_completedWithoutErrors") ?: false
+                val lesson4CompletedWithoutErrors = document.getBoolean("lesson4_completedWithoutErrors") ?: false
+                val lesson5CompletedWithoutErrors = document.getBoolean("lesson5_completedWithoutErrors") ?: false
+                val lesson6CompletedWithoutErrors = document.getBoolean("lesson6_completedWithoutErrors") ?: false
+                val lesson7CompletedWithoutErrors = document.getBoolean("lesson7_completedWithoutErrors") ?: false
+                val lesson8CompletedWithoutErrors = document.getBoolean("lesson8_completedWithoutErrors") ?: false
+                val lesson9CompletedWithoutErrors = document.getBoolean("lesson9_completedWithoutErrors") ?: false
 
-                // Verificar si se ha completado el nivel Andino (3 lecciones)
-                if (numLessonsAndina >= 3) {
+                // Verificar si se ha completado el nivel Andino (lesson1, lesson2, lesson3)
+                if (lesson1CompletedWithoutErrors && lesson2CompletedWithoutErrors && lesson3CompletedWithoutErrors) {
                     unlockInsignia("Insignia de la sabiduría andina")
                 }
-                // Verificar si se ha completado el nivel Caribe (3 lecciones)
-                if (numLessonsCaribe >= 3) {
+                // Verificar si se ha completado el nivel Caribe (lesson4, lesson5, lesson6)
+                if (lesson4CompletedWithoutErrors && lesson5CompletedWithoutErrors && lesson6CompletedWithoutErrors) {
                     unlockInsignia("Insignia del navegante caribeño")
                 }
-                // Verificar si se ha completado el nivel Amazonas (3 lecciones)
-                if (numLessonsAmazonas >= 3) {
+                // Verificar si se ha completado el nivel Amazonas (lesson7, lesson8, lesson9)
+                if (lesson7CompletedWithoutErrors && lesson8CompletedWithoutErrors && lesson9CompletedWithoutErrors) {
                     unlockInsignia("Insignia del explorador amazónico")
                 }
             }
