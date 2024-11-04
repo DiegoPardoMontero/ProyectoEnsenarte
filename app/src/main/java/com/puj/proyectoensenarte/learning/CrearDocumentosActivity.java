@@ -79,7 +79,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         exercise4.put("correctPairs", Arrays.asList(pair1, pair2, pair3, pair4));
         exercise4.put("exerciseType", "matching");
         exercise4.put("points", 5);
-        exercise4.put("statement", "Une la palabra con su imagen correspondiente");
+        exercise4.put("statement", "Une la primera letra de la palabra con la seña del abecedario correspondiente");
 
         // Ejercicio 5: Selección de palabra
         Map<String, Object> exercise5 = new HashMap<>();
@@ -88,7 +88,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         exercise5.put("points", 5);
         exercise5.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Apoyar/apoyarSena.m4v");
         exercise5.put("correctAnswer", "Apoyar");
-        exercise5.put("words", Arrays.asList("Pensar", "Comer", "Dormir", "Jugar"));
+        exercise5.put("words", Arrays.asList("Ayudar", "Comer", "Apoyar", "Jugar"));
 
         // Ejercicio 6: Selección de palabra
         Map<String, Object> exercise6 = new HashMap<>();
@@ -138,7 +138,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         exercise9.put("correctPairs", Arrays.asList(pair11, pair22, pair33, pair44));
         exercise9.put("exerciseType", "matching");
         exercise9.put("points", 5);
-        exercise9.put("statement", "Une la palabra con su imagen correspondiente");
+        exercise9.put("statement", "Une la primera letra de la palabra con la seña del abecedario correspondiente");
 
         // Ejercicio 10: Selección de video
         Map<String, Object> exercise10 = new HashMap<>();

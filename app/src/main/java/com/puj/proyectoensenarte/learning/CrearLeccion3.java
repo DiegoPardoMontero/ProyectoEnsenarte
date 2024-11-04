@@ -98,7 +98,7 @@ public class CrearLeccion3 extends AppCompatActivity {
         exercise6.put("exerciseType", "selection");
         exercise6.put("points", 5);
         exercise6.put("hint", "Buscar");
-        exercise6.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Fiesta/fiestaSena.m4v");
+        exercise6.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Buscar/buscarSena.m4v");
         exercise6.put("correctAnswer", "Buscar");
         exercise6.put("words", Arrays.asList("Duplicar", "Guardar", "Buscar", "Arreglar"));
 
