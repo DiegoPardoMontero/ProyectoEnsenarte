@@ -26,11 +26,11 @@ class Lesson3Activity : AppCompatActivity() {
     private var currentExerciseIndex = 1
     private var totalPoints = 0
     private var previousXpPoints = 0
-    private var lessonStartTime: Long = 0 // Tiempo de inicio de la lección@
+    private var lessonStartTime: Long = 0 // T@iempo de inicio de la lección@
     private var streakDays = 0
     private var errorCount = 0
 
-    private val lessonName = "Lección 1"
+    private val lessonName = "Lección 3"
     private lateinit var exercises: Map<String, Map<String, Any>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
