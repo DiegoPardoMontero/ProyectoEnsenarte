@@ -44,6 +44,7 @@
         android:fontFamily="@font/regular"
         android:text="¿Cuál de estos videos muestra la seña de 'Cama'?"
         android:textColor="@color/paciencie"
+        android:layout_marginLeft="30dp"
         android:textSize="19sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

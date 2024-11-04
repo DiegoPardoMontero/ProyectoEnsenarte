@@ -30,7 +30,7 @@ class Lesson2Activity : AppCompatActivity() {
     private var streakDays = 0
     private var errorCount = 0
 
-    private val lessonName = "Lección 1"
+    private val lessonName = "Lección 2"
     private lateinit var exercises: Map<String, Map<String, Any>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
