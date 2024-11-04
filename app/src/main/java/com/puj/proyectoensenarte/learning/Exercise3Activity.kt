@@ -50,7 +50,13 @@ class Exercise3Activity : AppCompatActivity() {
             validateAnswer()
         }
     }
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val intent = Intent(this, BottomNavigationActivity::class.java)
+        intent.putExtra("selected_fragment", R.id.item_1) // Seleccionar el fragmento deseado
+        startActivity(intent)
+        finishAffinity() // Cierra todas las actividades anteriores en la pila
+    }
 
     private fun configureCloseButton() {
         binding.closeButton.setOnClickListener {
