@@ -32,21 +32,30 @@ class SearchManager(private val db: FirebaseFirestore, private val storage: Fire
 
     private suspend fun searchInCategories(query: String): SearchResult.Category? {
         return suspendCancellableCoroutine { continuation ->
-            db.collection("dict").document(query).get()
+            // Formatear el query para que coincida con el formato de almacenamiento
+            val formattedQuery = query.split(" ")
+                .filter { it.isNotEmpty() }
+                .joinToString("") { word ->
+                    word.replaceFirstChar { it.uppercase() }
+                }
+
+            db.collection("dict").document(query.lowercase()).get()
                 .addOnSuccessListener { documentSnapshot ->
                     if (documentSnapshot.exists()) {
-                        // Obtener URL de imagen
-                        storage.reference.child("imagenesCategorias/${query.capitalize()}.png")
+                        // Usar el query formateado para buscar la imagen
+                        storage.reference.child("imagenesCategorias/$formattedQuery.png")
                             .downloadUrl
                             .addOnSuccessListener { uri ->
                                 continuation.resume(SearchResult.Category(
-                                    name = query.capitalize(),
+                                    name = query.split(" ")
+                                        .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } },
                                     imageUrl = uri.toString()
                                 ))
                             }
                             .addOnFailureListener {
                                 continuation.resume(SearchResult.Category(
-                                    name = query.capitalize(),
+                                    name = query.split(" ")
+                                        .joinToString(" ") { it.replaceFirstChar { char -> char.uppercase() } },
                                     imageUrl = "url_default"
                                 ))
                             }
@@ -59,7 +68,6 @@ class SearchManager(private val db: FirebaseFirestore, private val storage: Fire
                 }
         }
     }
-
     private suspend fun searchInWords(query: String): SearchResult.Word? {
         return suspendCancellableCoroutine { continuation ->
             db.collection("dict").document("dict").get()
