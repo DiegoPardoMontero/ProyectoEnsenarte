@@ -8,11 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.puj.proyectoensenarte.databinding.ActivityVideoProcesamientoBinding
-import com.puj.proyectoensenarte.utils.SignLanguageVideoProcessor // Ajusta según donde tengas el procesador
-import kotlinx.coroutines.Dispatchers
+import com.puj.proyectoensenarte.utils.SignLanguageVideoProcessor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.google.firebase.database.FirebaseDatabase
 
 class ProcessingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVideoProcesamientoBinding
@@ -90,15 +89,44 @@ class ProcessingActivity : AppCompatActivity() {
     }
 
     private fun navigateToResult(isCorrect: Boolean) {
-        // Crear el intent según el resultado
-        val intent = if (isCorrect) {
-            Intent(this, CorrectResultActivity::class.java)
-        } else {
-            Intent(this, IncorrectResultActivity::class.java)
+        // Obtener referencia a Firebase
+        val database = FirebaseDatabase.getInstance("https://proyectoensenarte-d4dd2-default-rtdb.firebaseio.com").reference
+
+        // Verificar el estado en Firebase
+        database.child("resultado").get().addOnSuccessListener { snapshot ->
+            val firebaseResult = snapshot.getValue(String::class.java)
+
+            // Crear el intent según el resultado de Firebase
+            val intent = when (firebaseResult) {
+                "correcto" -> Intent(this, CorrectResultActivity::class.java)
+                "incorrecto" -> Intent(this, IncorrectResultActivity::class.java)
+                else -> {
+                    // Si hay algún problema con Firebase, usar el resultado original del modelo
+                    if (isCorrect) {
+                        Intent(this, CorrectResultActivity::class.java)
+                    } else {
+                        Intent(this, IncorrectResultActivity::class.java)
+                    }
+                }
+            }
+
+            // Log para debugging
+            Log.d("ProcessingActivity", "Resultado Firebase: $firebaseResult, Resultado Modelo: $isCorrect")
+
+            // Iniciar la actividad y finalizar esta
+            startActivity(intent)
+            finish()
+        }.addOnFailureListener { e ->
+            // Si hay error al leer Firebase, usar el resultado original del modelo
+            Log.e("ProcessingActivity", "Error al leer Firebase", e)
+            val intent = if (isCorrect) {
+                Intent(this, CorrectResultActivity::class.java)
+            } else {
+                Intent(this, IncorrectResultActivity::class.java)
+            }
+            startActivity(intent)
+            finish()
         }
-        // Iniciar la actividad y finalizar esta
-        startActivity(intent)
-        finish()
     }
 
 }
