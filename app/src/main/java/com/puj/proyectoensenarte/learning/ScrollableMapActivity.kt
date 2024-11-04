@@ -171,7 +171,9 @@ class ScrollableMapActivity : Fragment() {
         }
 
         binding.lockAndina.setOnClickListener {
-            Toast.makeText(context, "Nivel bloqueado en Andina", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, ActivityTestInfo::class.java)
+            startActivity(intent)
+            //Toast.makeText(context, "Nivel bloqueado en Andina", Toast.LENGTH_SHORT).show()
         }
 
         // Niveles Región Caribe

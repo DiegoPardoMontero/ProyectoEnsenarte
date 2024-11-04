@@ -1,0 +1,111 @@
+<!-- dialog_test_confirmation.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp"
+    android:background="@color/paco">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/imgTestIcon"
+        android:layout_width="261dp"
+        android:layout_height="243dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/closeButton"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/test" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Estás a punto de iniciar un test"
+        android:textSize="23sp"
+        android:fontFamily="@font/regularbold"
+        android:textColor="@color/coralSea"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgTestIcon" />
+
+    <TextView
+        android:id="@+id/tvDescription1"
+        android:layout_width="276dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/regular"
+        android:gravity="center"
+        android:text="¿Te sientes con las habilidades necesarias para saltar el nivel 1?"
+        android:textColor="@color/paciencie"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+
+    <TextView
+        android:id="@+id/tvDescription2"
+        android:layout_width="269dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/regular"
+        android:gravity="center"
+        android:text="Intenta realizar esta prueba de 12 preguntas, tendrás 3 vidas!"
+        android:textColor="@color/paciencie"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.489"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription1" />
+
+    <TextView
+        android:id="@+id/tvDescription3"
+        android:layout_width="273dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/regular"
+        android:gravity="center"
+        android:text="No te preocupes si fallas o no logras completar la prueba, no vas a perder puntos de experiencia, sigue intentándolo."
+        android:textAlignment="center"
+        android:textColor="@color/paciencie"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.477"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription2" />
+
+    <Button
+        android:id="@+id/btnStartTest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/portakal"
+        android:fontFamily="@raw/subtitulo"
+        android:text="Iniciar Prueba"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvDescription3" />
+
+    <Button
+        android:id="@+id/btnCancelTest"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/rage"
+        android:fontFamily="@raw/subtitulo"
+        android:text="Cancelar"
+        android:textColor="@android:color/white"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnStartTest" />
+</androidx.constraintlayout.widget.ConstraintLayout>
