@@ -2,9 +2,12 @@ package com.puj.proyectoensenarte.dictionary
 
 import android.content.Context
 import android.net.Uri
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -21,6 +24,9 @@ class CustomVideoView @JvmOverloads constructor(
     private val videoView: VideoView
     private val mediaController: MediaController
     private val controllerContainer: FrameLayout
+    private val handler = Handler(Looper.getMainLooper())
+    private val hideRunnable = Runnable { hideController() }
+    private val AUTO_HIDE_DELAY_MS = 3000L // 3 segundos para auto-ocultar
 
     init {
         LayoutInflater.from(context).inflate(R.layout.custom_video_view, this, true)
@@ -30,28 +36,74 @@ class CustomVideoView @JvmOverloads constructor(
 
         mediaController = object : MediaController(context) {
             override fun show() {
-                super.show(0)
+                super.show()
+                visibility = View.VISIBLE
+                scheduleHiding()
             }
 
             override fun hide() {
-                // No hacer nada, mantener siempre visible
+                super.hide()
+                visibility = View.GONE
+            }
+
+            override fun dispatchTouchEvent(event: MotionEvent): Boolean {
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        // Cancelar el ocultamiento programado al tocar
+                        handler.removeCallbacks(hideRunnable)
+                    }
+                    MotionEvent.ACTION_UP -> {
+                        // Programar ocultamiento después de soltar
+                        scheduleHiding()
+                    }
+                }
+                return super.dispatchTouchEvent(event)
             }
         }
 
-        // No establecer el anchorView aquí
-        // mediaController.setAnchorView(controllerContainer)
+        // Configurar el listener de toque para el VideoView
+        videoView.setOnTouchListener { _, event ->
+            when (event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    toggleControllerVisibility()
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun scheduleHiding() {
+        handler.removeCallbacks(hideRunnable)
+        handler.postDelayed(hideRunnable, AUTO_HIDE_DELAY_MS)
+    }
+
+    private fun hideController() {
+        mediaController.visibility = View.GONE
+    }
+
+    private fun toggleControllerVisibility() {
+        if (mediaController.visibility == View.VISIBLE) {
+            hideController()
+            handler.removeCallbacks(hideRunnable)
+        } else {
+            mediaController.show()
+            scheduleHiding()
+        }
     }
 
     fun setupVideo(url: String?) {
         if (url != null) {
             videoView.setVideoURI(Uri.parse(url))
             videoView.setMediaController(mediaController)
-            mediaController.setAnchorView(controllerContainer) // Mover aquí
+            mediaController.setAnchorView(controllerContainer)
             videoView.setOnPreparedListener { mp ->
                 mp.isLooping = true
                 videoView.pause()
                 videoView.seekTo(1)
                 addMediaControllerToContainer()
+                // Ocultar los controles inicialmente después de un breve momento
+                handler.postDelayed(hideRunnable, 1000)
             }
         }
     }
@@ -60,7 +112,6 @@ class CustomVideoView @JvmOverloads constructor(
         controllerContainer.removeAllViews()
         mediaController.visibility = View.VISIBLE
 
-        // Remover el MediaController de su padre actual si lo tiene
         val parent = mediaController.parent as? ViewGroup
         parent?.removeView(mediaController)
 
@@ -70,5 +121,11 @@ class CustomVideoView @JvmOverloads constructor(
             Gravity.BOTTOM
         )
         controllerContainer.addView(mediaController, lp)
+        scheduleHiding()
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        handler.removeCallbacks(hideRunnable)
     }
 }

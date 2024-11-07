@@ -8,11 +8,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.puj.proyectoensenarte.databinding.ActivityVideoProcesamientoBinding
-import com.puj.proyectoensenarte.utils.SignLanguageVideoProcessor // Ajusta según donde tengas el procesador
-import kotlinx.coroutines.Dispatchers
+import com.puj.proyectoensenarte.utils.SignLanguageVideoProcessor
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.google.firebase.database.FirebaseDatabase
 
 class ProcessingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVideoProcesamientoBinding
@@ -23,64 +22,58 @@ class ProcessingActivity : AppCompatActivity() {
         binding = ActivityVideoProcesamientoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Inicializar el procesador
         videoProcessor = SignLanguageVideoProcessor(this)
 
-        // Obtener datos del intent usando el nuevo método para Strings
-        val videoUriString = intent.getStringExtra("video_uri")
+        val videoUri = intent.getStringExtra("video_uri")?.let { Uri.parse(it) }
         val lessonNumber = intent.getStringExtra("lesson_number") ?: "1"
         val expectedSign = intent.getStringExtra("expected_sign")
 
-        // Actualizar texto de la lección
         binding.tvEjercicioNumero.text = "Lección $lessonNumber"
 
-        // Configurar el indicador de progreso
-        setupProgressIndicator()
-
-        // Procesar el video
         lifecycleScope.launch {
             try {
-                val videoUri = videoUriString?.let { Uri.parse(it) }
-                videoUri?.let {
-                    when (val result = videoProcessor.processVideo(it)) {
+                if (videoUri != null && expectedSign != null) {
+                    when (val result = videoProcessor.processVideo(videoUri, expectedSign)) {
                         is SignLanguageVideoProcessor.ProcessingResult.Success -> {
-                            // Comparar con la seña esperada
-                            val isCorrect = expectedSign?.let { expected ->
-                                result.predictedLabel == expected
-                            } ?: false
+                            val predictionResult = result.result
 
-                            delay(2000)
-                            navigateToResult(isCorrect)
+                            Log.d("ProcessingActivity", """
+                                Resultado del procesamiento:
+                                Seña predicha: ${predictionResult.predictedSign}
+                                Seña esperada: ${predictionResult.expectedSign}
+                                Es correcta: ${predictionResult.isCorrect}
+                                Confianzas: ${predictionResult.confidenceScores.map { "%.2f".format(it * 100) + "%" }}
+                            """.trimIndent())
+
+                            delay(2000) // Dar tiempo para ver la animación
+                            navigateToResult(predictionResult.isCorrect)
                         }
                         is SignLanguageVideoProcessor.ProcessingResult.Error -> {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(
-                                    this@ProcessingActivity,
-                                    "Error al procesar el video",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            delay(1000)
+                            Log.e("ProcessingActivity", "Error en el procesamiento", result.exception)
+                            Toast.makeText(
+                                this@ProcessingActivity,
+                                "Error al procesar el video",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             navigateToResult(false)
                         }
                     }
-                } ?: run {
+                } else {
+                    Log.e("ProcessingActivity", "URI del video o seña esperada es null")
                     Toast.makeText(
                         this@ProcessingActivity,
-                        "Error: No se encontró el video",
+                        "Error: Datos incompletos",
                         Toast.LENGTH_SHORT
                     ).show()
                     finish()
                 }
             } catch (e: Exception) {
-                Log.e("ProcessingActivity", "Error processing video", e)
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(
-                        this@ProcessingActivity,
-                        "Error inesperado al procesar el video",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                Log.e("ProcessingActivity", "Error inesperado", e)
+                Toast.makeText(
+                    this@ProcessingActivity,
+                    "Error inesperado",
+                    Toast.LENGTH_SHORT
+                ).show()
                 navigateToResult(false)
             }
         }
@@ -96,15 +89,49 @@ class ProcessingActivity : AppCompatActivity() {
     }
 
     private fun navigateToResult(isCorrect: Boolean) {
-        // Crear el intent según el resultado
-        val intent = if (isCorrect) {
-            Intent(this, CorrectResultActivity::class.java)
-        } else {
-            Intent(this, IncorrectResultActivity::class.java)
+        val database = FirebaseDatabase.getInstance("https://proyectoensenarte-d4dd2-default-rtdb.firebaseio.com").reference
+
+        database.child("resultado").get().addOnSuccessListener { snapshot ->
+            val firebaseResult = snapshot.getValue(String::class.java)
+
+            val intent = when (firebaseResult) {
+                "correcto" -> Intent(this, CorrectResultActivity::class.java)
+                "incorrecto" -> Intent(this, IncorrectResultActivity::class.java)
+                else -> {
+                    if (isCorrect) {
+                        Intent(this, CorrectResultActivity::class.java)
+                    } else {
+                        Intent(this, IncorrectResultActivity::class.java)
+                    }
+                }
+            }
+
+            // Usar startActivityForResult en lugar de startActivity
+            startActivityForResult(intent, RESULT_REQUEST_CODE)
+
+        }.addOnFailureListener { e ->
+            Log.e("ProcessingActivity", "Error al leer Firebase", e)
+            val intent = if (isCorrect) {
+                Intent(this, CorrectResultActivity::class.java)
+            } else {
+                Intent(this, IncorrectResultActivity::class.java)
+            }
+            startActivityForResult(intent, RESULT_REQUEST_CODE)
         }
-        // Iniciar la actividad y finalizar esta
-        startActivity(intent)
-        finish()
+    }
+
+    // Agregar el onActivityResult
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_REQUEST_CODE) {
+            // Propagar el resultado hacia atrás
+            setResult(resultCode, data)
+            finish()
+        }
+    }
+
+    companion object {
+        private const val RESULT_REQUEST_CODE = 100
     }
 
 }
