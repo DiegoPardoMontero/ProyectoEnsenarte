@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte.dictionary
 
+import Palabra
 import PalabraAdapter
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityDetallePorCategoriaBinding
+import java.text.Normalizer
 
 class DetallePorCategoriaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetallePorCategoriaBinding
@@ -59,16 +61,28 @@ class DetallePorCategoriaActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+    private fun CharSequence.unaccent(): String {
+        val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+        return REGEX_UNACCENT.replace(temp, "")
+    }
 
     private fun loadPalabras(categoria: String) {
-        var categoria = primeraLetraMinuscula(categoria)
-        db.collection("dict").document(categoria)
+        var categoriaNormalizada = categoria.lowercase()
+        categoriaNormalizada = categoriaNormalizada.unaccent()
+
+        Log.i("INFO", "LA CATEGORIA TRANSFORMADA ES: $categoriaNormalizada")
+
+        db.collection("dict").document(categoriaNormalizada)
             .get()
             .addOnSuccessListener { document ->
                 if (document != null && document.exists()) {
                     val palabras = document.data?.map { (key, value) ->
                         Palabra(key, value.toString())
+                    }?.sortedBy {
+                        it.texto.unaccent().lowercase() // Ordenar ignorando acentos y mayúsculas
                     } ?: emptyList()
+
                     palabraAdapter.submitList(palabras)
                 } else {
                     // Manejar el caso en que no se encuentren palabras
@@ -78,10 +92,5 @@ class DetallePorCategoriaActivity : AppCompatActivity() {
                 // Manejar el error
             }
     }
-
-    fun primeraLetraMinuscula(texto: String): String {
-        return texto.replaceFirstChar { it.lowercase() }
-    }
 }
 
-data class Palabra(val id: String, val texto: String)
