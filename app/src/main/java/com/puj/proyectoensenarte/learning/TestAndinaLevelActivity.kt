@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
+import com.puj.proyectoensenarte.video.CameraRecordingActivity
 
 class TestAndinaLevelActivity : AppCompatActivity() {
 
@@ -17,6 +18,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
     private var failCount = 0
     private val maxFails = 3
     private val numQuestions = 12
+    private val lessonName = "Test Región Andina"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +81,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
             "matching_videos" -> launchMatchingVideosExercise(question)
             "selection" -> launchSelectWordExercise(question)
             "selection2" -> launchSelectWordExercise2(question)
+            "model" -> launchModelExercise(question)
             else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
         }
     }
@@ -93,7 +96,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
                 Toast.makeText(this, "Examen finalizado. Demasiados fallos.", Toast.LENGTH_LONG).show()
                 val intent = Intent(this, BottomNavigationActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-                intent.putExtra("navigate_to_item", R.id.item_1) // Indicar que queremos abrir el item 4 (perfil)
+                intent.putExtra("navigate_to_item", R.id.item_1) // Indicar que queremos abrir el item 4 (perfil)@
                 startActivity(intent)
                 finish()
             } else {
@@ -109,6 +112,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("correctAnswer", exercise["correctAnswer"] as String)
         intent.putExtra("points", (exercise["points"] as Long).toInt())
+        intent.putExtra("lessonName", lessonName)
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
         startActivityForResult(intent, 1)
     }
@@ -116,6 +120,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
     private fun launchOrderingExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, ActivityExercise5::class.java)
         intent.putExtra("statement", exercise["statement"] as String)
+        intent.putExtra("lessonName", lessonName)
         intent.putExtra("maxLetters", (exercise["maxLetter"] as Long).toInt())
         intent.putStringArrayListExtra("correctAnswer", ArrayList(exercise["correctAnswer"] as List<String>))
         intent.putStringArrayListExtra("videos", ArrayList(exercise["videos"] as List<String>))
@@ -127,7 +132,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
         val intent = Intent(this, ActivityExcercise4::class.java)
         intent.putExtra("statement", exercise["statement"] as? String)
         intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
-
+        intent.putExtra("lessonName", lessonName)
         val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
         intent.putExtra("correctPairs", ArrayList(correctPairs))
         startActivityForResult(intent, 3)
@@ -136,6 +141,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
     private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, ActivityExercise2::class.java)
         intent.putExtra("statement", exercise["statement"] as? String)
+        intent.putExtra("lessonName", lessonName)
         intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
         val correctPairs = exercise["correctPairs"] as? List<Map<String, String>> ?: emptyList()
         intent.putExtra("correctPairs", ArrayList(correctPairs))
@@ -147,14 +153,24 @@ class TestAndinaLevelActivity : AppCompatActivity() {
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("correctAnswer", exercise["correctAnswer"] as String)
         intent.putExtra("points", (exercise["points"] as Long).toInt())
+        intent.putExtra("lessonName", lessonName)
         intent.putStringArrayListExtra("words", ArrayList(exercise["words"] as List<String>))
         startActivityForResult(intent, 4)
     }
 
+    private fun launchModelExercise(exercise: Map<String, Any>) {
+        Log.d("lesson3Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos@
+        val intent = Intent(this, CameraRecordingActivity::class.java)
+        intent.putExtra("lessonName", lessonName)
+        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+        intent.putExtra("lessonName", lessonName)
+
+        startActivityForResult(intent, 7)
+    }
     private fun launchSelectWordExercise2(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
         Log.d("lesson3Activity", "Iniciando Exercise3Activity con datos: $exercise")
-
+        intent.putExtra("lessonName", lessonName)
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("correctAnswer", exercise["correctAnswer"] as String)
         intent.putExtra("points", (exercise["points"] as Long).toInt())
