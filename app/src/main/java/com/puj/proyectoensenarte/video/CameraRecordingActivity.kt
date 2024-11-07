@@ -161,10 +161,18 @@ class CameraRecordingActivity : AppCompatActivity() {
         videoUri?.let { uri ->
             val intent = Intent(this, ProcessingActivity::class.java).apply {
                 putExtra("video_uri", uri.toString())
-                putExtra("lesson_number", "1") // O el número que corresponda
+                putExtra("lesson_number", "1")
                 putExtra("expected_sign", "hombre")
             }
-            startActivity(intent)
+            startActivityForResult(intent, PROCESSING_REQUEST_CODE) // Cambiar a startActivityForResult
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == PROCESSING_REQUEST_CODE) {
+            // Propagar el resultado hacia atrás
+            setResult(resultCode, data)
             finish()
         }
     }
@@ -210,6 +218,7 @@ class CameraRecordingActivity : AppCompatActivity() {
         private const val TAG = "Grabar Video Activity"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
+        private const val PROCESSING_REQUEST_CODE = 200 // Agregar esta constante
         private val REQUIRED_PERMISSIONS =
             mutableListOf (
                 Manifest.permission.CAMERA,

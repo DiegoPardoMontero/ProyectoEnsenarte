@@ -89,19 +89,15 @@ class ProcessingActivity : AppCompatActivity() {
     }
 
     private fun navigateToResult(isCorrect: Boolean) {
-        // Obtener referencia a Firebase
         val database = FirebaseDatabase.getInstance("https://proyectoensenarte-d4dd2-default-rtdb.firebaseio.com").reference
 
-        // Verificar el estado en Firebase
         database.child("resultado").get().addOnSuccessListener { snapshot ->
             val firebaseResult = snapshot.getValue(String::class.java)
 
-            // Crear el intent según el resultado de Firebase
             val intent = when (firebaseResult) {
                 "correcto" -> Intent(this, CorrectResultActivity::class.java)
                 "incorrecto" -> Intent(this, IncorrectResultActivity::class.java)
                 else -> {
-                    // Si hay algún problema con Firebase, usar el resultado original del modelo
                     if (isCorrect) {
                         Intent(this, CorrectResultActivity::class.java)
                     } else {
@@ -110,23 +106,32 @@ class ProcessingActivity : AppCompatActivity() {
                 }
             }
 
-            // Log para debugging
-            Log.d("ProcessingActivity", "Resultado Firebase: $firebaseResult, Resultado Modelo: $isCorrect")
+            // Usar startActivityForResult en lugar de startActivity
+            startActivityForResult(intent, RESULT_REQUEST_CODE)
 
-            // Iniciar la actividad y finalizar esta
-            startActivity(intent)
-            finish()
         }.addOnFailureListener { e ->
-            // Si hay error al leer Firebase, usar el resultado original del modelo
             Log.e("ProcessingActivity", "Error al leer Firebase", e)
             val intent = if (isCorrect) {
                 Intent(this, CorrectResultActivity::class.java)
             } else {
                 Intent(this, IncorrectResultActivity::class.java)
             }
-            startActivity(intent)
+            startActivityForResult(intent, RESULT_REQUEST_CODE)
+        }
+    }
+
+    // Agregar el onActivityResult
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RESULT_REQUEST_CODE) {
+            // Propagar el resultado hacia atrás
+            setResult(resultCode, data)
             finish()
         }
+    }
+
+    companion object {
+        private const val RESULT_REQUEST_CODE = 100
     }
 
 }
