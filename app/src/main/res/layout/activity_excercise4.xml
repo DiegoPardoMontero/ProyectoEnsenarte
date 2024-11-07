@@ -2,18 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
-    <!-- Título de la lección -->
-
-    <!-- Instrucción del ejercicio -->
-
-    <!-- GridLayout para organizar las imágenes y palabras en dos columnas -->
-
-    <!-- Botón Enviar -->
+    <!-- Título y botón de cierre fuera del ScrollView para que permanezcan fijos -->
 
     <ImageView
         android:id="@+id/closeButton"
@@ -43,144 +35,156 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tvQuestion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/regular"
-        android:text="Unir la seña con la palabra"
-        android:layout_marginLeft="5dp"
-        android:textColor="#000"
-        android:textSize="19sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.111"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="245dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:alignmentMode="alignMargins"
-        android:columnCount="2"
-        android:rowCount="3"
-        android:useDefaultMargins="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvQuestion">
-
-        <!-- Primera imagen -->
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/handsignfree" />
-
-        <!-- Primera palabra@ -->
-        <TextView
-            android:id="@+id/wordOption1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/border"
-            android:fontFamily="@font/regular"
-            android:padding="8dp"
-            android:text="Abanico"
-            android:textSize="16sp" />
-
-        <!-- Segun@da imagen -->
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="8dp"
-
-            android:src="@drawable/handsignfree" />
-
-        <!-- Segunda palabra -->
-        <TextView
-            android:id="@+id/wordOption2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/border"
-            android:fontFamily="@font/regular"
-            android:padding="8dp"
-            android:text="Pan"
-            android:textSize="16sp" />
-
-        <!-- Tercera imagen -->
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/handsignfree" />
-
-        <!-- Tercera palabra -->
-        <TextView
-            android:id="@+id/wordOption3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/border"
-            android:fontFamily="@font/regular"
-            android:padding="8dp"
-            android:text="Pequeño"
-            android:textSize="16sp" />
-
-        <!-- Tercera imagen -->
-        <ImageView
-            android:id="@+id/imageView4"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/handsignfree" />
-
-        <!-- Tercera palabra -->
-        <TextView
-            android:id="@+id/wordOption4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/border"
-            android:fontFamily="@font/regular"
-            android:padding="8dp"
-            android:text="Pequeño"
-            android:textSize="16sp" />
-    </GridLayout>
-
-    <Button
-        android:id="@+id/btnSubmit"
+    <!-- ScrollView para el contenido desplazable -->
+    <ScrollView
         android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_margin="15dp"
-        android:backgroundTint="@color/portakal"
-        android:fontFamily="@raw/subtitulo"
-        android:text="Enviar"
-        android:textSize="16dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btnBorrar"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/gridLayout"
-        app:layout_constraintHorizontal_weight="1" />
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <Button
-        android:id="@+id/btnBorrar"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_margin="15dp"
-        android:backgroundTint="@color/background_selected"
-        android:fontFamily="@raw/subtitulo"
-        android:text="Borrar"
-        android:textSize="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnSubmit"
-        app:layout_constraintTop_toBottomOf="@id/gridLayout"
-        app:layout_constraintHorizontal_weight="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvQuestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/regular"
+                android:text="Unir la seña con la palabra"
+                android:layout_marginLeft="5dp"
+                android:textColor="#000"
+                android:textSize="19sp"
+                android:layout_gravity="left" />
+
+            <GridLayout
+                android:id="@+id/gridLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:alignmentMode="alignMargins"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:useDefaultMargins="true">
+
+                <!-- Primera imagen -->
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="120dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/handsignfree" />
+
+                <!-- Primera palabra -->
+                <TextView
+                    android:id="@+id/wordOption1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/regular"
+                    android:padding="8dp"
+                    android:text="Abanico"
+                    android:textSize="16sp" />
+
+                <!-- Segunda imagen -->
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/handsignfree" />
+
+                <!-- Segunda palabra -->
+                <TextView
+                    android:id="@+id/wordOption2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/regular"
+                    android:padding="8dp"
+                    android:text="Pan"
+                    android:textSize="16sp" />
+
+                <!-- Tercera imagen -->
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/handsignfree" />
+
+                <!-- Tercera palabra -->
+                <TextView
+                    android:id="@+id/wordOption3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/regular"
+                    android:padding="8dp"
+                    android:text="Pequeño"
+                    android:textSize="16sp" />
+
+                <!-- Cuarta imagen -->
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/handsignfree" />
+
+                <!-- Cuarta palabra -->
+                <TextView
+                    android:id="@+id/wordOption4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border"
+                    android:fontFamily="@font/regular"
+                    android:padding="8dp"
+                    android:text="Pequeño"
+                    android:textSize="16sp" />
+
+            </GridLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+                <Button
+                    android:id="@+id/btnSubmit"
+                    android:layout_width="140dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/sage"
+                    android:layout_marginRight="30dp"
+                    android:fontFamily="@raw/subtitulo"
+                    android:text="@string/enviar"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btnBorrar"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/background_selected"
+                    android:fontFamily="@raw/subtitulo"
+                    android:text="@string/borrar"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
