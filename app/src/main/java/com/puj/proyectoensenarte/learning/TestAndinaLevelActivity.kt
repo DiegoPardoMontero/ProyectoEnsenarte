@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 
 class TestAndinaLevelActivity : AppCompatActivity() {
@@ -35,10 +36,17 @@ class TestAndinaLevelActivity : AppCompatActivity() {
                 .addOnSuccessListener { document ->
                     if (document.exists()) {
                         val lessonExercises = document.get("exercises") as Map<String, Map<String, Any>>
-                        exercises.addAll(lessonExercises.values)
+
+                        // Filtrar los ejercicios para excluir "selection" y "model"@
+                        val filteredExercises = lessonExercises.values.filter { exercise ->
+                            val exerciseType = exercise["exerciseType"] as? String
+                            exerciseType != "selection" && exerciseType != "model"
+                        }
+
+                        exercises.addAll(filteredExercises)
 
                         if (lessonId == "lesson3") {
-                            // Cuando todos los ejercicios estén listos, seleccionamos los 12 aleatorios@
+                            // Cuando todos los ejercicios estén listos, seleccionamos los 12 aleatorios
                             questions = exercises.shuffled().take(numQuestions)
                             showNextQuestion()
                         }
@@ -83,7 +91,9 @@ class TestAndinaLevelActivity : AppCompatActivity() {
             failCount++
             if (failCount >= maxFails) {
                 Toast.makeText(this, "Examen finalizado. Demasiados fallos.", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, ScrollableMapActivity::class.java)
+                val intent = Intent(this, BottomNavigationActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra("navigate_to_item", R.id.item_1) // Indicar que queremos abrir el item 4 (perfil)
                 startActivity(intent)
                 finish()
             } else {
@@ -171,7 +181,9 @@ class TestAndinaLevelActivity : AppCompatActivity() {
 
             if (failCount >= maxFails) {
                 Toast.makeText(this, "Examen finalizado. Demasiados fallos.", Toast.LENGTH_LONG).show()
-                val intent = Intent(this, ScrollableMapActivity::class.java)
+                val intent = Intent(this, BottomNavigationActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+                intent.putExtra("navigate_to_item", R.id.item_1) // Indicar que queremos abrir el item 1@
                 startActivity(intent)
                 finish()
             } else {
