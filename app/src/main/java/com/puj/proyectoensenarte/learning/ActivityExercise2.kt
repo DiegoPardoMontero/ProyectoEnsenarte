@@ -21,6 +21,7 @@ class ActivityExercise2 : AppCompatActivity() {
     private var points: Int = 0
     private var selectedVideoView: VideoView? = null
     private val matchedVideos = mutableSetOf<VideoView>()
+    private var countBackground = 1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +42,27 @@ class ActivityExercise2 : AppCompatActivity() {
 
         binding.btnSubmit.setOnClickListener {
             validateAnswer()
+        }
+
+        binding.btnBorrar.setOnClickListener{
+            countBackground = 1
+            selectedPairs.clear()
+            matchedVideos.clear()
+            binding.videoView1.setBackgroundResource(0)
+            binding.VideoView2.setBackgroundResource(0)
+            binding.VideoView3.setBackgroundResource(0)
+            binding.VideoView4.setBackgroundResource(0)
+            binding.wordOption1.setBackgroundResource(R.drawable.border)
+            binding.wordOption2.setBackgroundResource(R.drawable.border)
+            binding.wordOption3.setBackgroundResource(R.drawable.border)
+            binding.wordOption4.setBackgroundResource(R.drawable.border)
+            binding.wordOption1.isEnabled = true
+            binding.wordOption2.isEnabled = true
+            binding.wordOption3.isEnabled = true
+            binding.wordOption4.isEnabled = true
+
+            selectedVideoView = null
+
         }
     }
     override fun onBackPressed() {
@@ -114,28 +136,49 @@ class ActivityExercise2 : AppCompatActivity() {
 
 
     private fun setUpWordOptions() {
-        val wordViews = listOf(binding.wordOption1, binding.wordOption2, binding.wordOption3, binding.wordOption4)
+        val wordViews = listOf(
+            binding.wordOption1,
+            binding.wordOption2,
+            binding.wordOption3,
+            binding.wordOption4
+        )
 
-        correctPairs.forEachIndexed { index, pair ->
-            wordViews.getOrNull(index)?.apply {
-                text = pair["word"]
-                setOnClickListener {
-                    selectWord(this)
-                }
+        // Extraer solo las palabras de los pares correctos
+        val words = correctPairs.map { it["word"] ?: "" }
+
+        // Mezclar aleatoriamente las palabras
+        val shuffledWords = words.shuffled()
+
+        // Asignar las palabras mezcladas a los TextViews
+        wordViews.forEachIndexed { index, textView ->
+            textView.text = shuffledWords.getOrNull(index) ?: ""
+            textView.setOnClickListener {
+                selectWord(textView)
             }
         }
     }
+
 
     private fun selectVideo(videoView: VideoView) {
         // Pausar el video previamente seleccionado (si no está ya emparejado) y eliminar el borde temporal@
         if (selectedVideoView != null && !matchedVideos.contains(selectedVideoView)) {
             selectedVideoView?.pause()
             selectedVideoView?.setBackgroundResource(0) // Quitar el borde temporal
+            selectedVideoView = null
         }
 
         // Establecer el nuevo video como seleccionado y agregar el fondo de selección temporal
         selectedVideoView = videoView
-        selectedVideoView?.setBackgroundResource(R.drawable.selected_background) // Fondo temporal de selección
+        if (countBackground == 1){
+            selectedVideoView?.setBackgroundResource(R.drawable.selected_background) // Fondo temporal de selección
+        }else if (countBackground == 2){
+            selectedVideoView?.setBackgroundResource(R.drawable.selected_background_1) // Fondo temporal de selección
+        }else if (countBackground == 3){
+            selectedVideoView?.setBackgroundResource(R.drawable.selected_background_2) // Fondo temporal de selección
+        }else if (countBackground == 4){
+            selectedVideoView?.setBackgroundResource(R.drawable.selected_background_3) // Fondo temporal de selección
+        }
+
         selectedVideoView?.start()
     }
 
@@ -146,12 +189,20 @@ class ActivityExercise2 : AppCompatActivity() {
             selectedPairs[selectedVideoView!!] = textView
             matchedVideos.add(selectedVideoView!!) // Marcar el video como emparejado
 
-            // Cambiar el fondo del video emparejado permanentemente
-            selectedVideoView?.setBackgroundResource(R.drawable.paired_background) // Fondo permanente para videos emparejados
 
             // Marcar la palabra como seleccionada
             textView.isEnabled = false
-            textView.setBackgroundResource(R.drawable.selected_border)
+            selectedVideoView= null
+            if (countBackground == 1){
+                textView.setBackgroundResource(R.drawable.selected_border) // Fondo temporal de selección
+            }else if (countBackground == 2){
+                textView.setBackgroundResource(R.drawable.selected_border_1) // Fondo temporal de selección
+            }else if (countBackground == 3){
+                textView.setBackgroundResource(R.drawable.selected_border_2) // Fondo temporal de selección
+            }else if (countBackground == 4){
+                textView.setBackgroundResource(R.drawable.selected_border_3) // Fondo temporal de selección
+            }
+            countBackground++
         } else {
             Toast.makeText(this, "Por favor selecciona primero un video", Toast.LENGTH_SHORT).show()
         }
