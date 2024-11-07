@@ -49,7 +49,7 @@ public class CrearLeccion2 extends AppCompatActivity {
         exercise2.put("videos", Arrays.asList("https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Feliz/felizSena.m4v", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Respetar/respetarSena.m4v", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Fiesta/fiestaSena.m4v", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Bonito/bonitoSena.m4v"));
 
 
-        // Ejercicio 3: Ordenar letras
+        // Ejercicio 3: Ordenar letras@
         Map<String, Object> exercise3 = new HashMap<>();
         exercise3.put("statement", "Ordena las señas para deletrear la palabra bailar");
         exercise3.put("exerciseType", "ordering");
