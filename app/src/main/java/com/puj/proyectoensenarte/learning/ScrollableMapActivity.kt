@@ -178,7 +178,8 @@ class ScrollableMapActivity : Fragment() {
 
         // Niveles Región Caribe
         binding.level1Caribbean.setOnClickListener {
-            Toast.makeText(context, "Nivel 1: Lección de la Región Caribe", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, Lesson4Activity::class.java)
+            startActivity(intent)
         }
 
         binding.level2Caribbean.setOnClickListener {

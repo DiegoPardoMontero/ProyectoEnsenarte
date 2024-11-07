@@ -95,7 +95,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         exercise6.put("statement", "¿Cuál es el verbo para la seña en el video?");
         exercise6.put("exerciseType", "selection");
         exercise6.put("points", 5);
-        exercise5.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Prohibir/prohibirSena.m4v");
+        exercise6.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Prohibir/prohibirSena.m4v");
         exercise6.put("correctAnswer", "Prohibir");
         exercise6.put("words", Arrays.asList("Pelear", "Leer", "Bailar", "Beber"));
 
@@ -113,7 +113,7 @@ public class CrearDocumentosActivity extends AppCompatActivity {
         exercise8.put("statement", "¿Qué verbo se muestra en el video?");
         exercise8.put("exerciseType", "selection");
         exercise8.put("points", 5);
-        exercise5.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Buscar/buscarSena.m4v");
+        exercise8.put("video_url", "https://storage.googleapis.com/proyectoensenarte-d4dd2.appspot.com/senias2/Buscar/buscarSena.m4v");
         exercise8.put("correctAnswer", "Buscar");
         exercise8.put("words", Arrays.asList("Ayudar", "Escribir", "Leer", "Buscar"));
 
