@@ -190,7 +190,7 @@
         <!--- Video Activities-->
         <activity
             android:name=".video.CameraRecordingActivity"
-            android:exported="true">
+            android:exported="false">
         </activity>
         <activity
             android:name=".video.ProcessingActivity"
