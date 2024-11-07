@@ -155,17 +155,32 @@
 
     <Button
         android:id="@+id/btnSubmit"
-        android:layout_width="272dp"
+        android:layout_width="0dp"
         android:layout_height="44dp"
+        android:layout_margin="15dp"
         android:backgroundTint="@color/portakal"
         android:fontFamily="@raw/subtitulo"
         android:text="Enviar"
         android:textSize="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintEnd_toStartOf="@+id/btnBorrar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/gridLayout"
-        app:layout_constraintVertical_bias="0.283" />
+        app:layout_constraintHorizontal_weight="1" />
+
+    <Button
+        android:id="@+id/btnBorrar"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:layout_margin="15dp"
+        android:backgroundTint="@color/background_selected"
+        android:fontFamily="@raw/subtitulo"
+        android:text="Borrar"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btnSubmit"
+        app:layout_constraintTop_toBottomOf="@id/gridLayout"
+        app:layout_constraintHorizontal_weight="1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
