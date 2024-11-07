@@ -1,5 +1,6 @@
 package com.puj.proyectoensenarte.dictionary
 
+import Palabra
 import PalabraAdapter
 import android.content.Intent
 import android.os.Bundle

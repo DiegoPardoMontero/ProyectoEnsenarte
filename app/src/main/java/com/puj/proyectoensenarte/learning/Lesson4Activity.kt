@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.BottomNavigationActivity
@@ -25,7 +26,7 @@ class Lesson4Activity : AppCompatActivity() {
     private var currentExerciseIndex = 1
     private var totalPoints = 0
     private var previousXpPoints = 0
-    private var lessonStartTime: Long = 0 // Tiempo de inicio de la lección@
+    private var lessonStartTime: Long = 0 // T@iempo de inicio de la lección@
     private var streakDays = 0
     private var errorCount = 0
 
@@ -34,15 +35,6 @@ class Lesson4Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
-        onBackPressedDispatcher.addCallback(this) {
-            val intent = Intent(this@Lesson4Activity, BottomNavigationActivity::class.java)
-            intent.putExtra("selected_fragment", R.id.item_4) // Seleccionar el fragmento deseado
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(intent)
-            finishAffinity() // Cierra todas las actividades anteriores en la pila@
-        }
 
         // Registrar la hora de inicio de la lección
         lessonStartTime = System.currentTimeMillis()
@@ -153,7 +145,7 @@ class Lesson4Activity : AppCompatActivity() {
                 val previousXpPoints = document.getLong("xpPoints")?.toInt() ?: 0
                 val pointsToAdd = totalPoints
 
-                // Caso 1: Si ya fue completada sin errores anteriormente, no se suman más puntos
+                // Caso 1: Si ya fue completada sin errores anteriormente, no se suman más puntos@
                 if (completedWithoutErrors) {
 
                     val updatedPoints = previousXpPoints + 5
@@ -655,9 +647,8 @@ class Lesson4Activity : AppCompatActivity() {
         intent.putExtra("lessonName", lessonName) // Usa la constante@ lessonName definida en esta actividad
         startActivityForResult(intent, 1)
     }
-
     private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
-        Log.d("Lesson2Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
+        Log.d("lesson4Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
 
         val intent = Intent(this, ActivityExercise2::class.java)
         intent.putExtra("statement", exercise["statement"] as? String)

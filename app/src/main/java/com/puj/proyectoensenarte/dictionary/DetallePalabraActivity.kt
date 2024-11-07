@@ -11,9 +11,9 @@ import android.widget.VideoView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityDetallePorPalabraBinding
+import java.text.Normalizer
 
 class DetallePalabraActivity : AppCompatActivity() {
-
     private lateinit var binding: ActivityDetallePorPalabraBinding
     private val db = FirebaseFirestore.getInstance()
 
@@ -22,7 +22,7 @@ class DetallePalabraActivity : AppCompatActivity() {
         binding = ActivityDetallePorPalabraBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val palabra = intent.getStringExtra("PALABRA") ?: return
+        var palabra = intent.getStringExtra("PALABRA") ?: return
 
         setupUI(palabra)
         loadPalabraDetails(palabra)
@@ -33,12 +33,20 @@ class DetallePalabraActivity : AppCompatActivity() {
         binding.backButton.setOnClickListener { finish() }
     }
 
-    fun primeraLetraMinuscula(texto: String): String {
+    private val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
+    private fun CharSequence.unaccent(): String {
+        val temp = Normalizer.normalize(this, Normalizer.Form.NFD)
+        return REGEX_UNACCENT.replace(temp, "")
+    }
+
+    fun primeraLetraMayuscula(texto: String): String {
         return texto.replaceFirstChar { it.uppercase() }
     }
 
     private fun loadPalabraDetails(palabra: String) {
-        var palabra = primeraLetraMinuscula(palabra)
+        var palabra = palabra.unaccent().lowercase().replace(" ", "")
+        palabra = primeraLetraMayuscula(palabra)
+
         db.collection("dict").document("palabras")
             .get()
             .addOnSuccessListener { document ->
@@ -65,26 +73,21 @@ class DetallePalabraActivity : AppCompatActivity() {
         if (url != null) {
             Log.d("DetallePalabra", "Configurando video con URL: $url")
 
-            // Limpiar el contenedor
             videoViewContainer.removeAllViews()
 
-            // Crear un nuevo VideoView
             val videoView = VideoView(this)
 
-            // Configurar el VideoView
             val layoutParams = FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
             videoView.layoutParams = layoutParams
 
-            // Añadir el VideoView al FrameLayout
             videoViewContainer.addView(videoView)
 
             val uri = Uri.parse(url)
             videoView.setVideoURI(uri)
 
-            // Crear un MediaController personalizado
             val mediaController = object : MediaController(this) {
                 override fun show(timeout: Int) {
                     super.show(0) // Mantener los controles siempre visibles
@@ -107,11 +110,9 @@ class DetallePalabraActivity : AppCompatActivity() {
                 false
             }
 
-            // Iniciar la carga del video
             videoView.requestFocus()
         } else {
             Log.e("DetallePalabra", "URL del video es nula")
-            // Limpiar el contenedor si no hay URL
             videoViewContainer.removeAllViews()
         }
     }
