@@ -1,5 +1,5 @@
-joven
-homosexual
-hombre
-bebe
 anciano
+bebe
+hombre
+homosexual 
+joven
