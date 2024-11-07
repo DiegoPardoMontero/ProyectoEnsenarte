@@ -37,16 +37,16 @@ class TestAndinaLevelActivity : AppCompatActivity() {
                     if (document.exists()) {
                         val lessonExercises = document.get("exercises") as Map<String, Map<String, Any>>
 
-                        // Filtrar los ejercicios para excluir "selection" y "model"@
+                        // Filtrar los ejercicios para excluir "selection"
                         val filteredExercises = lessonExercises.values.filter { exercise ->
                             val exerciseType = exercise["exerciseType"] as? String
-                            exerciseType != "selection" && exerciseType != "model"
+                            exerciseType != "selection"
                         }
 
                         exercises.addAll(filteredExercises)
 
                         if (lessonId == "lesson3") {
-                            // Cuando todos los ejercicios estén listos, seleccionamos los 12 aleatorios
+                            // Cuando todos los ejercicios estén listos, seleccionamos los 12 aleatorios@
                             questions = exercises.shuffled().take(numQuestions)
                             showNextQuestion()
                         }
