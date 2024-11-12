@@ -11,6 +11,8 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityCrearCuentaBinding
+import com.puj.proyectoensenarte.history.AndinaVideoActivity
+import com.puj.proyectoensenarte.history.VideoPacoJoelActivity
 import com.puj.proyectoensenarte.onboarding.SliderActivity
 import java.text.DateFormat
 
@@ -39,6 +41,9 @@ class CrearCuentaActivity : AppCompatActivity() {
             // Validación de los campos antes de crear la cuenta@
             if (validateInput(name, email, password, nickname)) {
                 createAccount(name, email, password, nickname)
+                val intent = Intent(this, VideoPacoJoelActivity::class.java)
+                startActivity(intent)
+                finish()
             }
         }
     }

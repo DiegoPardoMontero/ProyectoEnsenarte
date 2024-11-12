@@ -215,6 +215,19 @@
 
         </activity>
 
+        <activity android:name=".history.VideoPacoJoelActivity"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".history.AndinaVideoActivity"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".history.CaribeanVideoActivity"
+            android:exported="true">
+        </activity>
+
+
     </application>
 
 </manifest>

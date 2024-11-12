@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
+import com.puj.proyectoensenarte.history.CaribeanVideoActivity
 import com.puj.proyectoensenarte.video.CameraRecordingActivity
 
 class TestAndinaLevelActivity : AppCompatActivity() {
@@ -39,7 +40,7 @@ class TestAndinaLevelActivity : AppCompatActivity() {
                     if (document.exists()) {
                         val lessonExercises = document.get("exercises") as Map<String, Map<String, Any>>
 
-                        // Filtrar los ejercicios para excluir "selection"
+                        // Filtrar los ejercicios para excluir "selection"@
                         val filteredExercises = lessonExercises.values.filter { exercise ->
                             val exerciseType = exercise["exerciseType"] as? String
                             exerciseType != "selection"
@@ -63,6 +64,8 @@ class TestAndinaLevelActivity : AppCompatActivity() {
     private fun showNextQuestion() {
         if (currentQuestionIndex >= questions.size) {
             Toast.makeText(this, "¡Examen completado exitosamente!", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, CaribeanVideoActivity::class.java)
+            startActivity(intent)
             finish()
             return
         }
