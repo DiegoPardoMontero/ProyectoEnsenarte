@@ -24,7 +24,7 @@ class VideoPacoJoelActivity : AppCompatActivity() {
         val videoView = binding.videoView
 
         // Establecer la URL o URI del primer video
-        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.ensenarte_video_historia)
+        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.ensenarte_video_principal)
         videoView.setVideoURI(videoUri)
 
         // Agregar controlador de medios para controles de reproducción

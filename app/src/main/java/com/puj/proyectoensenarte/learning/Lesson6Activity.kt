@@ -26,7 +26,7 @@ class Lesson6Activity : AppCompatActivity() {
     private var currentExerciseIndex = 1
     private var totalPoints = 0
     private var previousXpPoints = 0
-    private var lessonStartTime: Long = 0 // T@iempo de inicio de la lección@
+    private var lessonStartTime: Long = 0
     private var streakDays = 0
     private var errorCount = 0
 
