@@ -173,7 +173,7 @@ class ScrollableMapActivity : Fragment() {
         binding.lockAndina.setOnClickListener {
             val intent = Intent(activity, ActivityTestInfo::class.java)
             startActivity(intent)
-            //Toast.makeText(context, "Nivel bloqueado en Andina", Toast.LENGTH_SHORT).show()
+
         }
 
         // Niveles Región Caribe
@@ -188,16 +188,18 @@ class ScrollableMapActivity : Fragment() {
         }
 
         binding.level3Caribbean.setOnClickListener {
-            Toast.makeText(context, "Nivel 3: Lección de la Región Caribe", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity,Lesson6Activity::class.java)
+            startActivity(intent)
         }
 
         binding.lockCaribbean.setOnClickListener {
             Toast.makeText(context, "Nivel bloqueado en Caribe", Toast.LENGTH_SHORT).show()
         }
 
-        // Niveles Región Amazónica
+        // Niveles Región Amazónica@
         binding.level1Amazonas.setOnClickListener {
-            Toast.makeText(context, "Nivel 1: Lección de la Región Amazónica", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity,Lesson7Activity::class.java)
+            startActivity(intent)
         }
 
         binding.level2Amazonas.setOnClickListener {

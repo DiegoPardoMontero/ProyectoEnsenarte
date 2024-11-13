@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import android.media.MediaPlayer
 import androidx.appcompat.app.AlertDialog
 import com.bumptech.glide.Glide
 import androidx.appcompat.app.AppCompatActivity
@@ -19,6 +20,7 @@ class ActivityExercise5 : AppCompatActivity() {
 
     private lateinit var binding: ActivityExercise5Binding
     private var selectionCounter = 1
+    private var mediaPlayer: MediaPlayer? = null
     private val selectedImages = mutableMapOf<Int, Int>()
     private var maxLetters: Int = 0
     private lateinit var correctAnswer: List<String>
@@ -194,6 +196,7 @@ class ActivityExercise5 : AppCompatActivity() {
     }
 
     private fun showCorrectResultDialog() {
+        playSound(R.raw.correct_answer)
         val dialog = CorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
@@ -205,6 +208,7 @@ class ActivityExercise5 : AppCompatActivity() {
     }
 
     private fun showIncorrectResultDialog() {
+        playSound(R.raw.wrong_answer)
         val dialog = IncorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("correctAnswer", false) // Indicar que la respuesta fue incorrecta
@@ -213,6 +217,14 @@ class ActivityExercise5 : AppCompatActivity() {
         }
         dialog.show(supportFragmentManager, "IncorrectResultDialog")
     }
+
+    private fun playSound(soundResId: Int) {
+        // Libera el MediaPlayer si ya está en uso@
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(this, soundResId)
+        mediaPlayer?.start()
+    }
+
     private fun continueToNextExercise() {
         val resultIntent = Intent()
         resultIntent.putExtra("pointsEarned", points)

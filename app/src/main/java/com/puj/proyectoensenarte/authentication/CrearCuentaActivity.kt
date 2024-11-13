@@ -11,6 +11,7 @@ import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.databinding.ActivityCrearCuentaBinding
+import com.puj.proyectoensenarte.history.VideoPacoJoelActivity
 import com.puj.proyectoensenarte.onboarding.SliderActivity
 import java.text.DateFormat
 
@@ -40,6 +41,7 @@ class CrearCuentaActivity : AppCompatActivity() {
             if (validateInput(name, email, password, nickname)) {
                 createAccount(name, email, password, nickname)
             }
+
         }
     }
 
@@ -125,11 +127,11 @@ class CrearCuentaActivity : AppCompatActivity() {
                                 // Crear colección de insignias para el usuario
                                 createInsigniaCollection(uid)
 
-                                // Crear subcolección de lecciones completadas
+                                // Crear subcolección de lecciones completadas@
                                 createCompletedLessonsCollection(uid)
 
                                 Toast.makeText(baseContext, "Registrado exitosamente!", Toast.LENGTH_SHORT).show()
-                                val intent = Intent(this, BottomNavigationActivity::class.java)
+                                val intent = Intent(this, VideoPacoJoelActivity::class.java)
                                 startActivity(intent)
                                 finish()
                             }
@@ -137,6 +139,8 @@ class CrearCuentaActivity : AppCompatActivity() {
                                 Log.w(TAG, "Error al guardar los datos del usuario", e)
                             }
                     }
+
+
                 } else {
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "No se pudo registrar: ${task.exception?.message}", Toast.LENGTH_SHORT).show()

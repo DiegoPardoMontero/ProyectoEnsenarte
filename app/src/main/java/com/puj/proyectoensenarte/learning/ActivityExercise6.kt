@@ -2,6 +2,7 @@ package com.puj.proyectoensenarte.learning
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -17,10 +18,11 @@ import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExercise6Binding
 
 class ActivityExercise6 : AppCompatActivity() {
-
     private lateinit var binding: ActivityExercise6Binding
     private lateinit var correctAnswers: List<String>
     private var points: Int = 0
+    private var mediaPlayer: MediaPlayer? = null
+    //hola
     private var videoUrls = listOf<String?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -159,6 +161,7 @@ class ActivityExercise6 : AppCompatActivity() {
     }
 
     private fun showCorrectResultDialog() {
+        playSound(R.raw.correct_answer)
         val dialog = CorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
@@ -170,6 +173,7 @@ class ActivityExercise6 : AppCompatActivity() {
     }
 
     private fun showIncorrectResultDialog() {
+        playSound(R.raw.wrong_answer)
         val dialog = IncorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("correctAnswer", false)
@@ -177,5 +181,12 @@ class ActivityExercise6 : AppCompatActivity() {
             finish()
         }
         dialog.show(supportFragmentManager, "IncorrectResultDialog")
+    }
+
+    private fun playSound(soundResId: Int) {
+        // Libera el MediaPlayer si ya está en uso@
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(this, soundResId)
+        mediaPlayer?.start()
     }
 }

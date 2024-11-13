@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.media.MediaPlayer
 import android.util.Log
 import android.view.View
 import android.widget.ImageButton
@@ -19,6 +20,7 @@ import com.puj.proyectoensenarte.databinding.ActivityExcercise1Binding
 class Exercise1Activity : AppCompatActivity() {
 
     private lateinit var binding: ActivityExcercise1Binding
+    private var mediaPlayer: MediaPlayer? = null
     private lateinit var correctAnswer: String
     private var points: Int = 0
     private var videoUrls = listOf<String?>() // Lista para almacenar las URLs de los videos
@@ -174,6 +176,7 @@ class Exercise1Activity : AppCompatActivity() {
 
     // Mostrar diálogo de respuesta correcta@
     private fun showCorrectResultDialog() {
+        playSound(R.raw.correct_answer)
         val dialog = CorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
@@ -183,8 +186,15 @@ class Exercise1Activity : AppCompatActivity() {
         }
         dialog.show(supportFragmentManager, "CorrectResultDialog")
     }
+    private fun playSound(soundResId: Int) {
+        // Libera el MediaPlayer si ya está en uso@
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(this, soundResId)
+        mediaPlayer?.start()
+    }
 
     private fun showIncorrectResultDialog() {
+        playSound(R.raw.wrong_answer)
         val dialog = IncorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("correctAnswer", false) // Indicar que la respuesta fue incorrecta
