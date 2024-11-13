@@ -748,6 +748,7 @@ class Lesson3Activity : AppCompatActivity() {
         Log.d("lesson3Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
         val intent = Intent(this, CameraRecordingActivity::class.java)
         intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+        intent.putExtra("lessonNumber", 3)
         intent.putExtra("lessonName", lessonName)
 
         startActivityForResult(intent, 7)

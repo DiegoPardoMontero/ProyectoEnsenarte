@@ -28,7 +28,6 @@ class ProcessingActivity : AppCompatActivity() {
         val lessonNumber = intent.getStringExtra("lesson_number") ?: "1"
         val expectedSign = intent.getStringExtra("expected_sign")
 
-        binding.tvEjercicioNumero.text = "Lección $lessonNumber"
 
         lifecycleScope.launch {
             try {

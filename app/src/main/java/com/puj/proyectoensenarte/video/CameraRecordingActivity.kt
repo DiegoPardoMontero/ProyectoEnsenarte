@@ -37,10 +37,21 @@ class CameraRecordingActivity : AppCompatActivity() {
     private var recording: Recording? = null
     private var isRecording = false
 
+    lateinit var lessonNumber : Number
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGrabarVideoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val points = intent.getIntExtra("points", 0)
+        val lessonName = intent.getStringExtra("lessonName") ?: ""
+        lessonNumber = intent.getIntExtra("lessonNumber", 0)
+
+
+        binding.tvLeccionNumero.text = "Lección $lessonNumber"
+
 
         // Agregar PreviewView programáticamente detrás de todo
         val previewView = PreviewView(this).apply {
@@ -161,7 +172,7 @@ class CameraRecordingActivity : AppCompatActivity() {
         videoUri?.let { uri ->
             val intent = Intent(this, ProcessingActivity::class.java).apply {
                 putExtra("video_uri", uri.toString())
-                putExtra("lesson_number", "1")
+                putExtra("lesson_number", lessonNumber)
                 putExtra("expected_sign", "hombre")
             }
             startActivityForResult(intent, PROCESSING_REQUEST_CODE) // Cambiar a startActivityForResult
