@@ -203,7 +203,8 @@ class ScrollableMapActivity : Fragment() {
         }
 
         binding.level2Amazonas.setOnClickListener {
-            Toast.makeText(context, "Nivel 2: Lección de la Región Amazónica", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity,Lesson8Activity::class.java)
+            startActivity(intent)
         }
 
         binding.level3Amazonas.setOnClickListener {
