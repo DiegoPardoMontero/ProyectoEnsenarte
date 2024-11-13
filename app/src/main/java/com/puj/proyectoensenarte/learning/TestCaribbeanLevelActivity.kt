@@ -9,6 +9,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
+import com.puj.proyectoensenarte.history.ActivityAmazonasVideo
 import com.puj.proyectoensenarte.history.CaribeanVideoActivity
 import com.puj.proyectoensenarte.video.CameraRecordingActivity
 
@@ -64,7 +65,7 @@ class TestCaribbeanLevelActivity : AppCompatActivity() {
     private fun showNextQuestion() {
         if (currentQuestionIndex >= questions.size) {
             Toast.makeText(this, "¡Examen completado exitosamente!", Toast.LENGTH_LONG).show()
-            val intent = Intent(this, CaribeanVideoActivity::class.java)
+            val intent = Intent(this, ActivityAmazonasVideo::class.java)
             startActivity(intent)
             finish()
             return
