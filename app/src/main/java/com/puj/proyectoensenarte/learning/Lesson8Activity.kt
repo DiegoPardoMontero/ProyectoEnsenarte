@@ -18,11 +18,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
-import com.puj.proyectoensenarte.video.VideoExampleActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
-class Lesson9Activity : AppCompatActivity() {
+class Lesson8Activity : AppCompatActivity() {
 
     private var currentExerciseIndex = 1
     private var totalPoints = 0
@@ -31,13 +30,13 @@ class Lesson9Activity : AppCompatActivity() {
     private var streakDays = 0
     private var errorCount = 0
 
-    private val lessonName = "Lección 9"
+    private val lessonName = "Lección 8"
     private lateinit var exercises: Map<String, Map<String, Any>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        canAccessLesson(lessonNumber = 9) { canAccess ->
+        canAccessLesson(lessonNumber = 8) { canAccess ->
             if (canAccess) {
                 // Permitir el acceso, continuar con la configuración de la lección
                 lessonStartTime = System.currentTimeMillis() // Registrar la hora de inicio@
@@ -88,7 +87,7 @@ class Lesson9Activity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("lesson9Activity", "Error al cargar la información del usuario", e)
+                    Log.e("lesson8Activity", "Error al cargar la información del usuario", e)
                     onSuccess(0, 0)
                 }
         } else {
@@ -117,13 +116,13 @@ class Lesson9Activity : AppCompatActivity() {
                         previousStreakDays = 1
                         userRef.update("streakDays", previousStreakDays)
                             .addOnSuccessListener {
-                                Log.d("lesson9Activity", "Racha iniciada en 1 para el día de hoy.")
+                                Log.d("lesson8Activity", "Racha iniciada en 1 para el día de hoy.")
                             }
                             .addOnFailureListener { e ->
-                                Log.e("lesson9Activity", "Error al actualizar la racha para el día de hoy", e)
+                                Log.e("lesson8Activity", "Error al actualizar la racha para el día de hoy", e)
                             }
                     } else {
-                        Log.d("lesson9Activity", "El usuario ya completó un ejercicio hoy. Racha actual: $previousStreakDays días.")
+                        Log.d("lesson8Activity", "El usuario ya completó un ejercicio hoy. Racha actual: $previousStreakDays días.")
                     }
                 } else {
                     // Caso 2: El último ejercicio fue ayer o en una fecha anterior
@@ -145,16 +144,16 @@ class Lesson9Activity : AppCompatActivity() {
                             "lastExerciseDate" to todayDate
                         )
                     ).addOnSuccessListener {
-                        Log.d("lesson9Activity", "Racha actualizada exitosamente: $streakDays días.")
+                        Log.d("lesson8Activity", "Racha actualizada exitosamente: $streakDays días.")
                     }.addOnFailureListener { e ->
-                        Log.e("lesson9Activity", "Error al actualizar la racha", e)
+                        Log.e("lesson8Activity", "Error al actualizar la racha", e)
                     }
                 }
             } else {
-                Log.e("lesson9Activity", "No se encontraron datos del usuario en Firestore.")
+                Log.e("lesson8Activity", "No se encontraron datos del usuario en Firestore.")
             }
         }.addOnFailureListener { e ->
-            Log.e("lesson9Activity", "Error al obtener los datos del usuario", e)
+            Log.e("lesson8Activity", "Error al obtener los datos del usuario", e)
         }
     }
 
@@ -180,9 +179,9 @@ class Lesson9Activity : AppCompatActivity() {
                             "${lessonName}_completedWithoutErrors" to true
                         )
                     ).addOnSuccessListener {
-                        Log.d("lesson9Activity", "Puntos actualizados: $updatedPoints y lección marcada como completada por repasar.")
+                        Log.d("lesson8Activity", "Puntos actualizados: $updatedPoints y lección marcada como completada por repasar.")
                     }.addOnFailureListener { e ->
-                        Log.e("lesson9Activity", "Error al actualizar puntos y marca de lección", e)
+                        Log.e("lesson8Activity", "Error al actualizar puntos y marca de lección", e)
                     }
                     return@addOnSuccessListener
                 }
@@ -197,36 +196,36 @@ class Lesson9Activity : AppCompatActivity() {
                             "${lessonName}_completedWithoutErrors" to true
                         )
                     ).addOnSuccessListener {
-                        Log.d("lesson9Activity", "Puntos actualizados: $updatedPoints y lección marcada como completada sin errores.")
+                        Log.d("lesson8Activity", "Puntos actualizados: $updatedPoints y lección marcada como completada sin errores.")
                     }.addOnFailureListener { e ->
-                        Log.e("lesson9Activity", "Error al actualizar puntos y marca de lección", e)
+                        Log.e("lesson8Activity", "Error al actualizar puntos y marca de lección", e)
                     }
                 } else {
                     // Caso 3: Si la lección se completa con errores, solo sumamos puntos esta vez
                     val updatedPoints = previousXpPoints + pointsToAdd
                     userRef.update("xpPoints", updatedPoints)
                         .addOnSuccessListener {
-                            Log.d("lesson9Activity", "Puntos por lección completada con errores actualizados: $updatedPoints.")
+                            Log.d("lesson8Activity", "Puntos por lección completada con errores actualizados: $updatedPoints.")
                         }.addOnFailureListener { e ->
-                            Log.e("lesson9Activity", "Error al actualizar puntos para lección completada con errores", e)
+                            Log.e("lesson8Activity", "Error al actualizar puntos para lección completada con errores", e)
                         }
                 }
             }
         }.addOnFailureListener { e ->
-            Log.e("lesson9Activity", "Error al obtener datos del usuario", e)
+            Log.e("lesson8Activity", "Error al obtener datos del usuario", e)
         }
     }
 
     private fun loadLessonFromFirebase() {
         val db = FirebaseFirestore.getInstance()
-        val lessonRef = db.collection("lessons").document("lesson9")
+        val lessonRef = db.collection("lessons").document("lesson8")
 
         lessonRef.get().addOnSuccessListener { document ->
             if (document != null) {
                 exercises = document.get("exercises") as Map<String, Map<String, Any>>
                 loadNextExercise()
             } else {
-                Log.e("lesson9Activity", "Documento no encontrado en Firestore")
+                Log.e("lesson8Activity", "Documento no encontrado en Firestore")
             }
         }.addOnFailureListener { exception ->
             Log.e("LessonActivity", "Error fetching lesson", exception)
@@ -235,12 +234,12 @@ class Lesson9Activity : AppCompatActivity() {
 
     private fun loadNextExercise() {
         val currentExerciseKey = "exercise$currentExerciseIndex"
-        Log.d("lesson9Activity", "Intentando cargar ejercicio: $currentExerciseKey")
+        Log.d("lesson8Activity", "Intentando cargar ejercicio: $currentExerciseKey")
 
         if (exercises.containsKey(currentExerciseKey)) {
             val exercise = exercises[currentExerciseKey]!!
             val exerciseType = exercise["exerciseType"] as String
-            Log.d("lesson9Activity", "Tipo de ejercicio: $exerciseType")
+            Log.d("lesson8Activity", "Tipo de ejercicio: $exerciseType")
 
 
             when (exerciseType) {
@@ -250,7 +249,6 @@ class Lesson9Activity : AppCompatActivity() {
                 "matching_videos" -> launchMatchingVideosExercise(exercise)
                 "selection" -> launchSelectWordExercise(exercise)
                 "selection2" -> launchSelectWordExercise2(exercise)
-                "model" -> launchModelExercise(exercise)
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -260,36 +258,31 @@ class Lesson9Activity : AppCompatActivity() {
             val userRef = db.collection("users").document(uid)
 
             userRef.get().addOnSuccessListener { document ->
-                val completedWithoutErrors = document.getBoolean("lesson9_completedWithoutErrors") ?: false
+                val completedWithoutErrors = document.getBoolean("lesson8_completedWithoutErrors") ?: false
 
                 if (!completedWithoutErrors && errorCount > 0) {
-
                     // Solo mostrar pantalla si esta es una completación válida para otorgar puntos@
                     Toast.makeText(this, "Lección completada con $totalPoints puntos", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, LeccionTerminadaActivity::class.java)
-                    intent.putExtra("playVideo", true) // Indicador para reproducir el video
-                    intent.putExtra("totalPoints", totalPoints) // Enviar los puntos obtenidos
+                    intent.putExtra("totalPoints", totalPoints)
                     startActivity(intent)
-                    finish()
                 }
                 else if (completedWithoutErrors && errorCount >= 0) {
                     val intent = Intent(this, LeccionRepasadaActivity::class.java)
-                    intent.putExtra("playVideo", true) // Indicador para reproducir el video
-                    intent.putExtra("totalPoints", totalPoints) // Enviar los puntos obtenidos
+                    intent.putExtra("totalPoints", 5)
                     startActivity(intent)
-                    finish()
                 }
 
 
                 // Actualizar fecha de finalización de la lección@
-                updateCompletionDate("lesson9")
+                updateCompletionDate("lesson8")
 
                 // Actualizar puntos y racha según el caso
                 updateUserStreak()
                 if(streakDays>=2){
                     checkInsigniaConstancia()
                 }
-                updateUserPointsForLesson("lesson9")
+                updateUserPointsForLesson("lesson8")
                 if (errorCount == 0) {
                     checkAchievements()
                 }
@@ -300,11 +293,11 @@ class Lesson9Activity : AppCompatActivity() {
                 checkDedicatedExplorerBadge("amazonico")
                 updateFinishedFirstTime()
                 incrementReviewCounter()
-                updateLevelCompletion(9)
-                updateProgress(9)
+                updateLevelCompletion(8)
+                updateProgress(8)
                 finish()
             }.addOnFailureListener { e ->
-                Log.e("lesson9Activity", "Error al verificar lección completada: ", e)
+                Log.e("lesson8Activity", "Error al verificar lección completada: ", e)
             }
         }
     }
@@ -428,12 +421,12 @@ class Lesson9Activity : AppCompatActivity() {
         val userRef = db.collection("users").document(uid)
 
         userRef.get().addOnSuccessListener { document ->
-            val finishedFirstTime = document.getBoolean("lesson9_completedWithoutErrors") ?: false
+            val finishedFirstTime = document.getBoolean("lesson8_completedWithoutErrors") ?: false
 
             if (finishedFirstTime) {
                 userRef.update("num_practice_lessons", FieldValue.increment(1))
                     .addOnSuccessListener {
-                        Log.d("lesson9Activity", "Contador de lección práctica incrementado.")
+                        Log.d("lesson8Activity", "Contador de lección práctica incrementado.")
 
                         // Verificar si ha alcanzado el número para desbloquear la insignia@
                         userRef.get().addOnSuccessListener { updatedDoc ->
@@ -444,25 +437,25 @@ class Lesson9Activity : AppCompatActivity() {
                         }
                     }
                     .addOnFailureListener { e ->
-                        Log.e("lesson9Activity", "Error al incrementar el contador de lección práctica", e)
+                        Log.e("lesson8Activity", "Error al incrementar el contador de lección práctica", e)
                     }
             }
         }.addOnFailureListener { e ->
-            Log.e("lesson9Activity", "Error al verificar 'finished_first_time'", e)
+            Log.e("lesson8Activity", "Error al verificar 'finished_first_time'", e)
         }
     }
 
     private fun updateFinishedFirstTime() {
         val db = FirebaseFirestore.getInstance()
-        val lessonRef = db.collection("lessons").document("lesson9")
+        val lessonRef = db.collection("lessons").document("lesson8")
 
         // Actualizar el campo solo si es la primera vez que se completa la lección@
         lessonRef.update("finished_first_time", true)
             .addOnSuccessListener {
-                Log.d("lesson9Activity", "Campo finished_first_time actualizado correctamente en Firestore")
+                Log.d("lesson8Activity", "Campo finished_first_time actualizado correctamente en Firestore")
             }
             .addOnFailureListener { e ->
-                Log.e("lesson9Activity", "Error al actualizar el campo finished_first_time en Firestore", e)
+                Log.e("lesson8Activity", "Error al actualizar el campo finished_first_time en Firestore", e)
             }
     }
 
@@ -480,7 +473,7 @@ class Lesson9Activity : AppCompatActivity() {
                     val updatedPerfectLessons = currentPerfectLessons + 1
                     userRef.update("num_perfect_lessons", updatedPerfectLessons)
                         .addOnSuccessListener {
-                            Log.d("lesson9Activity", "Lecciones perfectas actualizadas: $updatedPerfectLessons")
+                            Log.d("lesson8Activity", "Lecciones perfectas actualizadas: $updatedPerfectLessons")
 
                             // Verificar si el usuario ha alcanzado 5 lecciones perfecta@s para desbloquear la insignia
                             if (updatedPerfectLessons >= 5) {
@@ -488,12 +481,12 @@ class Lesson9Activity : AppCompatActivity() {
                             }
                         }
                         .addOnFailureListener { e ->
-                            Log.e("lesson9Activity", "Error al actualizar el contador de lecciones perfectas", e)
+                            Log.e("lesson8Activity", "Error al actualizar el contador de lecciones perfectas", e)
                         }
                 }
             }
         }.addOnFailureListener { e ->
-            Log.e("lesson9Activity", "Error al obtener los datos del usuario", e)
+            Log.e("lesson8Activity", "Error al obtener los datos del usuario", e)
         }
     }
 
@@ -513,7 +506,7 @@ class Lesson9Activity : AppCompatActivity() {
         val lessonEndTime = System.currentTimeMillis()
         val elapsedTime = (lessonEndTime - lessonStartTime) / 1000 // Tiempo en segundos@
 
-        Log.d("lesson9Activity", "Tiempo transcurrido en la lección: $elapsedTime segundos")
+        Log.d("lesson8Activity", "Tiempo transcurrido en la lección: $elapsedTime segundos")
 
         // Verificar si el tiempo es menor o igual a 5 minutos (300 segundos)
         if (elapsedTime <= 300) {
@@ -574,7 +567,7 @@ class Lesson9Activity : AppCompatActivity() {
     }
 
     private fun checkDedicatedExplorerBadge(level: String) {
-        Log.e("lesson9Activity", "ENTRA A VERIFICAR INSIGNIA EXPLORADOR")
+        Log.e("lesson8Activity", "ENTRA A VERIFICAR INSIGNIA EXPLORADOR")
 
         val uid = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val db = FirebaseFirestore.getInstance()
@@ -606,14 +599,14 @@ class Lesson9Activity : AppCompatActivity() {
                         val allDatesMatch = completionDates.distinct().size == 1
                         if (allDatesMatch) {
                             unlockInsignia("Insignia de explorador dedicado")
-                            Log.d("lesson9ActivityEXPLORER", "Insignia de explorador dedicado desbloqueada")
+                            Log.d("lesson8ActivityEXPLORER", "Insignia de explorador dedicado desbloqueada")
                         } else {
-                            Log.d("lesson9ActivityEXPLORER", "No todas las lecciones están completadas en la misma fecha para desbloquear la insignia")
+                            Log.d("lesson8ActivityEXPLORER", "No todas las lecciones están completadas en la misma fecha para desbloquear la insignia")
                         }
                     }
                 }
                 .addOnFailureListener { e ->
-                    Log.e("lesson9ActivityEXPLORER", "Error al verificar lección $lesson", e)
+                    Log.e("lesson8ActivityEXPLORER", "Error al verificar lección $lesson", e)
                 }
         }
     }
@@ -632,7 +625,7 @@ class Lesson9Activity : AppCompatActivity() {
 
                     // Verificar si la insignia ya está activada
                     if (status == "activated") {
-                        Log.d("lesson9Activity", "Insignia $insigniaName ya está activada. No se requiere desbloquear nuevamente.")
+                        Log.d("lesson8Activity", "Insignia $insigniaName ya está activada. No se requiere desbloquear nuevamente.")
                         return@addOnSuccessListener
                     }
 
@@ -642,7 +635,7 @@ class Lesson9Activity : AppCompatActivity() {
 
                     insigniaDoc.reference.update("status", "activated")
                         .addOnSuccessListener {
-                            Log.d("lesson9Activity", "Insignia $insigniaName activada correctamente.")
+                            Log.d("lesson8Activity", "Insignia $insigniaName activada correctamente.")
 
                             // Lanzar la actividad de ZoomInsigniaActivity con la descripción y URL correcta
                             val intent = Intent(this, ZoomInsigniaActivity::class.java).apply {
@@ -659,7 +652,7 @@ class Lesson9Activity : AppCompatActivity() {
                             Toast.makeText(this, "Error al activar la insignia $insigniaName.", Toast.LENGTH_SHORT).show()
                         }
                 } else {
-                    Log.d("lesson9Activity", "No se encontró la insignia con el nombre $insigniaName.")
+                    Log.d("lesson8Activity", "No se encontró la insignia con el nombre $insigniaName.")
                     Toast.makeText(this, "No se encontró la insignia con el nombre $insigniaName.", Toast.LENGTH_SHORT).show()
                 }
             }
@@ -679,7 +672,7 @@ class Lesson9Activity : AppCompatActivity() {
         startActivityForResult(intent, 1)
     }
     private fun launchMatchingVideosExercise(exercise: Map<String, Any>) {
-        Log.d("lesson9Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
+        Log.d("lesson8Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
 
         val intent = Intent(this, ActivityExercise2::class.java)
         intent.putExtra("statement", exercise["statement"] as? String)
@@ -718,7 +711,7 @@ class Lesson9Activity : AppCompatActivity() {
 
     private fun launchSelectWordExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
-        Log.d("lesson9Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
+        Log.d("lesson8Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
 
         // Manejo seguro de los datos obtenidos@
         val statement = exercise["statement"] as? String ?: "Pregunta no disponible"
@@ -738,7 +731,7 @@ class Lesson9Activity : AppCompatActivity() {
     }
     private fun launchSelectWordExercise2(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
-        Log.d("lesson9Activity", "Iniciando Exercise3Activity con datos: $exercise") // @Verifica los datos
+        Log.d("lesson8Activity", "Iniciando Exercise3Activity con datos: $exercise") // @Verifica los datos
 
         intent.putExtra("statement", exercise["statement"] as String)
         intent.putExtra("correctAnswer", exercise["correctAnswer"] as String)
@@ -749,19 +742,9 @@ class Lesson9Activity : AppCompatActivity() {
         startActivityForResult(intent, 5)
     }
 
-    private fun launchModelExercise(exercise: Map<String, Any>) {
-        val intent = Intent(this, VideoExampleActivity::class.java).apply {
-            putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
-            putExtra("lessonNumber", 9)
-            putExtra("lessonName", lessonName)
-            putExtra("targetWord", "bebe") // Aquí pasamos la palabra objetivo
-        }
-        startActivityForResult(intent, 7)
-    }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        Log.d("lesson9Activity", "onActivityResult llamado con requestCode=$requestCode, resultCode=$resultCode")
+        Log.d("lesson8Activity", "onActivityResult llamado con requestCode=$requestCode, resultCode=$resultCode")
 
         if (resultCode == RESULT_OK) {
             val pointsEarned = data?.getIntExtra("pointsEarned", 0) ?: 0
@@ -770,13 +753,12 @@ class Lesson9Activity : AppCompatActivity() {
         } else {
             // Incrementar contador de errores si la respuesta es incorrecta
             errorCount++
-            Log.d("lesson7Activity", "Respuesta incorrecta. Contador de errores: $errorCount")
+            Log.d("lesson8Activity", "Respuesta incorrecta. Contador de errores: $errorCount")
         }
 
         currentExerciseIndex++
         loadNextExercise()
     }
-
 
 
 
