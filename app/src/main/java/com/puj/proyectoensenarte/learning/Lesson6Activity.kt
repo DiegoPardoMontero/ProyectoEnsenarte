@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
+import com.puj.proyectoensenarte.video.CameraRecordingActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -248,6 +249,7 @@ class Lesson6Activity : AppCompatActivity() {
                 "matching_videos" -> launchMatchingVideosExercise(exercise)
                 "selection" -> launchSelectWordExercise(exercise)
                 "selection2" -> launchSelectWordExercise2(exercise)
+                "model" -> launchModelExercise(exercise)
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -705,9 +707,6 @@ class Lesson6Activity : AppCompatActivity() {
         startActivityForResult(intent, 3)
     }
 
-
-
-
     private fun launchSelectWordExercise(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
         Log.d("lesson6Activity", "Iniciando Exercise3Activity con datos: $exercise") // Verifica los datos
@@ -739,6 +738,15 @@ class Lesson6Activity : AppCompatActivity() {
         intent.putStringArrayListExtra("words", ArrayList(exercise["words"] as List<String>))
         intent.putExtra("lessonName", lessonName)
         startActivityForResult(intent, 5)
+    }
+
+    private fun launchModelExercise(exercise: Map<String, Any>) {
+        Log.d("lesson6Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
+        val intent = Intent(this, CameraRecordingActivity::class.java)
+        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+        intent.putExtra("lessonName", lessonName)
+
+        startActivityForResult(intent, 7)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

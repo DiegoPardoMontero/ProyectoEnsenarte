@@ -772,5 +772,4 @@ class Lesson3Activity : AppCompatActivity() {
     }
 
 
-
 }
