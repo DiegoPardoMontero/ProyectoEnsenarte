@@ -7,9 +7,8 @@ class FirestoreDictionary {
 
     // Lista de señas específicas a buscar
     private val targetSigns = listOf(
-        "Cama", "Lavar", "Cocina", "Escoba", "Cuchillo", "Recogedor",
-        "Desayunar", "Cocinar", "Bailar", "Jugar", "Dibujar", "Limpiar",
-        "Estudiar", "Television", "Televisión", "Computador", "Ducha", "Gustar", "Aspiradora","Tijeras","Tijera","Bañar","Comer","Estudiar","Buscar","Entrar"
+
+        "bailar"
     )
 
     // Función para obtener las URLs de las señas específicas
@@ -22,7 +21,7 @@ class FirestoreDictionary {
                     val wordsMap = document.data
                     val signUrls = mutableMapOf<String, String?>()
 
-                    // Iterar sobre cada entrada en el documento y extraer solo las señas específicas
+                    // Iterar sobre cada entrada en el documento y extraer solo las señas específicas@
                     if (wordsMap != null) {
                         for ((key, value) in wordsMap) {
                             if (key in targetSigns) {

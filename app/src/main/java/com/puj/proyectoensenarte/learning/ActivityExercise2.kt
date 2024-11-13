@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
+import android.media.MediaPlayer
 import android.widget.VideoView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,7 @@ import com.puj.proyectoensenarte.databinding.ActivityExercise2Binding
 class ActivityExercise2 : AppCompatActivity() {
 
     private lateinit var binding: ActivityExercise2Binding
+    private var mediaPlayer: MediaPlayer? = null
     private val selectedPairs = mutableMapOf<VideoView, TextView>()
     private lateinit var correctPairs: List<Map<String, String>>
     private var points: Int = 0
@@ -236,6 +238,7 @@ class ActivityExercise2 : AppCompatActivity() {
     }
 
     private fun showCorrectResultDialog() {
+        playSound(R.raw.correct_answer)
         val dialog = CorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
@@ -247,6 +250,7 @@ class ActivityExercise2 : AppCompatActivity() {
     }
 
     private fun showIncorrectResultDialog() {
+        playSound(R.raw.wrong_answer)
         val dialog = IncorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("correctAnswer", false) // Indicar que la respuesta fue incorrecta
@@ -254,6 +258,12 @@ class ActivityExercise2 : AppCompatActivity() {
             finish() // Volver a Lesson1Activity
         }
         dialog.show(supportFragmentManager, "IncorrectResultDialog")
+    }
+    private fun playSound(soundResId: Int) {
+        // Libera el MediaPlayer si ya está en uso@
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(this, soundResId)
+        mediaPlayer?.start()
     }
 
     private fun continueToNextExercise() {

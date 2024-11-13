@@ -22,7 +22,8 @@ class AndinaVideoActivity : AppCompatActivity() {
 
         // Configurar VideoView
         val videoView = binding.videoView
-        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.video_andina)
+
+        val videoUri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/videosHistoria%2FVideo%20regio%CC%81n%20andina%20comprimido.mp4?alt=media&token=d033ca62-8f9c-47c1-a669-3243f93e651c")
         videoView.setVideoURI(videoUri)
 
         // Agregar controlador de medios para controles de reproducción

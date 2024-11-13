@@ -24,10 +24,11 @@ class VideoPacoJoelActivity : AppCompatActivity() {
         val videoView = binding.videoView
 
         // Establecer la URL o URI del primer video
-        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.ensenarte_video_principal)
+       // val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.video_ensenartee_prueba)
+        val videoUri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/videosHistoria%2Fvideo_ensenartee_prueba_copia.mp4?alt=media&token=d76d3cf2-2eed-4f06-9a6c-64a1e7c12222")
         videoView.setVideoURI(videoUri)
 
-        // Agregar controlador de medios para controles de reproducción
+        // Agregar controlador de medios para controles de reproducción@
         val mediaController = MediaController(this)
         mediaController.setAnchorView(videoView)
         videoView.setMediaController(mediaController)
@@ -37,8 +38,7 @@ class VideoPacoJoelActivity : AppCompatActivity() {
 
         // Configura el botón "Skip" para redirigir a BottomNavigationActivity
         binding.btnSkip.setOnClickListener {
-            val intent = Intent(this, BottomNavigationActivity::class.java)
-            intent.putExtra("selected_fragment", R.id.item_1)
+            val intent = Intent(this, AndinaVideoActivity::class.java)
             startActivity(intent)
             finish() // Cierra AndinaVideoActivity
         }

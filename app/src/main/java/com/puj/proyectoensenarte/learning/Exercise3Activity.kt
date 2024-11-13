@@ -1,6 +1,7 @@
 package com.puj.proyectoensenarte.learning
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +17,7 @@ class Exercise3Activity : AppCompatActivity() {
 
     private lateinit var binding: ActivityExercise3Binding
     private var selectedWord: TextView? = null
+    private var mediaPlayer: MediaPlayer? = null
     private lateinit var correctAnswer: String
     private var points: Int = 0
 
@@ -139,6 +141,7 @@ class Exercise3Activity : AppCompatActivity() {
     }
 
     private fun showCorrectResultDialog() {
+        playSound(R.raw.correct_answer)
         val dialog = CorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
@@ -150,6 +153,7 @@ class Exercise3Activity : AppCompatActivity() {
     }
 
     private fun showIncorrectResultDialog() {
+        playSound(R.raw.wrong_answer)
         val dialog = IncorrectResultBottomSheet {
             val resultIntent = Intent()
             resultIntent.putExtra("correctAnswer", false) // Indicar que la respuesta fue incorrecta
@@ -157,6 +161,12 @@ class Exercise3Activity : AppCompatActivity() {
             finish() // Volver a Lesson1Activity
         }
         dialog.show(supportFragmentManager, "IncorrectResultDialog")
+    }
+    private fun playSound(soundResId: Int) {
+        // Libera el MediaPlayer si ya está en uso@
+        mediaPlayer?.release()
+        mediaPlayer = MediaPlayer.create(this, soundResId)
+        mediaPlayer?.start()
     }
 
     private fun continueToNextExercise() {

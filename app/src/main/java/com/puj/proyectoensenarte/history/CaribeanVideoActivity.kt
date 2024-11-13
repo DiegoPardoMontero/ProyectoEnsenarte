@@ -22,10 +22,12 @@ class CaribeanVideoActivity : AppCompatActivity() {
 
         // Configurar VideoView
         val videoView = binding.videoView
-        val videoUri = Uri.parse("android.resource://" + packageName + "/" + R.raw.video_caribe)
+
+        val videoUri = Uri.parse("https://firebasestorage.googleapis.com/v0/b/proyectoensenarte-d4dd2.appspot.com/o/videosHistoria%2Fvideo_caribe_comprimido.mp4?alt=media&token=b6ba80ac-243a-42bb-8756-94a62e77e245")
+
         videoView.setVideoURI(videoUri)
 
-        // Agregar controlador de medios para controles de reproducción
+        // Agregar controlador de medios para controles de reproducción@
         val mediaController = MediaController(this)
         mediaController.setAnchorView(videoView)
         videoView.setMediaController(mediaController)

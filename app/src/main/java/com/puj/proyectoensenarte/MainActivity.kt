@@ -21,12 +21,11 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        // Crear una instancia de la clase FirestoreDictionary@
         val firestoreDictionary = FirestoreDictionary()
-
         firestoreDictionary.fetchSpecificSignUrls { signUrls ->
-            signUrls.forEach { (signName, url) ->
-                Log.d("SignURL", "Seña: $signName, URL: $url")
+            // Aquí puedes hacer lo que necesites con el mapa de URLs de las señas
+            for ((sign, url) in signUrls) {
+                println("Seña: $sign, URL: $url")
             }
         }
 
