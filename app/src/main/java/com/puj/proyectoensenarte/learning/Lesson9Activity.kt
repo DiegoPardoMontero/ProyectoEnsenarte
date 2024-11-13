@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
+import com.puj.proyectoensenarte.video.VideoExampleActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -249,6 +250,7 @@ class Lesson9Activity : AppCompatActivity() {
                 "matching_videos" -> launchMatchingVideosExercise(exercise)
                 "selection" -> launchSelectWordExercise(exercise)
                 "selection2" -> launchSelectWordExercise2(exercise)
+                "model" -> launchModelExercise(exercise)
                 else -> Toast.makeText(this, "Tipo de ejercicio no soportado: $exerciseType", Toast.LENGTH_SHORT).show()
             }
         } else {
@@ -742,6 +744,16 @@ class Lesson9Activity : AppCompatActivity() {
         startActivityForResult(intent, 5)
     }
 
+    private fun launchModelExercise(exercise: Map<String, Any>) {
+        val intent = Intent(this, VideoExampleActivity::class.java).apply {
+            putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+            putExtra("lessonNumber", 9)
+            putExtra("lessonName", lessonName)
+            putExtra("targetWord", "bebe") // Aquí pasamos la palabra objetivo
+        }
+        startActivityForResult(intent, 7)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         Log.d("lesson9Activity", "onActivityResult llamado con requestCode=$requestCode, resultCode=$resultCode")
@@ -759,6 +771,7 @@ class Lesson9Activity : AppCompatActivity() {
         currentExerciseIndex++
         loadNextExercise()
     }
+
 
 
 

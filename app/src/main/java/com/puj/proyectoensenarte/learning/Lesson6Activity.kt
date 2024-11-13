@@ -19,6 +19,7 @@ import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
 import com.puj.proyectoensenarte.video.CameraRecordingActivity
+import com.puj.proyectoensenarte.video.VideoExampleActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -741,12 +742,12 @@ class Lesson6Activity : AppCompatActivity() {
     }
 
     private fun launchModelExercise(exercise: Map<String, Any>) {
-        Log.d("lesson6Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
-        val intent = Intent(this, CameraRecordingActivity::class.java)
-        intent.putExtra("lessonNumber", 6)
-        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
-        intent.putExtra("lessonName", lessonName)
-
+        val intent = Intent(this, VideoExampleActivity::class.java).apply {
+            putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+            putExtra("lessonNumber", 6)
+            putExtra("lessonName", lessonName)
+            putExtra("targetWord", "hombre") // Aquí pasamos la palabra objetivo
+        }
         startActivityForResult(intent, 7)
     }
 
