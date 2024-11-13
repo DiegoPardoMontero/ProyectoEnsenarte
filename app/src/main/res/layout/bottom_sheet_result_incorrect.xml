@@ -30,17 +30,6 @@
         android:textSize="18sp"
         android:textStyle="bold" />
     <!-- Texto de resultado -->
-    <TextView
-        android:id="@+id/tvResultSubTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/regular"
-        android:text="@string/ver_respuesta_correcta"
-        android:textColor="@color/incorrectBody"
-        android:textSize="18sp"
-        android:textStyle="bold" />
 
     <!-- Botón para continuar -->
     <Button
