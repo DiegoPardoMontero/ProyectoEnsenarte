@@ -19,6 +19,7 @@ import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.profile.ZoomInsigniaActivity
 import com.puj.proyectoensenarte.video.CameraRecordingActivity
+import com.puj.proyectoensenarte.video.VideoExampleActivity
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -745,12 +746,11 @@ class Lesson3Activity : AppCompatActivity() {
     }
 
     private fun launchModelExercise(exercise: Map<String, Any>) {
-        Log.d("lesson3Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos
-        val intent = Intent(this, CameraRecordingActivity::class.java)
-        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
-        intent.putExtra("lessonNumber", 3)
-        intent.putExtra("lessonName", lessonName)
-
+        val intent = Intent(this, VideoExampleActivity::class.java).apply {
+            putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+            putExtra("lessonNumber", 3)
+            putExtra("lessonName", lessonName)
+        }
         startActivityForResult(intent, 7)
     }
 

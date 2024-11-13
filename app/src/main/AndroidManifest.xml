@@ -208,6 +208,8 @@
         <activity
             android:name=".video.IncorrectResultActivity"
             android:exported="false" />
+        <activity android:name=".video.VideoExampleActivity"
+            android:exported="false"/>
 
         <!--- Buttons Activities-->
         <activity android:name=".buttons.ButtonsActivity"
