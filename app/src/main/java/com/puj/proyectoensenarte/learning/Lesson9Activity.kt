@@ -261,6 +261,7 @@ class Lesson9Activity : AppCompatActivity() {
                 val completedWithoutErrors = document.getBoolean("lesson9_completedWithoutErrors") ?: false
 
                 if (!completedWithoutErrors && errorCount > 0) {
+
                     // Solo mostrar pantalla si esta es una completación válida para otorgar puntos@
                     Toast.makeText(this, "Lección completada con $totalPoints puntos", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, LeccionTerminadaActivity::class.java)

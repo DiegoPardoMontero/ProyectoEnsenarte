@@ -193,7 +193,8 @@ class ScrollableMapActivity : Fragment() {
         }
 
         binding.lockCaribbean.setOnClickListener {
-            Toast.makeText(context, "Nivel bloqueado en Caribe", Toast.LENGTH_SHORT).show()
+            val intent = Intent(activity, ActivityTestCaribbeanInfo::class.java)
+            startActivity(intent)
         }
 
         // Niveles Región Amazónica@
