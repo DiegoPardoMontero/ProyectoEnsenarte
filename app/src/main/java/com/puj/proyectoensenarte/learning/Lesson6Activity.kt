@@ -38,7 +38,7 @@ class Lesson6Activity : AppCompatActivity() {
 
         canAccessLesson(lessonNumber = 6) { canAccess ->
             if (canAccess) {
-                // Permitir el acceso, continuar con la configuración de la lección
+                // Permitir el acceso, continu@ar con la configuración de la lección
                 lessonStartTime = System.currentTimeMillis() // Registrar la hora de inicio@
 
                 // Cargar los puntos actuales del usuario antes de iniciar la lección

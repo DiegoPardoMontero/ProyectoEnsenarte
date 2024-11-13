@@ -37,6 +37,8 @@ class Lesson7Activity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
+        canAccessLesson(lessonNumber = 7) { canAccess ->
+            if (canAccess) {
                 // Permitir el acceso, continuar con la configuración de la lección
                 lessonStartTime = System.currentTimeMillis() // Registrar la hora de inicio@
 
@@ -46,7 +48,12 @@ class Lesson7Activity : AppCompatActivity() {
                     streakDays = streak
                     loadLessonFromFirebase()
                 }
-
+            } else {
+                // Bloquear el acceso y mostrar un mensaje al usuario@
+                Toast.makeText(this, "Completa las lecciones anteriores para acceder a esta lección.", Toast.LENGTH_SHORT).show()
+                finish() // Finalizar la actividad para que el usuario no pueda acceder a la lección
+            }
+        }
 
     }
 
