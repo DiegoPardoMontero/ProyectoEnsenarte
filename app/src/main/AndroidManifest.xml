@@ -226,6 +226,9 @@
         <activity android:name=".history.CaribeanVideoActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".learning.Lesson9Activity"
+            android:exported="true">
+        </activity>
 
 
     </application>
