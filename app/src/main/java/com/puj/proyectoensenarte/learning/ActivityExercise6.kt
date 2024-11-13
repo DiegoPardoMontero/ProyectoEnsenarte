@@ -18,11 +18,11 @@ import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.databinding.ActivityExercise6Binding
 
 class ActivityExercise6 : AppCompatActivity() {
-
     private lateinit var binding: ActivityExercise6Binding
     private lateinit var correctAnswers: List<String>
     private var points: Int = 0
     private var mediaPlayer: MediaPlayer? = null
+    //hola
     private var videoUrls = listOf<String?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
