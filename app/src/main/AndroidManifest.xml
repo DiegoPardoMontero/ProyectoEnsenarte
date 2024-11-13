@@ -238,6 +238,12 @@
         <activity android:name=".learning.TestCaribbeanLevelActivity"
             android:exported="true">
         </activity>
+        <activity android:name=".history.ActivityAmazonasVideo"
+            android:exported="true">
+        </activity>
+        <activity android:name=".history.ActivityReencuentroVideo"
+            android:exported="true">
+        </activity>
 
     </application>
 

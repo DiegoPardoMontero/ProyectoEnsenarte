@@ -30,7 +30,7 @@ class Lesson9Activity : AppCompatActivity() {
     private var streakDays = 0
     private var errorCount = 0
 
-    private val lessonName = "Lección 7"
+    private val lessonName = "Lección 9"
     private lateinit var exercises: Map<String, Map<String, Any>>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -265,13 +265,17 @@ class Lesson9Activity : AppCompatActivity() {
                     // Solo mostrar pantalla si esta es una completación válida para otorgar puntos@
                     Toast.makeText(this, "Lección completada con $totalPoints puntos", Toast.LENGTH_LONG).show()
                     val intent = Intent(this, LeccionTerminadaActivity::class.java)
-                    intent.putExtra("totalPoints", totalPoints)
+                    intent.putExtra("playVideo", true) // Indicador para reproducir el video
+                    intent.putExtra("totalPoints", totalPoints) // Enviar los puntos obtenidos
                     startActivity(intent)
+                    finish()
                 }
                 else if (completedWithoutErrors && errorCount >= 0) {
                     val intent = Intent(this, LeccionRepasadaActivity::class.java)
-                    intent.putExtra("totalPoints", 5)
+                    intent.putExtra("playVideo", true) // Indicador para reproducir el video
+                    intent.putExtra("totalPoints", totalPoints) // Enviar los puntos obtenidos
                     startActivity(intent)
+                    finish()
                 }
 
 
