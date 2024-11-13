@@ -51,12 +51,14 @@ class VideoExampleActivity : AppCompatActivity() {
     }
 
     private fun loadVideoFromFirebase() {
-        // Mostrar el loading
         binding.progressBar.visibility = View.VISIBLE
 
-        // Referencia al video en Firebase Storage
+        // Obtener la palabra objetivo del intent
+        val targetWord = intent.getStringExtra("targetWord") ?: "joven"
+
+        // Referencia al video en Firebase Storage usando la palabra objetivo
         val storage = FirebaseStorage.getInstance()
-        val videoRef = storage.reference.child("seniasModelo/Joven.mp4")
+        val videoRef = storage.reference.child("seniasModelo/${targetWord.capitalize()}.mp4")
 
         videoRef.downloadUrl.addOnSuccessListener { uri ->
             videoUrl = uri
@@ -97,10 +99,12 @@ class VideoExampleActivity : AppCompatActivity() {
     }
 
     private fun startCameraRecording() {
+        val targetWord = intent.getStringExtra("targetWord") ?: "joven"
         val intent = Intent(this, CameraRecordingActivity::class.java).apply {
             putExtra("points", points)
             putExtra("lessonNumber", lessonNumber)
             putExtra("lessonName", lessonName)
+            putExtra("targetWord", targetWord)
         }
         startActivityForResult(intent, CAMERA_REQUEST_CODE)
     }

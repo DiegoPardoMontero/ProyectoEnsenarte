@@ -750,6 +750,7 @@ class Lesson3Activity : AppCompatActivity() {
             putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
             putExtra("lessonNumber", 3)
             putExtra("lessonName", lessonName)
+            putExtra("targetWord", "joven") // Aquí pasamos la palabra objetivo
         }
         startActivityForResult(intent, 7)
     }

@@ -20,15 +20,16 @@
 
     <TextView
         android:id="@+id/tvTitulo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="45pt"
+        android:layout_marginHorizontal="24dp"
         android:fontFamily="@raw/regularbold"
-        android:text="¡Prepara tu cámara!"
         android:textColor="@color/portakal"
         android:textSize="24sp"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvLeccionNumero" />
 
     <ImageView
@@ -52,7 +53,6 @@
         android:layout_marginHorizontal="40dp"
         android:layout_marginTop="32dp"
         android:fontFamily="@raw/regular"
-        android:text="A continuación, vas a presentar un ejercicio de reconocimiento de señas. Asegúrate de estar en un lugar iluminado, usa ropa que permita diferenciar tus manos y tu rostro, recoge tu cabello y alístate para poner todo tu conocimiento a prueba"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="18sp"

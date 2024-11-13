@@ -30,6 +30,13 @@ import androidx.lifecycle.LifecycleOwner
 import com.puj.proyectoensenarte.databinding.ActivityGrabarVideoBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
+import com.puj.proyectoensenarte.R
+
 
 class CameraRecordingActivity : AppCompatActivity() {
     private lateinit var binding: ActivityGrabarVideoBinding
@@ -48,9 +55,34 @@ class CameraRecordingActivity : AppCompatActivity() {
         val points = intent.getIntExtra("points", 0)
         val lessonName = intent.getStringExtra("lessonName") ?: ""
         lessonNumber = intent.getIntExtra("lessonNumber", 0)
-
+        var targetWord = intent.getStringExtra("targetWord") ?: "joven"
+        targetWord = targetWord.capitalize()
 
         binding.tvLeccionNumero.text = "Lección $lessonNumber"
+
+        // Crear texto con formato para el título
+        val titleText = "¡Prepara tu cámara! Haz la seña de "
+        val spannableString = SpannableString(titleText + targetWord)
+
+        // Aplicar estilo a la palabra objetivo
+        spannableString.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(this, R.color.coralSea)), // O el color azul que prefieras
+            titleText.length,
+            spannableString.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        spannableString.setSpan(
+            StyleSpan(Typeface.BOLD),
+            titleText.length,
+            spannableString.length,
+            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        binding.tvTitulo.text = spannableString
+
+        binding.tvDescripcion.text = "A continuación, vas a presentar un ejercicio de reconocimiento de señas. " +
+                "Asegúrate de estar en un lugar iluminado, usa ropa que permita diferenciar tus manos y tu rostro, " +
+                "recoge tu cabello y alístate para poner todo tu conocimiento a prueba"
 
 
         // Agregar PreviewView programáticamente detrás de todo
