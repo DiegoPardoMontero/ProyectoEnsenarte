@@ -15,12 +15,15 @@ class CorrectResultActivity : AppCompatActivity() {
         binding = ActivityVideoCorrectoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         correctAnswer = intent.getStringExtra("correctAnswer") ?: ""
+
         points = intent.getIntExtra("points", 20)
 
         binding.btnContinuar.setOnClickListener {
             val resultIntent = Intent()
             resultIntent.putExtra("pointsEarned", points)
+            resultIntent.putExtra("correctAnswer", true) // Indicar que la respuesta fue correcta
             setResult(RESULT_OK, resultIntent)
 
             finish()

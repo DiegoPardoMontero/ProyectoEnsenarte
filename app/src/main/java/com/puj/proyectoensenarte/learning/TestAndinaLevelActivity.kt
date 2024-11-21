@@ -11,6 +11,7 @@ import com.puj.proyectoensenarte.BottomNavigationActivity
 import com.puj.proyectoensenarte.R
 import com.puj.proyectoensenarte.history.CaribeanVideoActivity
 import com.puj.proyectoensenarte.video.CameraRecordingActivity
+import com.puj.proyectoensenarte.video.VideoExampleActivity
 
 class TestAndinaLevelActivity : AppCompatActivity() {
 
@@ -162,14 +163,17 @@ class TestAndinaLevelActivity : AppCompatActivity() {
     }
 
     private fun launchModelExercise(exercise: Map<String, Any>) {
-        Log.d("lesson3Activity", "Intentando llamar al launch con: $exercise") // Verifica los datos@
-        val intent = Intent(this, CameraRecordingActivity::class.java)
-        intent.putExtra("lessonName", lessonName)
-        intent.putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
-        intent.putExtra("lessonName", lessonName)
-
+        Log.d("testActivity", "Intentando llamar al launch con: $exercise") // Verifica los datos@
+        val intent = Intent(this, VideoExampleActivity::class.java).apply {
+            putExtra("points", (exercise["points"] as? Long)?.toInt() ?: 0)
+            putExtra("lessonNumber", 3)
+            putExtra("lessonName", lessonName)
+            putExtra("targetWord", "joven") // Aquí pasamos la palabra objetivo
+        }
         startActivityForResult(intent, 7)
     }
+
+
     private fun launchSelectWordExercise2(exercise: Map<String, Any>) {
         val intent = Intent(this, Exercise3Activity::class.java)
         Log.d("lesson3Activity", "Iniciando Exercise3Activity con datos: $exercise")
